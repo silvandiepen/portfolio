@@ -36,13 +36,17 @@ const projectTypes = [{
 
 <style lang="scss">
 .tools {
-    background-color: color-mix(in oklch, var(--background) 100%, black 25%);
+    background: var(--background);   
+    // background-color: color-mix(in oklch, var(--background) 100%, black 25%);
     padding: var(--space);
     display: flex; gap: var(--space);
     align-items: center; justify-content: center;
     // flex-direction: column;
 
     margin: auto;
+width: fit-content;
+border-radius: 6em;
 
+--input-border-radius: 5em;
 }
 </style>

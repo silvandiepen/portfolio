@@ -99,6 +99,12 @@ const blockClasses = computed(() => {
         width: 100%;
     }
 
+    &__tag-container{
+        @media screen and (width <= 800px){
+            display: none;
+        }
+    }
+
     &__tag-list {
         margin-top: var(--space);
         display: flex;
