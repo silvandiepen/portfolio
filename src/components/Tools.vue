@@ -1,8 +1,9 @@
 <template>
     <div :class="bemm()">
-        <InputSwitch :options="projectTypes" v-model="filter.type"></InputSwitch>
         <InputText label="filter" v-model="filter.search" />
         <Tags></Tags>
+        <InputSwitch :options="projectTypes" v-model="filter.type"></InputSwitch>
+
     </div>
 </template>
 
@@ -35,6 +36,7 @@ const projectTypes = [{
 
 <style lang="scss">
 .tools {
+    background-color: color-mix(in oklch, var(--background) 100%, black 25%);
     padding: var(--space);
     display: flex; gap: var(--space);
     flex-direction: column;

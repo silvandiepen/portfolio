@@ -44,6 +44,7 @@ const goToProject = () => {
 }
 
 onMounted(() => {
+    isInview();
     window.addEventListener('scroll', isInview);
 })
 

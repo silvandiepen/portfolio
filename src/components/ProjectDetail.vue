@@ -19,15 +19,11 @@
 
     </Card>
 
-    <div :class="bemm('related')">
-        {{ relatedProjects }}
-
-    </div>
 </template>
 
 <script lang="ts" setup>
 import { useBemm } from "bemm";
-import { PropType, computed } from "vue";
+import { PropType } from "vue";
 
 import ButtonGroup from "./ButtonGroup.vue";
 import Button from "./Button.vue";
@@ -35,13 +31,10 @@ import Card from "./Card.vue";
 import { Project } from "@/types";
 
 
-import { useProjects } from "@/composables/useProjects";
-
 
 const bemm = useBemm('project-detail');
-const { getRelatedProjects } = useProjects();
 
-const props = defineProps({
+defineProps({
     project: {
         type: Object as PropType<Project>,
         required: true
@@ -50,10 +43,6 @@ const props = defineProps({
 
 
 
-const relatedProjects = computed(() => {
-    return getRelatedProjects(props.project);
-
-})
 
 
 </script>

@@ -30,22 +30,29 @@ const findIn = (needle: string, haystack: string): boolean => {
 
 }
 
+interface ProjectWithCommon extends Project {
+    commonTags: number
+}
+
 export const useProjects = () => {
 
-    const getRelatedProjects = (project: Project) => {
+    const getRelatedProjects = (projectSlug: string) => {
+        const project = projectState.projects.find((p: Project) => p.slug === projectSlug);
+        if (!project) return [];
 
-        return projectState.projects.filter((p: Project) => {
-            if (p.type !== project.type) {
-                return false;
+        const relatedProjects = projectState.projects.map((p: Project) => {
+            return {
+                ...p,
+                commonTags: project.tags.filter((tag: string) => p.tags.includes(tag)).length
             }
-            let commonTags = 0;
-            project.tags.forEach((tag: string) => {
-                if (p.tags.includes(tag)) {
-                    commonTags++;
-                }
-            })
-            return commonTags > 1;
-        });
+        }).sort((a: ProjectWithCommon, b: ProjectWithCommon) => {
+            return b.commonTags - a.commonTags;
+        }).splice(0, 3);
+
+        return relatedProjects;
+
+
+
 
     };
 
