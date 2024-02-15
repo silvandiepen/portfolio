@@ -50,6 +50,11 @@ defineProps({
 
     padding: 8vw;
 
+    @media screen and (width <= 800px){
+        padding-top: 12vw;
+
+    }
+
 
     &__title {
         font-size: clamp(2em, 8vw, 4em);
