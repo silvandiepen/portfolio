@@ -162,7 +162,7 @@ const hasSlot = computed(() => {
 
     &--icon-only {
         padding: 0;
-        font-size: 1.25em;
+        font-size: 1.5em;
         aspect-ratio: 1/1;
         padding: .25em;
         display: flex;

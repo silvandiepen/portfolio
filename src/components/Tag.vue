@@ -27,12 +27,16 @@ defineProps({
     font-size: .75em;
     padding: calc(var(--space) / 3) var(--space);
     border-radius: 3em;
-    border: 1px solid rgba(var(--primary-rgb), .5);
+    border: 1px solid rgba(var(--foreground-rgb), .125);
 
     --bg-color: color-mix(in oklch, var(--background) 100%, black 25%);
-    background-image: linear-gradient(to right bottom, var(--bg-color), var(--background));
+    // background-image: linear-gradient(to right bottom, var(--bg-color), var(--background));
 
+opacity: .5;
 
+&:hover{
+    opacity: 1;
+}
 
     &--active {
         background-image: linear-gradient(to right bottom, var(--primary), var(--secondary));

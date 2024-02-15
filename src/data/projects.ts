@@ -122,6 +122,7 @@ export const project: Project[] = [
         summary: "Ensure consistent casing conventions in your web applications with this lightweight JavaScript/TypeScript library.",
         tags: ['web-development', 'javascript', 'typescript', 'casing', 'frontend', 'developer-tools', 'library', 'utility'],
         type: ProjectType.PACKAGE,
+        npm: "@sil/case",
         link: "https://case.sil.mt",
     },
     {

@@ -4,14 +4,15 @@
         <div :class="bemm('content')">
             <p v-if="project.summary" :class="bemm('description')">{{ project.description }}</p>
 
-            <ButtonGroup direction="horizontal">
+            <ButtonGroup direction="horizontal" mobile-direction="vertical">
 
-                <Button v-if="project.link" :href="project.link" :icon="Icons.ARROW_RIGHT">Visit website</Button>
+                <Button v-if="project.link" :href="project.link" :icon="Icons.ARROW_RIGHT">Check {{ project.title
+                }}</Button>
                 <Button v-if="project.npm" :href="`https://npmjs.org/package/${project.npm}`" type="secondary">npm</Button>
 
                 <div :class="bemm('npm')" v-if="project.npm">
-                <code>npm install {{ project.npm }}</code>
-            </div>
+                    <code>npm install {{ project.npm }}</code>
+                </div>
             </ButtonGroup>
 
         </div>
@@ -50,8 +51,8 @@ defineProps({
 
     padding: 8vw;
 
-    @media screen and (width <= 800px){
-        padding-top: 12vw;
+    @media screen and (width <=800px) {
+        padding-top: 16vw;
 
     }
 
@@ -73,11 +74,12 @@ defineProps({
     }
 
     &__npm {
-        code{
+        code {
             padding: var(--space);
             border-radius: var(--space);
             background-color: color-mix(in oklch, var(--background) 100%, black 25%);
         }
+
         font-size: 1.2em;
     }
 

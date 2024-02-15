@@ -8,11 +8,11 @@
 import { PropType, computed } from "vue";
 
 import { useBemm } from 'bemm';
+import { useUI } from "@/composables/useUI";
 
 
 const bemm = useBemm('button-group');
-
-
+const { isMobile } = useUI();
 
 const props = defineProps({
 
@@ -24,6 +24,10 @@ const props = defineProps({
         type: String as PropType<'horizontal' | 'vertical'>,
         default: 'horizontal'
     },
+    mobileDirection: {
+        type: String as PropType<'horizontal' | 'vertical'>,
+        default: null
+    },
     type: {
         type: String as PropType<'stack' | 'normal'>,
         default: 'normal'
@@ -31,13 +35,12 @@ const props = defineProps({
 
 })
 
+
 const blockClasses = computed(() => {
-
     const classes = [bemm()];
-
-
     classes.push(bemm('', props.align))
-    classes.push(bemm('', props.direction))
+    const mobileDirection = props.mobileDirection || props.direction;
+    classes.push(bemm('', isMobile.value ? mobileDirection : props.direction))
     classes.push(bemm('', props.type))
 
     return classes;
@@ -51,7 +54,9 @@ const blockClasses = computed(() => {
     display: flex;
     gap: var(--space-s);
 
-    &--normal{gap: var(--space); }
+    &--normal {
+        gap: var(--space);
+    }
 
     &--horizontal {
         flex-direction: row;

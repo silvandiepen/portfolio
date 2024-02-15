@@ -71,11 +71,10 @@ const blockClasses = computed(() => {
     text-align: left;
 
     width: 100%;
-    max-width: 800px;
     margin: auto;
 
     align-items: flex-start;
-    padding: calc(var(--space) * 4) 0;
+    padding: calc(var(--space) * 2) 8vw;
     transform: scale(.8);
     opacity: 0;
     transition: all .3s ease;
