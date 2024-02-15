@@ -69,8 +69,11 @@ export const useProjects = () => {
                 break;
         }
 
-        if (projectState.filters.tag) {
-            projects = projects.filter((project: Project) => project.tags.includes(projectState.filters.tag.label));
+        if (projectState.filters.tag !== null) {
+            const label = projectState.filters.tag.label;
+            projects = projects.filter((project: Project) => project.tags.includes(label));
+
+
         }
 
         if (projectState.filters.search !== '') {
