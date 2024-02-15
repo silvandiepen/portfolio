@@ -45,6 +45,8 @@ export const useProjects = () => {
                 ...p,
                 commonTags: project.tags.filter((tag: string) => p.tags.includes(tag)).length
             }
+        }).filter((p: Project) => { 
+            return p.slug !== projectSlug 
         }).sort((a: ProjectWithCommon, b: ProjectWithCommon) => {
             return b.commonTags - a.commonTags;
         }).splice(0, 3);
