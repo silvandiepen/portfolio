@@ -9,6 +9,9 @@ export const RouteName = {
 
 export default createRouter({
     history: createWebHistory(),
+    scrollBehavior() {
+        return { top: 0, left: 0 }
+    },
     routes: [
         {
             name: RouteName.HOME,
