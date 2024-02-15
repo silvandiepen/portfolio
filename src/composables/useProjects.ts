@@ -1,36 +1,144 @@
-import { retrieveState } from "@sil/storage"
+import { retrieveState, watchState } from "@sil/storage"
 import { reactive, computed } from "vue"
 
-import { Project, ProjectType, project as ProjectData } from "@/data/projects"
+import { project as ProjectData } from "@/data/projects"
+import { Project, ProjectType, Tag } from "@/types";
 
-const projectState = reactive<{
+interface ProjectState {
     projects: Project[]
-}>(await retrieveState({
+    filters: {
+        search: string,
+        tag: Tag | null,
+        type: ProjectType
+    }
+}
+const projectState = reactive<ProjectState>(await retrieveState({
     projects: [],
-}, 'projects'));
+    filters: {
+        search: '',
+        tag: null,
+        type: ProjectType.ALL
+    }
+}, 'sil::projects'));
 
+watchState(projectState, 'sil::projects');
+
+
+const findIn = (needle: string, haystack: string): boolean => {
+
+    return haystack.toLowerCase().includes(needle.toLowerCase());
+
+}
 
 export const useProjects = () => {
-    const getProjects = () => {
-        init();
-        return projectState.projects.filter((project: Project) => project.type === ProjectType.PROJECT)
-    }
-    const getPackages = () => {
-        init();
-        return projectState.projects.filter((project: Project) => project.type === ProjectType.PACKAGE)
-    }
-    const getAll = () => {
-        init();
-        return projectState.projects
-    }
+
+    const getRelatedProjects = (project: Project) => {
+
+        return projectState.projects.filter((p: Project) => {
+            if (p.type !== project.type) {
+                return false;
+            }
+            let commonTags = 0;
+            project.tags.forEach((tag: string) => {
+                if (p.tags.includes(tag)) {
+                    commonTags++;
+                }
+            })
+            return commonTags > 1;
+        });
+
+    };
+
+    const projects = computed(() => {
+
+        let projects = projectState.projects;
+
+        switch (projectState.filters.type) {
+            case ProjectType.PROJECT:
+                console.log('now its projects')
+                projects = projects.filter((project: Project) => project.type === ProjectType.PROJECT);
+                break;
+            case ProjectType.PACKAGE:
+                console.log('now its packages')
+                projects = projects.filter((project: Project) => project.type === ProjectType.PACKAGE);
+                break;
+            default:
+            case ProjectType.ALL:
+
+                console.log('now its all')
+                break;
+        }
+
+        if (projectState.filters.tag) {
+            projects = projects.filter((project: Project) => project.tags.includes(projectState.filters.tag.label));
+        }
+
+        if (projectState.filters.search !== '') {
+            const { search } = projectState.filters;
+            projects = projects.filter((project) => findIn(search, project.title) || findIn(search, project.description) || findIn(search, project.summary));
+
+
+        }
+
+        return projects;
+
+    })
+
     const init = () => {
         if (projectState.projects.length === 0) {
-            projectState.projects = ProjectData
+            projectState.projects = ProjectData.map((project: Project) => {
+                return {
+                    ...project,
+                    slug: project.title.toLowerCase().replace(/ /g, '-'),
+                    tags: project.tags.map((tag: string) => tag.toLowerCase())
+                }
+            });
         }
     }
+    const tags = computed(() => {
+        init();
+        let tags: Tag[] = [];
+        projectState.projects.map((project: Project) => {
+            project.tags.forEach((tag: string) => {
+                if (!(tags.some((t: Tag) => t.label === tag))) {
+                    tags.push({
+                        label: tag,
+                        occurance: 1
+                    })
+                } else {
+                    tags.forEach((t: Tag) => {
+                        if (t.label === tag) {
+                            t.occurance++
+                        }
+                    })
+                }
+            })
+        })
+
+        return tags.sort((a: Tag, b: Tag) => {
+            if (a.occurance > b.occurance) {
+                return -1;
+            }
+            if (a.occurance < b.occurance) {
+                return 1;
+            }
+            return 0;
+        });
+
+    })
     return {
-        all: computed(() => getAll()),
-        packages: computed(() => getPackages()),
-        projects: computed(() => getProjects()),
+        projects,
+        getProject: (slug: string) => {
+            return projectState.projects.find((project: Project) => project.slug === slug);
+        },
+        filter: computed({
+            get() {
+                return projectState.filters
+            }, set(value: ProjectState['filters']) {
+                projectState.filters = value
+            }
+        }),
+        tags,
+        getRelatedProjects
     }
 }

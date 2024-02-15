@@ -1,8 +1,8 @@
 $colors: (
-    dark: #11053b,
+    dark: #0d0529,
     light: #fff,
-    primary: #ffbb00,
-    secondary: #2be3a9,
+    primary: #ff00e1,
+    secondary: #2bd1e3,
 );
 
 @function values($color) {
@@ -51,4 +51,9 @@ html {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+ul,li{
+    margin: 0; padding: 0; 
+    list-style-type: none;
 }
