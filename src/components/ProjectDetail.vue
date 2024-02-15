@@ -1,24 +1,23 @@
 <template>
-    <Card :title="project.title">
-
+    <div :class="bemm()">
+        <h1 :class="bemm('title')">{{ project.title }}</h1>
         <div :class="bemm('content')">
             <p v-if="project.summary" :class="bemm('description')">{{ project.description }}</p>
 
             <ButtonGroup direction="horizontal">
 
-                <Button v-if="project.link" :href="project.link">Visit website</Button>
+                <Button v-if="project.link" :href="project.link" :icon="Icons.ARROW_RIGHT">Visit website</Button>
                 <Button v-if="project.npm" :href="`https://npmjs.org/package/${project.npm}`" type="secondary">npm</Button>
 
-            </ButtonGroup>
-
-            <div :class="bemm('npm')" v-if="project.npm">
+                <div :class="bemm('npm')" v-if="project.npm">
                 <code>npm install {{ project.npm }}</code>
             </div>
+            </ButtonGroup>
+
         </div>
-        <img :src="`//image.thum.io/get/${project.link}`" />
+        <!-- <img :src="`//image.thum.io/get/${project.link}`" /> -->
 
-    </Card>
-
+    </div>
 </template>
 
 <script lang="ts" setup>
@@ -27,8 +26,7 @@ import { PropType } from "vue";
 
 import ButtonGroup from "./ButtonGroup.vue";
 import Button from "./Button.vue";
-import Card from "./Card.vue";
-import { Project } from "@/types";
+import { Icons, Project } from "@/types";
 
 
 
@@ -49,6 +47,15 @@ defineProps({
 
 <style lang="scss">
 .project-detail {
+
+    padding: 8vw;
+
+
+    &__title {
+        font-size: clamp(2em, 8vw, 4em);
+        font-weight: 100;
+    }
+
     &__content {
         display: flex;
         flex-direction: column;
@@ -57,9 +64,15 @@ defineProps({
 
     &__description {
         font-size: 1.2em;
+        font-weight: 100;
     }
 
     &__npm {
+        code{
+            padding: var(--space);
+            border-radius: var(--space);
+            background-color: color-mix(in oklch, var(--background) 100%, black 25%);
+        }
         font-size: 1.2em;
     }
 
@@ -73,5 +86,7 @@ defineProps({
         max-width: 800px;
         height: 800px;
     }
+
+
 }
 </style>
