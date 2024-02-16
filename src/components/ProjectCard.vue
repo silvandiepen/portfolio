@@ -1,5 +1,12 @@
 <template>
-    <div :class="blockClasses" @click="goToProject()" ref="block">
+    <div :class="blockClasses" @click="goToProject()" ref="block"
+        :style="`--card-bg: ${colors.background}; --card-fg: ${colors.foreground}; --card-image: ${colors.image}`">
+        <figure :class="bemm('figure')">
+            <template v-if="project.icon">
+                <Icon :class="bemm('icon')" v-if="typeof project.icon == 'string'" :name="project.icon"></Icon>
+                <Icon :class="bemm('icon')" v-else v-for="icon in project.icon" :name="icon"></Icon>
+            </template>
+        </figure>
         <h3 :class="bemm('title')">{{ project.title }}</h3>
 
         <div :class="bemm('content')">
@@ -24,7 +31,12 @@
 import { useBemm } from "bemm";
 import { PropType, computed, onMounted, ref } from "vue";
 
+import { getBrightness } from "@sil/color";
+
+
+import Icon from "@/components/Icon.vue";
 import Tag from "@/components/Tag.vue";
+
 
 import { Project } from "@/types";
 import router, { RouteName } from "@/router";
@@ -48,9 +60,40 @@ onMounted(() => {
     window.addEventListener('scroll', isInview);
 })
 
+const colors = computed(() => {
+
+    if (props.project.color && typeof props.project.color !== "string") {
+        const bg = props.project.color[0] || '#fff000';
+
+        const fg = getBrightness(bg) > 50 ? 'var(--light)' : 'var(--dark)';
+
+        const points = props.project.color.map((color) => {
+            return `${color}`
+        }).join(', ');
+
+        return {
+            foreground: fg,
+            background: bg,
+            image: `linear-gradient(to right bottom, ${points})`,
+            brightness: getBrightness(bg)
+        }
+    }
+
+    const bg = props.project.color || '#fff000';
+    console.log(getBrightness(bg))
+    const fg = getBrightness(bg) < 50 ? 'var(--light)' : 'var(--dark)';
+
+    return {
+        foreground: fg,
+        background: bg,
+        brightness: getBrightness(bg)
+    }
+
+})
+
 const isInview = () => {
 
-    if(!block.value) return;
+    if (!block.value) return;
 
     const rect = block.value.getBoundingClientRect();
     const viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight);
@@ -67,40 +110,60 @@ const blockClasses = computed(() => {
 .project-card {
     width: 100%;
     display: flex;
-    justify-content: space-between;
     text-align: left;
-
+    flex-direction: column;
     width: 100%;
     margin: auto;
 
     align-items: flex-start;
-    padding: calc(var(--space) * 2) 8vw;
+    gap: var(--space);
     transform: scale(.8);
     opacity: 0;
     transition: all .3s ease;
+    max-width: 640px;
 
     &+& {
         // border-top: 1px solid rgba(var(--foreground-rgb),.2);
 
     }
 
-    &--in-view{
+    &--in-view {
         opacity: 1;
         transform: scale(1);
     }
 
+    &__figure {
+        width: 100%;
+        aspect-ratio: 16/9;
+        background-color: var(--card-bg);
+        color: var(--card-fg);
+        border-radius: var(--border-radius);
+        background-image: var(--card-image);
+
+        align-items: center;
+        justify-content: center;
+        display: flex;
+    }
+
+    &__icon {
+        width: 1em;
+        height: 1em;
+        font-size: 5em;
+    }
+
     &__title {
-        width: 320px;
-        font-size: 1.5em;
-        color: var(--secondary);
+        font-weight: bold;
+        font-size: 1.25em;
+        // color: var(--secondary);
     }
 
     &__content {
         width: 100%;
+        font-weight: 100;
     }
 
-    &__tag-container{
-        @media screen and (width <= 800px){
+    &__tag-container {
+        @media screen and (width <=800px) {
             display: none;
         }
     }
@@ -111,7 +174,7 @@ const blockClasses = computed(() => {
         gap: calc(var(--space) / 2);
         flex-wrap: wrap;
         width: 100%;
-        opacity: 0; 
+        opacity: 0;
         transition: all .3s ease;
     }
 
@@ -123,7 +186,7 @@ const blockClasses = computed(() => {
         }
     }
 
-    &:hover{
+    &:hover {
         .project-card__tag-list {
             opacity: 1;
         }

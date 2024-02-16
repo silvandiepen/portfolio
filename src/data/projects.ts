@@ -1,4 +1,4 @@
-import { Project, ProjectType } from "@/types";
+import { Icons, Project, ProjectType } from "@/types";
 
 export const project: Project[] = [
     {
@@ -7,7 +7,9 @@ export const project: Project[] = [
         summary: "Calculate values with or without VAT easily with this convenient tool.",
         tags: ['web-development', 'javascript', 'tax', 'calculator', 'financial', 'business', 'utility', 'tool'],
         type: ProjectType.PROJECT,
-        link: "https://vat.sil.mt/"
+        link: "https://vat.sil.mt/",
+        color: "rgb(245, 166, 35)",
+        icon:   Icons.PERCENTAGE
     },
     {
         title: "Balcony",
@@ -15,7 +17,9 @@ export const project: Project[] = [
         summary: "Customize and visualize Maltese balconies with ease using this user-friendly tool.",
         tags: ['web-development', 'javascript', 'css', 'visualizer', 'architecture', 'design', 'home-improvement', 'interior-design'],
         type: ProjectType.PROJECT,
-        link: "https://balcony.sil.mt/"
+        link: "https://balcony.sil.mt/",
+        color:"#46a058",
+        icon: Icons.GALERIJA
     },
 
     {
@@ -24,7 +28,10 @@ export const project: Project[] = [
         summary: "Generate CSS gradients effortlessly with customizable options using this handy tool.",
         tags: ['web-development', 'css', 'design', 'styling', 'web-design', 'frontend', 'developer-tools', 'ui'],
         type: ProjectType.PROJECT,
-        link: "https://gradient.sil.mt/"
+        link: "https://gradient.sil.mt/",
+        color: ["#ff0000", "#00ff00", "#0000ff"],
+
+
     },
     {
         title: "Open Icon",
@@ -33,7 +40,9 @@ export const project: Project[] = [
         tags: ['web-development', 'design', 'open-source', 'icons', 'resource', 'frontend', 'developer-tools', 'ui'],
         type: ProjectType.PROJECT,
         link: "https://open-icon.org",
-        npm: "open-icon"
+        icon: [Icons.ROCKET, Icons.ARROW_DOWN_RIGHT, Icons.HEART, Icons.SMILE],
+        npm: "open-icon",
+        color: "#ffcd03"
     },
     {
         title: "Billy",
@@ -41,7 +50,9 @@ export const project: Project[] = [
         summary: "Effortlessly create and manage invoices with this secure and privacy-focused tool.",
         tags: ['business', 'productivity', 'web-development', 'finance', 'invoicing', 'billing', 'utility', 'tool'],
         type: ProjectType.PROJECT,
-        link: "https://billy.sil.mt/"
+        link: "https://billy.sil.mt/",
+        color: "#1aa8cc",
+        icon: Icons.COWBOY_HAT
     },
     {
         title: "Waves",
@@ -49,7 +60,9 @@ export const project: Project[] = [
         summary: "Create custom clip-path waves effortlessly for your web projects with this intuitive tool.",
         tags: ['web-development', 'css', 'design', 'graphics', 'frontend', 'developer-tools', 'ui', 'web-graphics'],
         type: ProjectType.PROJECT,
-        link: "https://waves.sil.mt/"
+        link: "https://waves.sil.mt/",
+        color: "#200734",
+        icon: Icons.WAVES
     },
     {
         title: "Recipes",
@@ -57,7 +70,9 @@ export const project: Project[] = [
         summary: "Discover and explore a collection of recipes and cooking-related content with this user-friendly platform.",
         tags: ['cooking', 'recipes', 'food', 'recipe-sharing', 'nutrition', 'meal-planning', 'culinary', 'lifestyle'],
         type: ProjectType.PROJECT,
-        link: "https://recipes.sil.mt/"
+        link: "https://recipes.sil.mt/",
+        color: "#000000",
+        icon: Icons.KNIFE_FORK,
     },
     {
         title: "Trekker",
@@ -65,7 +80,9 @@ export const project: Project[] = [
         summary: "Track your packages from multiple providers with ease using this comprehensive package tracking tool.",
         tags: ['logistics', 'tracking', 'delivery', 'shipping', 'ecommerce', 'utility', 'tool', 'shipment-tracking'],
         type: ProjectType.PROJECT,
-        link: "https://trekker.sil.mt/"
+        link: "https://trekker.sil.mt/",
+        color: "hsl(265,80%,33%)",
+        icon: [Icons.TRUCK, Icons.ARROW_RIGHT, Icons.HOME]
     },
     {
         title: "Locale",
@@ -73,7 +90,9 @@ export const project: Project[] = [
         summary: "Add multilingual support to your Vue.js website with this lightweight i18n tool.",
         tags: ['web-development', 'vue.js', 'i18n', 'internationalization', 'frontend', 'developer-tools', 'localization', 'utility'],
         type: ProjectType.PACKAGE,
-        link: "https://locale.sil.mt"
+        link: "https://locale.sil.mt",
+        color: "#ffffff",
+        icon: Icons.SPEECH_SQUARE_CHAT
     },
     {
         title: 'Storage',
@@ -82,7 +101,9 @@ export const project: Project[] = [
         tags: ['web-development', 'vue.js', 'state-management', 'frontend', 'developer-tools', 'data-management', 'utility', 'library'],
         type: ProjectType.PACKAGE,
         link: "https://storage.sil.mt",
-        npm: "@sil/storage"
+        npm: "@sil/storage",
+        color: "#ffffff",
+        icon: Icons.SUITCASE
     },
     {
         title: "Bemm",
@@ -91,14 +112,17 @@ export const project: Project[] = [
         tags: ['web-development', 'css', 'javascript', 'typescript', 'frontend', 'developer-tools', 'component-styling', 'library'],
         type: ProjectType.PACKAGE,
         link: "https://bemm.sil.mt",
-        npm: "bemm"
+        npm: "bemm",
+        color: "#ffffff",
     }, {
         title: "JSON input",
         description: "JSON input is a versatile validator and formatter for JSON code, providing developers with tools to validate, prettify, and visualize JSON objects effortlessly. With features such as error detection, prettification, and object visualization, JSON input streamlines JSON manipulation tasks, making it an invaluable tool for developers working with JSON data.",
         summary: "Validate, prettify, and visualize JSON code with this versatile tool for JSON manipulation.",
         tags: ['development', 'json', 'validator', 'formatter', 'frontend', 'developer-tools', 'data-management', 'utility'],
         type: ProjectType.PROJECT,
-        link: "https://json-input.sil.mt"
+        link: "https://json-input.sil.mt",
+        color: "#ffffff",
+        icon: Icons.BRACKETS
     },
     {
         title: "Next Ferry",
@@ -106,7 +130,9 @@ export const project: Project[] = [
         summary: "Stay informed about the next ferry departure times in Malta with this user-friendly schedule tool.",
         tags: ['transportation', 'ferry', 'travel', 'malta', 'public-transport', 'schedules', 'frontend', 'utility'],
         type: ProjectType.PROJECT,
-        link: "https://nextferry.mt"
+        link: "https://nextferry.mt",
+        color: "hsl(282,71%,42%)",
+        icon: Icons.FERRY
     },
     {
         title: "Icon Components",
@@ -114,7 +140,9 @@ export const project: Project[] = [
         summary: "Generate and manage icon components effortlessly with this versatile tool for SVG icon integration.",
         tags: ['web-development', 'icons', 'svg', 'components', 'frontend', 'developer-tools', 'library', 'ui'],
         type: ProjectType.PACKAGE,
-        link: "https://icon-components.sil.mt",
+        link: "https://icon-components.sil.mt",     
+           icon: [Icons.PATH3, Icons.ARROW_RIGHT, Icons.DOCUMENT],
+
     },
     {
         title: "Case",
@@ -124,6 +152,7 @@ export const project: Project[] = [
         type: ProjectType.PACKAGE,
         npm: "@sil/case",
         link: "https://case.sil.mt",
+        icon: Icons.AA
     },
     {
         title: "Args",
@@ -140,6 +169,7 @@ export const project: Project[] = [
         tags: ['web-development', 'markdown', 'static-site-generator', 'javascript', 'typescript', 'frontend', 'developer-tools', 'library'],
         type: ProjectType.PACKAGE,
         link: "https://gieter.sil.mt",
+        icon: Icons.WATERING_CAN
     },
     {
         title: "CLI Block",
@@ -148,6 +178,7 @@ export const project: Project[] = [
         tags: ['cli', 'command-line', 'ui-components', 'javascript', 'typescript', 'backend', 'developer-tools', 'library'],
         type: ProjectType.PACKAGE,
         link: "https://cli-block.sil.mt",
+        icon:[Icons.TERMINAL],
     },
     {
         title: "Iconator",
@@ -156,6 +187,7 @@ export const project: Project[] = [
         tags: ['web-development', 'icons', 'svg', 'icon-fonts', 'frontend', 'developer-tools', 'utility', 'web-graphics'],
         type: ProjectType.PROJECT,
         link: "https://iconator.sil.mt",
+        icon: [Icons.PATH3, Icons.ARROW_RIGHT, Icons.WEBSITE],
     },
     {
         title: "Markdown-IT Alert",
@@ -165,6 +197,7 @@ export const project: Project[] = [
         type: ProjectType.PACKAGE,
         npm: "markdown-it-alert",
         link: "https://markdown-it-alert.sil.mt",
+        icon: Icons.WARNING_TRIANGLE,
     },
     {
         title: "Markdown-IT Tasks",
@@ -173,6 +206,7 @@ export const project: Project[] = [
         tags: ['markdown', 'markdown-it', 'plugin', 'javascript', 'typescript', 'frontend', 'developer-tools', 'documentation'],
         type: ProjectType.PACKAGE,
         npm: "markdown-it-tasks",
+        icon: Icons.LIST,
         link: "https://markdown-it-tasks.sil.mt",
     },
     {
@@ -181,7 +215,8 @@ export const project: Project[] = [
         summary: "Boost productivity and collaboration with this versatile web-based code snippet management tool.",
         tags: ['web-development', 'code-snippets', 'collaboration', 'productivity', 'frontend', 'developer-tools', 'utility', 'workflow'],
         type: ProjectType.PROJECT,
-        link: "https://workbench.sil.mt/"
+        link: "https://workbench.sil.mt/",
+        icon: Icons.TOOLS
     },
     {
         title: "Sjape",
@@ -190,6 +225,7 @@ export const project: Project[] = [
         tags: ['web-development', 'typescript', 'json', 'typescript-interfaces', 'frontend', 'developer-tools', 'utility', 'data-management'],
         type: ProjectType.PROJECT,
         link: "https://sjape.sil.mt",
+        icon: [Icons.SHAPE_CIRCLE, Icons.SHAPE_LEFT_TRIANGLE, Icons.SHAPE_SQUARE_FILLED],
     },
     {
         title: "Spleet",
@@ -197,7 +233,8 @@ export const project: Project[] = [
         summary: "Easily split up long tweets into numbered threads with this lightweight web-based tool.",
         tags: ['twitter', 'tweets', 'tweet-threads', 'social-media', 'communication', 'frontend', 'utility', 'web-tools'],
         type: ProjectType.PROJECT,
-        link: "https://spleet.sil.mt"
+        link: "https://spleet.sil.mt",
+        icon: Icons.ARROW_SPLIT
     },
     {
         title: "DE",
@@ -205,6 +242,7 @@ export const project: Project[] = [
         summary: "Retrieve location information from German car license plates with this simple web-based tool.",
         tags: ['germany', 'license-plates', 'location', 'automotive', 'frontend', 'utility', 'web-tools', 'data-retrieval'],
         type: ProjectType.PROJECT,
-        link: "https://de.sil.mt"
+        link: "https://de.sil.mt",
+        icon: Icons.CAR
     }
 ];

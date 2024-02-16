@@ -1,6 +1,6 @@
 <template>
     <div :class="bemm()">
-        <InputText placeholder="Search"  v-model="filter.search" />
+        <InputSearch placeholder="Search"  v-model="filter.search" :collapse="true" />
         <!-- <Tags></Tags> -->
         <InputSwitch :options="projectTypes" v-model="filter.type"></InputSwitch>
 
@@ -13,7 +13,7 @@
 import { useBemm } from 'bemm';
 import { useProjects } from "@/composables/useProjects";
 
-import { InputSwitch, InputText } from "@/components/form";
+import { InputSwitch, InputSearch } from "@/components/form";
 // import Tags from './Tags.vue';
 
 const bemm = useBemm('tools');

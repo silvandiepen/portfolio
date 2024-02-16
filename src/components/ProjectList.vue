@@ -41,7 +41,8 @@ const allProjects = computed(() => {
 .project-list {
 
     &__list {
-        padding: calc(var(--space) * 2);
+        padding: var(--spacing);
+
         display: flex;
         flex-wrap: wrap;
         width: 100%;

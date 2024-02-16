@@ -4,6 +4,7 @@ import { reactive, computed } from "vue"
 import { project as ProjectData } from "@/data/projects"
 import { Project, ProjectType, Tag } from "@/types";
 
+
 interface ProjectState {
     projects: Project[]
     filters: {
@@ -59,6 +60,7 @@ export const useProjects = () => {
     };
 
     const projects = computed(() => {
+        init();
 
         let projects = projectState.projects;
 
@@ -97,7 +99,7 @@ export const useProjects = () => {
     })
 
     const init = () => {
-        if (projectState.projects.length === 0) {
+        // if (projectState.projects.length === 0) {
             projectState.projects = ProjectData.map((project: Project) => {
                 return {
                     ...project,
@@ -105,7 +107,7 @@ export const useProjects = () => {
                     tags: project.tags.map((tag: string) => tag.toLowerCase())
                 }
             });
-        }
+        // }
     }
     const tags = computed(() => {
         init();

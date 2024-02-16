@@ -28,7 +28,8 @@ $colors: (
     --foreground-rgb: var(--light-rgb);
 
     --space: 1em;
-    --border-radius: .25em;
+    --border-radius: 1.5em;
+    --spacing: clamp(2em, 8vw, 6em);
 
     --primary-rgb: #{values('primary')};
     --primary: rgb(var(--primary-rgb));

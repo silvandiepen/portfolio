@@ -1,6 +1,6 @@
 <template>
     <nav :class="bemm()">
-      <Button  type="ghost" :icon="Icons.ARROW_LEFT" @click="goHome()" />
+      <Button  type="ghost" :icon="Icons.ARROW_LEFT" @click="goHome()">Back</Button>
     </nav>
 </template>
 <script setup lang="ts">

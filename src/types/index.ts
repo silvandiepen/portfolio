@@ -17,9 +17,11 @@ export interface Project {
     type: ProjectType;
     link: string;
     npm?: string;
-    slug?:string;
+    slug?: string;
+    color?: string | string[];
+    icon?: Icons | Icons[]
 }
- export interface Tag {
+export interface Tag {
     label: string;
     occurance: number;
- }
+}

@@ -30,7 +30,7 @@ const bemm = useBemm('home');
         flex-direction: column;
         gap: var(--space);
         text-align: left;
-        padding: 16vw 8vw;
+        padding: var(--spacing);
         background-color: var(--secondary);
         color: var(--secondary-text);
     }

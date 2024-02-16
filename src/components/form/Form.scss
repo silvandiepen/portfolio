@@ -1,4 +1,4 @@
-@mixin inputBase() {
+@mixin inputBase($block: '') {
     color: currentColor;
 
     &__control {
@@ -64,7 +64,7 @@
     }
 }
 
-@mixin inputTextarea {
+@mixin inputTextarea($block: '') {
     &__control {
         font-size: 1em;
         font-family: inherit;
@@ -74,7 +74,7 @@
     }
 }
 
-@mixin inputRange {
+@mixin inputRange($block: '') {
     &__control-container {
         display: flex;
         align-items: center;
@@ -132,7 +132,7 @@
     }
 }
 
-@mixin inputCheckbox() {
+@mixin inputCheckbox($block: '') {
     display: flex;
     flex-direction: column-reverse;
 
@@ -185,7 +185,7 @@
 
 }
 
-@mixin inputSwitch() {
+@mixin inputSwitch($block: '') {
     display: flex;
     flex-direction: column-reverse;
 
@@ -217,7 +217,7 @@
             opacity: 1;
             outline: 2px solid rgba(var(--foreground-rgb), .25);
             // border-radius: var(--input-border-radius, var(--border-radius));
-border-radius: 3em;
+            border-radius: 3em;
             content: "";
             width: 100%;
             height: 100%;
@@ -267,8 +267,7 @@ border-radius: 3em;
 
 }
 
-@mixin inputColor() {
-    @include inputBase();
+@mixin inputColor($block: '') {
 
     &__control-container {
         display: flex;
@@ -335,7 +334,7 @@ border-radius: 3em;
     }
 }
 
-@mixin formGroup() {
+@mixin formGroup($block: '') {
 
     @include inputBase();
 
@@ -362,7 +361,7 @@ border-radius: 3em;
 
 }
 
-@mixin formField() {
+@mixin formField($block: '') {
 
     @include inputBase();
 
@@ -387,49 +386,79 @@ border-radius: 3em;
 
 }
 
+@mixin inputSearch($block: '') {
+
+    &__icon {
+        position: absolute;
+        right: 1em;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    &__control-container {
+        transition: width .3s ease;
+
+        &--collapsed {
+            aspect-ratio: 1/1;
+            height: 3em;
+            width: 3em;
+
+            #{$block}__control {
+                opacity: 0;
+            }
+        }
+    }
+}
+
 
 .form-group {
-    @include formGroup();
+    @include formGroup(&);
 }
 
 .form-field {
-    @include formField();
+    @include formField(&);
 }
 
 .input-date {
-    @include inputBase();
+    @include inputBase(&);
 }
 
 .input-text {
-    @include inputBase();
+    @include inputBase(&);
+}
+
+.input-search {
+    @include inputBase(&);
+    @include inputSearch(&);
 }
 
 .input-textarea {
-    @include inputBase();
-    @include inputTextarea();
+    @include inputBase(&);
+    @include inputTextarea(&);
 }
 
 .input-number {
-    @include inputBase();
+    @include inputBase(&);
 }
 
 .input-select {
-    @include inputBase();
+    @include inputBase(&);
 }
 
 .input-range {
 
-    @include inputRange();
+    @include inputRange(&);
 }
 
 .input-checkbox {
-    @include inputCheckbox();
+    @include inputCheckbox(&);
 }
 
 .input-switch {
-    @include inputSwitch();
+    @include inputSwitch(&);
 }
 
 .input-color {
-    @include inputColor();
+    @include inputBase(&);
+    @include inputColor(&);
 }
