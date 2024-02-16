@@ -1,7 +1,11 @@
 
 <template>
   <div class="app-container">
-    <RouterView :key="routeKey" />
+    <RouterView v-slot="{ Component }">
+      <transition name="fade">
+        <component :is="Component"  :key="routeKey" />
+      </transition>
+    </RouterView>
   </div>
 </template>
 <script setup lang="ts">

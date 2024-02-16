@@ -4,8 +4,11 @@
 
 
         <div :class="bemm('intro')">
-            <h1>Sil's Portfolio</h1>
+            <div :class="bemm('container')">
+            
+                <h1>Sil's Portfolio</h1>
             <p>Here are some of the projects I've been working on.</p>
+            </div>
         </div>
         <Tools :class="bemm('tools')" />
         <List :class="bemm('list')" />
@@ -30,10 +33,17 @@ const bemm = useBemm('home');
         flex-direction: column;
         gap: var(--space);
         text-align: left;
-        padding: var(--spacing);
+
         background-color: var(--secondary);
         color: var(--secondary-text);
     }
+    &__container {
+        padding: calc(var(--spacing) * 2) var(--spacing);
+        width: 960px;
+        max-width: 100%;
+        margin: auto;
+    }
+
 
     &__tools {
         transform: translateY(-50%);

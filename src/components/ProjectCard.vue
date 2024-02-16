@@ -31,7 +31,6 @@
 import { useBemm } from "bemm";
 import { PropType, computed, onMounted, ref } from "vue";
 
-import { getBrightness } from "@sil/color";
 
 
 import Icon from "@/components/Icon.vue";
@@ -40,6 +39,7 @@ import Tag from "@/components/Tag.vue";
 
 import { Project } from "@/types";
 import router, { RouteName } from "@/router";
+import { getColor } from "@/utils/color";
 
 const bemm = useBemm('project-card');
 const props = defineProps({
@@ -62,32 +62,7 @@ onMounted(() => {
 
 const colors = computed(() => {
 
-    if (props.project.color && typeof props.project.color !== "string") {
-        const bg = props.project.color[0] || '#fff000';
-
-        const fg = getBrightness(bg) > 50 ? 'var(--light)' : 'var(--dark)';
-
-        const points = props.project.color.map((color) => {
-            return `${color}`
-        }).join(', ');
-
-        return {
-            foreground: fg,
-            background: bg,
-            image: `linear-gradient(to right bottom, ${points})`,
-            brightness: getBrightness(bg)
-        }
-    }
-
-    const bg = props.project.color || '#fff000';
-    console.log(getBrightness(bg))
-    const fg = getBrightness(bg) < 50 ? 'var(--light)' : 'var(--dark)';
-
-    return {
-        foreground: fg,
-        background: bg,
-        brightness: getBrightness(bg)
-    }
+    return getColor(props.project.color);
 
 })
 

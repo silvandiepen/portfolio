@@ -140,10 +140,15 @@ const hasSlot = computed(() => {
     &--ghost {
         // background-color: transparent;
 
-
         --background-opacity-from: 0.125;
         --background-opacity-to: 0;
+        background-color: transparent;
         color: currentColor;
+
+        &::before{
+            --background-color: transparent;
+background-color: transparent;
+        }
 
     }
 

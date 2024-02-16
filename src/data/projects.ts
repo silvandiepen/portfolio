@@ -244,5 +244,14 @@ export const project: Project[] = [
         type: ProjectType.PROJECT,
         link: "https://de.sil.mt",
         icon: Icons.CAR
+    }, {
+        title: 'Color',
+        summary: "Convert colors to all kind of types backwards and forwards",
+        description: "Color is a versatile tool that helps developers convert colors to various formats, including HEX, RGB, HSL, and more. With support for color manipulation and conversion, Color simplifies the process of working with colors in web development, making it easier to create visually appealing and accessible designs.",
+        tags: ['web-development', 'css', 'design', 'frontend', 'developer-tools', 'color-conversion', 'utility'],
+        type: ProjectType.PACKAGE,
+        link: "https://color.sil.mt",
+        icon: Icons.BOX,
+        npm: "@sil/color"
     }
 ];

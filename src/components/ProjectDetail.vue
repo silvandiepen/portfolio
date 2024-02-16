@@ -1,39 +1,42 @@
 <template>
-    <div :class="bemm()">
-        <h1 :class="bemm('title')">{{ project.title }}</h1>
-        <div :class="bemm('content')">
-            <p v-if="project.summary" :class="bemm('description')">{{ project.description }}</p>
+    <div :class="bemm()"
+        :style="`--detail-bg: ${colors.background}; --detail-fg: ${colors.foreground}; --detail-image: ${colors.image}`">
+        <div :class="bemm('container')">
+            <h1 :class="bemm('title')">{{ project.title }}</h1>
+            <div :class="bemm('content')">
+                <p v-if="project.summary" :class="bemm('description')">{{ project.description }}</p>
 
-            <ButtonGroup direction="horizontal" mobile-direction="vertical">
+                <ButtonGroup direction="horizontal" mobile-direction="vertical">
 
-                <Button v-if="project.link" :href="project.link" :icon="Icons.ARROW_RIGHT">Check {{ project.title
-                }}</Button>
-                <Button v-if="project.npm" :href="`https://npmjs.org/package/${project.npm}`" type="secondary">npm</Button>
+                    <Button v-if="project.link" :href="project.link" :icon="Icons.ARROW_RIGHT">Check {{ project.title
+                    }}</Button>
+                    <Button v-if="project.npm" :href="`https://npmjs.org/package/${project.npm}`"
+                        type="secondary">npm</Button>
 
-                <div :class="bemm('npm')" v-if="project.npm">
-                    <code>npm install {{ project.npm }}</code>
-                </div>
-            </ButtonGroup>
+                    <div :class="bemm('npm')" v-if="project.npm">
+                        <code>npm install {{ project.npm }}</code>
+                    </div>
+                </ButtonGroup>
 
+            </div>
+            <!-- <img :src="`//image.thum.io/get/${project.link}`" /> -->
         </div>
-        <!-- <img :src="`//image.thum.io/get/${project.link}`" /> -->
-
     </div>
 </template>
 
 <script lang="ts" setup>
 import { useBemm } from "bemm";
-import { PropType } from "vue";
+import { PropType, computed } from "vue";
 
 import ButtonGroup from "./ButtonGroup.vue";
 import Button from "./Button.vue";
 import { Icons, Project } from "@/types";
+import { getColor } from "@/utils/color";
 
 
 
 const bemm = useBemm('project-detail');
-
-defineProps({
+const props = defineProps({
     project: {
         type: Object as PropType<Project>,
         required: true
@@ -43,19 +46,26 @@ defineProps({
 
 
 
+const colors = computed(() => {
+
+    return getColor(props.project.color);
+
+})
 
 </script>
 
 <style lang="scss">
 .project-detail {
 
-    padding: 8vw;
+    background-color: var(--detail-bg);
+    color: var(--detail-fg);
 
-    @media screen and (width <=800px) {
-        padding-top: 16vw;
-
+    &__container {
+        padding: calc(var(--spacing) * 2) var(--spacing);
+        width: 960px;
+        max-width: 100%;
+        margin: auto;
     }
-
 
     &__title {
         font-size: clamp(2em, 8vw, 4em);
