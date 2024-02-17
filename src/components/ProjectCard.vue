@@ -83,6 +83,7 @@ const blockClasses = computed(() => {
 
 <style lang="scss">
 .project-card {
+    $b: &;
     width: 100%;
     display: flex;
     text-align: left;
@@ -105,6 +106,10 @@ const blockClasses = computed(() => {
     &--in-view {
         opacity: 1;
         transform: scale(1);
+        #{$b}__icon{
+            transform: scale(1);
+
+        }
     }
 
     &__figure {
@@ -124,6 +129,14 @@ const blockClasses = computed(() => {
         width: 1em;
         height: 1em;
         font-size: 5em;
+        transform: scale(.5);
+        transition: all .3s 1s cubic-bezier(.25, .1, .25, 1);
+
+        @for $i from 1 through 4 {
+            &:nth-child(#{$i}) {
+                transition-delay: #{$i * .2}s;
+            }
+        }
     }
 
     &__title {

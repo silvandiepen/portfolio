@@ -103,7 +103,7 @@ export const project: Project[] = [
         link: "https://storage.sil.mt",
         npm: "@sil/storage",
         color: "#ffffff",
-        icon: Icons.SUITCASE
+        icon: Icons.BOX_OPEN
     },
     {
         title: "Bemm",
@@ -114,6 +114,7 @@ export const project: Project[] = [
         link: "https://bemm.sil.mt",
         npm: "bemm",
         color: "#ffffff",
+        icon: [Icons.SHAPE_SQUARE_FILLED, Icons.UNDERSCORE,Icons.SHAPE_SQUARE_FILLED, Icons.DOUBLE_DASH, Icons.SHAPE_QUARTER_CIRCLE],
     }, {
         title: "JSON input",
         description: "JSON input is a versatile validator and formatter for JSON code, providing developers with tools to validate, prettify, and visualize JSON objects effortlessly. With features such as error detection, prettification, and object visualization, JSON input streamlines JSON manipulation tasks, making it an invaluable tool for developers working with JSON data.",
@@ -161,6 +162,7 @@ export const project: Project[] = [
         tags: ['node.js', 'javascript', 'typescript', 'command-line', 'backend', 'developer-tools', 'library', 'utility'],
         type: ProjectType.PACKAGE,
         link: "https://args.sil.mt",
+        icon:Icons.BRACKETS
     },
     {
         title: "Gieter",
@@ -169,7 +171,7 @@ export const project: Project[] = [
         tags: ['web-development', 'markdown', 'static-site-generator', 'javascript', 'typescript', 'frontend', 'developer-tools', 'library'],
         type: ProjectType.PACKAGE,
         link: "https://gieter.sil.mt",
-        icon: Icons.WATERING_CAN
+        icon: [Icons.HASHTAG_SLANTED, Icons.WATERING_CAN, Icons.WEBSITE]
     },
     {
         title: "CLI Block",
@@ -251,7 +253,7 @@ export const project: Project[] = [
         tags: ['web-development', 'css', 'design', 'frontend', 'developer-tools', 'color-conversion', 'utility'],
         type: ProjectType.PACKAGE,
         link: "https://color.sil.mt",
-        icon: Icons.BOX,
+        icon: Icons.BUCKET,
         npm: "@sil/color"
     }
 ];

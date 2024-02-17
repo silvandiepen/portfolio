@@ -12,7 +12,7 @@
     "@sil/color": "^0.4.8",
     "@sil/storage": "^0.0.7",
     "bemm": "^1.0.4",
-    "open-icon": "^0.0.9",
+    "open-icon": "^0.0.10",
     "vue": "^3.4.15"
   },
   "devDependencies": {
