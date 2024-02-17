@@ -143,11 +143,14 @@ const blockClasses = computed(() => {
         font-weight: bold;
         font-size: 1.25em;
         // color: var(--secondary);
+        // color: var(--card-bg);
+
     }
 
     &__content {
         width: 100%;
-        font-weight: 100;
+        font-weight: 100;        color: color-mix(in oklch, var(--card-bg) 100%, white 75%);
+
     }
 
     &__tag-container {

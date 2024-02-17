@@ -36,6 +36,13 @@ const bemm = useBemm('home');
 
         background-color: var(--secondary);
         color: var(--secondary-text);
+
+        @media screen and (orientation:portrait){
+            aspect-ratio:3/2;
+        }
+        @media screen and (width <= 769px){
+            aspect-ratio:1/1;
+        }
     }
     &__container {
         padding: calc(var(--spacing) * 2) var(--spacing);

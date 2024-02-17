@@ -1,29 +1,139 @@
 <template>
-    <nav :class="bemm()">
-      <Button  type="ghost" :icon="Icons.ARROW_LEFT" @click="goHome()">Back</Button>
+    <nav :class="blockClasses">
+        <div :class="bemm('container')">
+            <div :class="bemm('start')">
+                <Button v-if="!isHome" type="ghost" :icon="Icons.ARROW_LEFT" @click="goHome()">Back</Button>
+
+            </div>
+            <div :class="bemm('middle')">
+                <Logo :class="bemm('logo')"></Logo>
+            </div>
+            <div :class="bemm('end')">
+            </div>
+
+        </div>
+
     </nav>
 </template>
 <script setup lang="ts">
+import { computed, onMounted, ref } from "vue";
 import { useBemm } from "bemm";
-import Button from "./Button.vue";
 import { Icons } from "open-icon";
-import {useRouter} from 'vue-router';
-import {RouteName} from '@/router';
+import { useRouter } from 'vue-router';
+
+import Logo from '@/components/Logo.vue';
+import Button from "@/components/Button.vue";
+
+import { RouteName } from '@/router';
 
 const router = useRouter();
 const bemm = useBemm('nav');
 
-const goHome = ()=>{
-
-    router.push({name: RouteName.HOME});
-    console.log('hoiii')
+const goHome = () => {
+    router.push({ name: RouteName.HOME });
 }
+const isHome = computed(() => {
+    return router.currentRoute.value.name === RouteName.HOME;
+})
+
+const onTop = ref(true);
+const scrollDirection = ref<'up' | 'down'>('down');
+const previousScroll = ref(0);
+const handleScroll = () => {
+    const currentScroll = window.scrollY;
+    onTop.value = currentScroll <= 0;
+    scrollDirection.value = currentScroll > previousScroll.value ? 'down' : 'up';
+    previousScroll.value = currentScroll;
+}
+
+onMounted(() => {
+
+    window.addEventListener('scroll', function () {
+        handleScroll();
+    })
+})
+
+const blockClasses = computed(() => {
+    return [
+        bemm(),
+        bemm('', onTop.value ? 'on-top' : 'off-top'),
+        bemm('', `scroll-${scrollDirection.value}`)
+    ]
+})
+
+
 </script>
 
 <style lang="scss">
-
-.nav{
+.nav {
+    $b: &;
     position: fixed;
-    padding: 4vw 8vw;
-}
-</style>
+    width: 100%;
+    transform: translate(0);
+    transition: transform .25s ease-in-out;
+    padding: calc(var(--spacing) / 2) calc(var(--spacing) - (var(--space) * 2));
+
+    z-index: 10;
+
+
+    &__container {
+
+        display: flex;
+        align-items: center;
+        width: 100%;
+        padding: var(--space);
+        border-radius: var(--space);
+        position: relative;
+
+        &::before {
+            border-radius: inherit;
+            content: "";
+            z-index: -1;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            // background-color: blue;
+        }
+    }
+
+    &--scroll-down {
+        transform: translateY(-100%);
+
+        &#{$b}--on-top {
+            transform: translateY(0%);
+        }
+
+    }
+
+    &--scroll-up {}
+
+    &__start,
+    &__end,
+    &__middle {
+        display: flex;
+        align-items: center;
+        width: 100%;
+    }
+
+    &__start {
+        align-self: flex-start;
+        justify-content: flex-start;
+    }
+
+    &__middle {
+        align-self: center;
+        justify-content: center;
+    }
+
+    &__end {
+        align-self: flex-end;
+        justify-content: flex-end;
+    }
+
+    &__logo {
+        height: 3.5em;
+        width: 3.5em;
+    }
+}</style>

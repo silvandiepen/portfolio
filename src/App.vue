@@ -1,6 +1,8 @@
 
 <template>
   <div class="app-container">
+
+    <Navigation></Navigation>
     <RouterView v-slot="{ Component }">
       <transition name="fade">
         <component :is="Component"  :key="routeKey" />
@@ -12,6 +14,7 @@
 import { ref, watch, onMounted } from "vue";
 import { useRoute } from "vue-router";
 
+import Navigation from '@/components/Navigation.vue';
 import { useUI } from "@/composables/useUI";
 
 

@@ -46,7 +46,7 @@ const allProjects = computed(() => {
         display: flex;
         flex-wrap: wrap;
         width: 100%;
-        gap: var(--space);
+        gap: calc(var(--space) * 3);
         align-items: center;
         justify-content: center;
     }

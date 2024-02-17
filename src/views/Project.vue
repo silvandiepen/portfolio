@@ -1,6 +1,5 @@
 
 <template>
-    <Navigation></Navigation>
     <Detail :class="bemm('detail')" v-if="project" :project="project" />
     <List :class="bemm('list')" :projects="relatedProjects" />
 </template>
@@ -12,7 +11,6 @@ import { useRoute } from 'vue-router';
 
 import { useBemm } from 'bemm';
 
-import Navigation from '@/components/Navigation.vue';
 import Detail from '@/components/ProjectDetail.vue';
 import List from '@/components/ProjectList.vue';
 import { useProjects } from '@/composables/useProjects';
