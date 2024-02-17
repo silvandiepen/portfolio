@@ -367,7 +367,7 @@
 
     padding: var(--space);
     border-radius: var(--border-radius);
-    background-color: color-mix(in oklch, var(--background) 100%, black 50%);
+    background-color: color-mix(in oklab, var(--background) 100%, black 50%);
 
 
     &__container {

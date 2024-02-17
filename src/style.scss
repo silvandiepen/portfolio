@@ -17,10 +17,17 @@ $colors: (
 
 :root {
 
-    --dark-rgb: #{values('dark')};
-    --light-rgb: #{values('light')};
-    --dark: rgba(var(--dark-rgb), 1);
-    --light: rgba(var(--light-rgb), 1);
+    @each $color, $value in $colors {
+        --#{$color}: #{$value};
+        --#{$color}-rgb: #{values($color)};
+        --#{$color}-r: #{red($value)};
+        --#{$color}-g: #{green($value)};
+        --#{$color}-b: #{blue($value)};
+        --#{$color}-h: #{hue($value)};
+        --#{$color}-s: #{saturation($value)};
+        --#{$color}-l: #{lightness($value)};
+        --#{$color}-text: var(--#{darkOrLight($value)});
+    }
 
     --background: var(--dark);
     --background-rgb: var(--dark-rgb);
@@ -30,15 +37,6 @@ $colors: (
     --space: 1em;
     --border-radius: 1.5em;
     --spacing: clamp(2em, 8vw, 6em);
-
-    --primary-rgb: #{values('primary')};
-    --primary: rgb(var(--primary-rgb));
-    --secondary-text: var(--light);
-
-    --secondary-rgb: #{values('secondary')};
-    --secondary: rgb(var(--secondary-rgb));
-    --secondary-text: var(--dark);
-
 }
 
 body,

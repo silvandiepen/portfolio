@@ -21,7 +21,7 @@ svg {
     display: block;
     width: 1em;height: 1em;
     aspect-ratio: 1/1;
-    path {
+    path, circle, rect, polygon, polyline, line{
         fill: currentColor;
     }
 }

@@ -29,7 +29,7 @@ defineProps({
     border-radius: 3em;
     border: 1px solid rgba(var(--foreground-rgb), .125);
 
-    --bg-color: color-mix(in oklch, var(--background) 100%, black 25%);
+    --bg-color: color-mix(in oklab, var(--background) 100%, black 25%);
     // background-image: linear-gradient(to right bottom, var(--bg-color), var(--background));
 
 opacity: .5;

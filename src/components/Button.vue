@@ -76,82 +76,18 @@ const hasSlot = computed(() => {
     background-color: var(--background);
     position: relative;
 
-
-    --background-opacity-from: .75;
-    --background-opacity-to: .25;
-
-    &::before {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        content: "";
-        border-radius: inherit;
-        background-color: var(--background);
-        background-image: linear-gradient(var(--button-background-direction, to right bottom), rgba(var(--background-color, var(--primary-rgb)), var(--background-opacity-from, 0.75)), rgba(var(--background-color, var(--primary-rgb)), var(--background-opacity-to, 0.75)));
-        z-index: 2;
-        transition: background-image .3s ease-in-out;
-
-    }
-
-    &::after {
-        z-index: 1;
-        position: absolute;
-        left: -1px;
-        top: -1px;
-        width: calc(100% + 2px);
-        height: calc(100% + 2px);
-        content: "";
-        border-radius: inherit;
-        background-image: linear-gradient(var(--button-border-direction, to left top), rgba(var(--background-color, var(--primary-rgb)), var(--background-opacity-to, 0.75)), rgba(var(--background-color, var(--primary-rgb)), var(--background-opacity-from, 0.25)));
-        transition: background-image .3s ease-in-out;
-    }
+    color: var(--foreground);
 
 
-    &:hover{
-        .button__container {
-            transform: scale(1.05);
-        }
-    }
 
-
-    &__container {
-        position: relative;
-        z-index: 3;
+    &__container{
         display: flex;
-        font-weight: 600;
-        align-items: center;
-        justify-content: center;
-        transition: transform .3s ease-in-out;
+        gap: var(--space);
     }
 
-
-    &--primary {
-        --background-color: var(--primary-rgb);
-        color: var(--primary-text);
+    &__text{
+        white-space: nowrap;
     }
-
-    &--secondary {
-        --background-color: var(--secondary-rgb);
-        color: var(--secondary-text);
-    }
-
-    &--ghost {
-        // background-color: transparent;
-
-        --background-opacity-from: 0.125;
-        --background-opacity-to: 0;
-        background-color: transparent;
-        color: currentColor;
-
-        &::before{
-            --background-color: transparent;
-background-color: transparent;
-        }
-
-    }
-
 
     &--small {
         font-size: .75em;
@@ -165,47 +101,47 @@ background-color: transparent;
         font-size: 1.25em;
     }
 
-    &--icon-only {
-        padding: 0;
-        font-size: 1.5em;
-        aspect-ratio: 1/1;
-        padding: .25em;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+    // &--icon-only {
+    //     padding: 0;
+    //     font-size: 1.5em;
+    //     aspect-ratio: 1/1;
+    //     padding: .25em;
+    //     display: flex;
+    //     align-items: center;
+    //     justify-content: center;
 
-        .button__icon {
-            font-size: 1em;
-            margin: 0;
-            width: 1em;
-            height: 1em;
-        }
-    }
+    //     .button__icon {
+    //         font-size: 1em;
+    //         margin: 0;
+    //         width: 1em;
+    //         height: 1em;
+    //     }
+    // }
 
-    &--text-icon {
+    // &--text-icon {
 
-        // padding-left: .25em;
-    }
+    //     // padding-left: .25em;
+    // }
 
-    &__icon {
-        width: 1em;
-        height: 1em;
-        font-size: 1.5em;
-        margin-right: .5em;
+    // &__icon {
+    //     width: 1em;
+    //     height: 1em;
+    //     font-size: 1.5em;
+    //     margin-right: .5em;
 
 
 
-        svg {
-            width: 1em;
-            height: 1em;
+    //     svg {
+    //         width: 1em;
+    //         height: 1em;
 
-            filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, .5));
+    //         filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, .5));
 
-            path {
-                fill: currentColor;
-            }
-        }
+    //         path {
+    //             fill: currentColor;
+    //         }
+    //     }
 
-    }
+    // }
 }
 </style>

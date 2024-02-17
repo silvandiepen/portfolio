@@ -1,7 +1,9 @@
 
 <template>
-    <Detail :class="bemm('detail')" v-if="project" :project="project" />
-    <List :class="bemm('list')" :projects="relatedProjects" />
+    <div :class="bemm()">
+        <Detail :class="bemm('detail')" v-if="project" :project="project" />
+        <List :class="bemm('list')" :projects="relatedProjects" />
+    </div>
 </template>
 
 <script setup lang="ts">
@@ -34,13 +36,11 @@ const relatedProjects = computed(() => {
 </script>
 
 <style lang="scss">
+.project {
+    &__detail {}
 
-.project{
-    &__detail{
-    }
-    &__list{
-        background-color: color-mix(in oklch, var(--background) 100%, black 25%);
+    &__list {
+        background-color: color-mix(in oklab, var(--background) 100%, black 25%);
     }
 }
-
 </style>

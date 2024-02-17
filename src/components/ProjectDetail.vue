@@ -2,22 +2,32 @@
     <div :class="bemm()"
         :style="`--detail-bg: ${colors.background}; --detail-fg: ${colors.foreground}; --detail-image: ${colors.image}`">
         <div :class="bemm('container')">
-            <h1 :class="bemm('title')">{{ project.title }}</h1>
-            <div :class="bemm('content')">
-                <p v-if="project.summary" :class="bemm('description')">{{ project.description }}</p>
+            <div :class="bemm('column')">
+                <figure :class="bemm('figure')">
+                    <template v-if="project.icon">
+                        <Icon :class="bemm('icon')" v-if="typeof project.icon == 'string'" :name="project.icon"></Icon>
+                        <Icon :class="bemm('icon')" v-else v-for="icon in project.icon" :name="icon"></Icon>
+                    </template>
+                </figure>
+            </div>
+            <div :class="bemm('column')">
+                <h1 :class="bemm('title')">{{ project.title }}</h1>
+                <div :class="bemm('content')">
+                    <p v-if="project.summary" :class="bemm('description')">{{ project.description }}</p>
 
-                <ButtonGroup direction="horizontal" mobile-direction="vertical">
+                    <ButtonGroup direction="horizontal" mobile-direction="vertical">
 
-                    <Button v-if="project.link" :href="project.link" :icon="Icons.ARROW_RIGHT">Check {{ project.title
-                    }}</Button>
-                    <Button v-if="project.npm" :href="`https://npmjs.org/package/${project.npm}`"
-                        type="secondary">npm</Button>
+                        <Button v-if="project.link" :href="project.link" :icon="Icons.ARROW_RIGHT">Check {{ project.title
+                        }}</Button>
+                        <Button v-if="project.npm" :href="`https://npmjs.org/package/${project.npm}`"
+                            type="secondary">npm</Button>
 
-                    <div :class="bemm('npm')" v-if="project.npm">
-                        <code>npm install {{ project.npm }}</code>
-                    </div>
-                </ButtonGroup>
+                        <div :class="bemm('npm')" v-if="project.npm">
+                            <code>npm install {{ project.npm }}</code>
+                        </div>
+                    </ButtonGroup>
 
+                </div>
             </div>
             <!-- <img :src="`//image.thum.io/get/${project.link}`" /> -->
         </div>
@@ -28,8 +38,10 @@
 import { useBemm } from "bemm";
 import { PropType, computed } from "vue";
 
-import ButtonGroup from "./ButtonGroup.vue";
-import Button from "./Button.vue";
+import ButtonGroup from "@/components/ButtonGroup.vue";
+import Button from "@/components/Button.vue";
+import Icon from "@/components/Icon.vue";
+
 import { Icons, Project } from "@/types";
 import { getColor } from "@/utils/color";
 
@@ -65,6 +77,16 @@ const colors = computed(() => {
         width: 960px;
         max-width: 100%;
         margin: auto;
+        display: flex;
+        gap: var(--space);
+
+        @media screen and (width <= 769px) {
+            flex-direction: column;
+        }
+    }
+
+    &__column {
+        width: 100%;
     }
 
     &__title {
@@ -87,7 +109,7 @@ const colors = computed(() => {
         code {
             padding: var(--space);
             border-radius: var(--space);
-            background-color: color-mix(in oklch, var(--background) 100%, black 25%);
+            background-color: color-mix(in oklab, var(--background) 100%, black 25%);
         }
 
         font-size: 1.2em;
@@ -105,5 +127,34 @@ const colors = computed(() => {
     }
 
 
-}
-</style>
+
+    &__figure {
+        width: 100%;
+        aspect-ratio: 1/1;
+        // background-color: var(--card-bg);
+        // color: var(--card-fg);
+        background-color: var(--background);
+        color: var(--foreground);
+        border-radius: var(--border-radius);
+        background-image: var(--card-image);
+
+        align-items: center;
+        justify-content: center;
+        display: flex;
+    }
+
+    &__icon {
+        width: 1em;
+        height: 1em;
+        font-size: 10em;
+        transform: scale(.5);
+        transition: all .3s 1s cubic-bezier(.25, .1, .25, 1);
+
+        @for $i from 1 through 4 {
+            &:nth-child(#{$i}) {
+                transition-delay: #{$i * .2}s;
+            }
+        }
+    }
+
+}</style>
