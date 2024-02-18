@@ -16,7 +16,7 @@
     </nav>
 </template>
 <script setup lang="ts">
-import { computed, onMounted, ref } from "vue";
+import { computed } from "vue";
 import { useBemm } from "bemm";
 import { Icons } from "open-icon";
 import { useRouter } from 'vue-router';
@@ -36,28 +36,10 @@ const isHome = computed(() => {
     return router.currentRoute.value.name === RouteName.HOME;
 })
 
-const onTop = ref(true);
-const scrollDirection = ref<'up' | 'down'>('down');
-const previousScroll = ref(0);
-const handleScroll = () => {
-    const currentScroll = window.scrollY;
-    onTop.value = currentScroll <= 0;
-    scrollDirection.value = currentScroll > previousScroll.value ? 'down' : 'up';
-    previousScroll.value = currentScroll;
-}
-
-onMounted(() => {
-
-    window.addEventListener('scroll', function () {
-        handleScroll();
-    })
-})
 
 const blockClasses = computed(() => {
     return [
         bemm(),
-        bemm('', onTop.value ? 'on-top' : 'off-top'),
-        bemm('', `scroll-${scrollDirection.value}`)
     ]
 })
 
@@ -98,10 +80,10 @@ const blockClasses = computed(() => {
         }
     }
 
-    &--scroll-down {
+    .scroll-down & {
         transform: translateY(-100%);
 
-        &#{$b}--on-top {
+        .on-top & {
             transform: translateY(0%);
         }
 
@@ -136,4 +118,5 @@ const blockClasses = computed(() => {
         height: 3.5em;
         width: 3.5em;
     }
-}</style>
+}
+</style>

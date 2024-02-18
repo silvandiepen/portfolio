@@ -46,8 +46,8 @@ export const useProjects = () => {
                 ...p,
                 commonTags: project.tags.filter((tag: string) => p.tags.includes(tag)).length
             }
-        }).filter((p: Project) => { 
-            return p.slug !== projectSlug 
+        }).filter((p: Project) => {
+            return p.slug !== projectSlug
         }).sort((a: ProjectWithCommon, b: ProjectWithCommon) => {
             return b.commonTags - a.commonTags;
         }).splice(0, 3);
@@ -64,27 +64,22 @@ export const useProjects = () => {
 
         let projects = projectState.projects;
 
+
         switch (projectState.filters.type) {
-            case ProjectType.PROJECT:
-                console.log('now its projects')
+            case 'projects':
                 projects = projects.filter((project: Project) => project.type === ProjectType.PROJECT);
                 break;
-            case ProjectType.PACKAGE:
-                console.log('now its packages')
+            case 'packages':
                 projects = projects.filter((project: Project) => project.type === ProjectType.PACKAGE);
                 break;
             default:
             case ProjectType.ALL:
-
-                console.log('now its all')
                 break;
         }
 
         if (projectState.filters.tag !== null) {
             const label = projectState.filters.tag.label;
             projects = projects.filter((project: Project) => project.tags.includes(label));
-
-
         }
 
         if (projectState.filters.search !== '') {
@@ -100,13 +95,13 @@ export const useProjects = () => {
 
     const init = () => {
         // if (projectState.projects.length === 0) {
-            projectState.projects = ProjectData.map((project: Project) => {
-                return {
-                    ...project,
-                    slug: project.title.toLowerCase().replace(/ /g, '-'),
-                    tags: project.tags.map((tag: string) => tag.toLowerCase())
-                }
-            });
+        projectState.projects = ProjectData.map((project: Project) => {
+            return {
+                ...project,
+                slug: project.title.toLowerCase().replace(/ /g, '-'),
+                tags: project.tags.map((tag: string) => tag.toLowerCase())
+            }
+        });
         // }
     }
     const tags = computed(() => {

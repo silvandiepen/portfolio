@@ -53,7 +53,22 @@ onMounted(() => {
   
 
 <style lang="scss">
+@keyframes load {
+    0% {
+        clip-path: inset(0 0 100% 0);
+    }
+
+    100% {
+        clip-path: inset(0 0 0% 0);
+    }
+
+
+}
+
 .home {
+
+    clip-path: inset(0 0 100% 0);
+    animation: load 2s .5s ease-in-out forwards; 
     &__intro {
         overflow: hidden;
         position: relative;
@@ -62,8 +77,8 @@ onMounted(() => {
         gap: var(--space);
         text-align: left;
 
-        background-color: var(--secondary);
-        color: var(--secondary-text);
+        background-color: var(--tertiary);
+        color: var(--tertiary-text);
 
         @media screen and (orientation:portrait) {
             aspect-ratio: 3/2;
@@ -83,7 +98,18 @@ onMounted(() => {
 
 
     &__tools {
-        transform: translateY(-50%);
+        z-index: 2;
+        position: fixed;
+        bottom: 0;
+        left: 50%;
+        transform: translate(-50%, -50%);
+
+        transition: transform .3s ease-in-out;
+
+        .scroll-down & {
+            transform: translate(-50%, 100%);
+            opacity: 0;
+        }
     }
 }
 
@@ -111,7 +137,7 @@ onMounted(() => {
     text-transform: uppercase;
     fill: var(--foreground);
     transform: translate(75%, -50%) rotate(var(--rotation));
-opacity: .125;
+    opacity: .125;
     transform-box: fill-box;
 
     svg {
@@ -120,7 +146,7 @@ opacity: .125;
         transform-origin: 50% 50%;
 
         circle {
-            fill:transparent;
+            fill: transparent;
             transform-origin: 50% 50%;
         }
     }
@@ -130,5 +156,4 @@ opacity: .125;
     height: var(--size);
 
 
-}
-</style>
+}</style>

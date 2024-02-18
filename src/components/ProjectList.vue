@@ -1,6 +1,7 @@
 
 <template>
     <div :class="bemm()">
+
         <ul :class="bemm('list')">
             <ProjectCard :class="bemm('item')" v-for="project in allProjects" :project="project">
 
@@ -10,8 +11,8 @@
 </template>
 
 <script lang="ts" setup>
-import { useBemm } from 'bemm';
-import { defineProps, computed, PropType } from 'vue';
+import { useBemm, } from 'bemm';
+import { defineProps, computed, PropType, watch } from 'vue';
 import { useProjects } from '@/composables/useProjects';
 import ProjectCard from './ProjectCard.vue';
 
@@ -35,6 +36,13 @@ const allProjects = computed(() => {
     }
 })
 
+// watch(() => projects.value,
+//     () => {
+//         console.log('changed');
+//         console.log(projects.value.length)
+//     }, {
+//     deep: true
+// })
 </script>
 
 <style lang="scss">

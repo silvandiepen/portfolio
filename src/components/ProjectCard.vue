@@ -7,21 +7,22 @@
                 <Icon :class="bemm('icon')" v-else v-for="icon in project.icon" :name="icon"></Icon>
             </template>
         </figure>
-        <h3 :class="bemm('title')">{{ project.title }}</h3>
+        <div :class="bemm('container')">
+            <h3 :class="bemm('title')">{{ project.title }}</h3>
 
-        <div :class="bemm('content')">
-            <p v-if="project.summary" :class="bemm('summary')">{{ project.summary }}</p>
+            <div :class="bemm('content')">
+                <p v-if="project.summary" :class="bemm('summary')">{{ project.summary }}</p>
 
 
 
-            <div :class="bemm('tag-container')">
-                <ul :class="bemm('tag-list')">
-                    <Tag is="li" :class="bemm('tag')" v-for="tag in project.tags" :key="tag" :tag="tag" />
-                </ul>
+                <div :class="bemm('tag-container')">
+                    <ul :class="bemm('tag-list')">
+                        <Tag is="li" :class="bemm('tag')" v-for="tag in project.tags" :key="tag" :tag="tag" />
+                    </ul>
+                </div>
+
             </div>
-
         </div>
-
 
 
     </div>
@@ -67,16 +68,20 @@ const colors = computed(() => {
 })
 
 const isInview = () => {
-
     if (!block.value) return;
+
+    const percentageInView = 50; // adjust this value to change the percentage in view
 
     const rect = block.value.getBoundingClientRect();
     const viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight);
-    inView.value = !(rect.bottom < 0 || rect.top - viewHeight >= 0);
 
+    const elementHeight = rect.bottom - rect.top;
+    const elementInViewHeight = Math.min(rect.bottom, viewHeight) - Math.max(rect.top, 0);
+
+    inView.value = (elementInViewHeight / elementHeight) * 100 >= percentageInView;
 };
 const blockClasses = computed(() => {
-    return [bemm(), inView.value && bemm('', 'in-view')];
+    return [bemm(), inView.value ? 'in-view' : 'out-view'];
 })
 
 </script>
@@ -103,11 +108,29 @@ const blockClasses = computed(() => {
 
     }
 
-    &--in-view {
+    &.in-view {
         opacity: 1;
         transform: scale(1);
-        #{$b}__icon{
+
+        #{$b}__icon {
             transform: scale(1);
+
+        }
+
+        &__container {
+            transform: translate(calc((var(--spacing) * -1) / 2), var(--spacing));
+        }
+    }
+
+    &__container {
+        padding: calc(var(--spacing) / 2);
+        background-color: var(--background);
+        transition: all .3s ease-in-out;
+        transform: translate(0, 0);
+        border-radius: var(--border-radius);
+width: calc(100% - calc(var(--spacing) / 2));
+        .in-view & {
+            transform: translate(var(--spacing), calc((var(--spacing) * -1)));
 
         }
     }
@@ -147,11 +170,6 @@ const blockClasses = computed(() => {
 
     }
 
-    &__content {
-        width: 100%;
-        font-weight: 100;        color: color-mix(in oklch, var(--card-bg) 100%, white 75%);
-
-    }
 
     &__tag-container {
         @media screen and (width <=800px) {
@@ -170,10 +188,13 @@ const blockClasses = computed(() => {
     }
 
     &__content {
+        color: color-mix(in oklab, var(--card-bg), white 75%);
+
         p {
             line-height: 1.75;
             // opacity: .5;
             // font-size: .875em;
+
         }
     }
 
