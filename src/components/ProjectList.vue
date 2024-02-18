@@ -12,7 +12,7 @@
 
 <script lang="ts" setup>
 import { useBemm, } from 'bemm';
-import { defineProps, computed, PropType, watch } from 'vue';
+import { defineProps, computed, PropType } from 'vue';
 import { useProjects } from '@/composables/useProjects';
 import ProjectCard from './ProjectCard.vue';
 
