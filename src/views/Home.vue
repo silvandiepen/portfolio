@@ -103,7 +103,7 @@ onMounted(() => {
     opacity: 1;
 
     position: fixed;
-    top: 50%;
+    top: 50lvh;
     right: 0;
     font-family: 'Inter', 'Roboto', sans-serif;
     font-size: 13.5px;
@@ -111,7 +111,7 @@ onMounted(() => {
     text-transform: uppercase;
     fill: var(--foreground);
     transform: translate(75%, -50%) rotate(var(--rotation));
-opacity: .25;
+opacity: .125;
     transform-box: fill-box;
 
     svg {
