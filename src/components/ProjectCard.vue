@@ -1,7 +1,7 @@
 <template>
-    <div :class="blockClasses" @click="goToProject()" ref="block"
+    <div :class="blockClasses" ref="block"
         :style="`--card-bg: ${colors.background}; --card-fg: ${colors.foreground}; --card-image: ${colors.image}`">
-        <figure :class="bemm('figure')">
+        <figure :class="bemm('figure')" @click="goToDetail()">
             <template v-if="project.icon">
                 <Icon :class="bemm('icon')" v-if="typeof project.icon == 'string'" :name="project.icon"></Icon>
                 <Icon :class="bemm('icon')" v-else v-for="icon in project.icon" :name="icon"></Icon>
@@ -22,6 +22,11 @@
                 </div>
 
             </div>
+            <ButtonGroup>
+                <Button @click="goToDetail()" :icon="Icons.ARROW_RIGHT">Read more</Button>
+                <Button @click="goToProject()" :icon="Icons.ARROW_UP_RIGHT">Visit</Button>
+
+            </ButtonGroup>
         </div>
 
 
@@ -32,15 +37,17 @@
 import { useBemm } from "bemm";
 import { PropType, computed, onMounted, ref } from "vue";
 
-
+import { Icons } from "open-icon";
 
 import Icon from "@/components/Icon.vue";
 import Tag from "@/components/Tag.vue";
+import Button from "@/components/Button.vue";
 
 
 import { Project } from "@/types";
 import router, { RouteName } from "@/router";
 import { getColor } from "@/utils/color";
+import ButtonGroup from "./ButtonGroup.vue";
 
 const bemm = useBemm('project-card');
 const props = defineProps({
@@ -52,8 +59,11 @@ const props = defineProps({
 
 const inView = ref(false);
 const block = ref();
-const goToProject = () => {
+const goToDetail = () => {
     router.push({ name: RouteName.PROJECT, params: { slug: props.project.slug } });
+}
+const goToProject = () => {
+    document.location.href = props.project.link;
 }
 
 onMounted(() => {
@@ -128,7 +138,8 @@ const blockClasses = computed(() => {
         transition: all .3s ease-in-out;
         transform: translate(0, 0);
         border-radius: var(--border-radius);
-width: calc(100% - calc(var(--spacing) / 2));
+        width: calc(100% - calc(var(--spacing) / 2));
+
         .in-view & {
             transform: translate(var(--spacing), calc((var(--spacing) * -1)));
 
@@ -203,6 +214,8 @@ width: calc(100% - calc(var(--spacing) / 2));
             opacity: 1;
         }
     }
+
+    --icon-border-color: var(--card-bg);
 
 
 

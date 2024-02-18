@@ -1,9 +1,12 @@
 <template>
     <button :class="blockClasses">
         <div :class="bemm('container')">
-            <span v-if="icon" :class="bemm('icon')">
-                <Icon :name="icon"></Icon>
+            <span v-if="icon" :class="bemm('icon-container')">
+                <span :class="bemm('icon')">
+                    <Icon :name="icon"></Icon>
+                </span>
             </span>
+
             <span v-if="hasSlot" :class="bemm('text')">
                 <slot></slot>
             </span>
@@ -32,8 +35,8 @@ const props = defineProps({
         default: 'medium'
     },
     type: {
-        type: String as PropType<'primary' | 'secondary' | 'ghost'>,
-        default: 'primary'
+        type: String as PropType<'primary' | 'secondary' | 'ghost' | 'default'>,
+        default: 'default'
     }
 })
 
@@ -65,6 +68,7 @@ const hasSlot = computed(() => {
 
 <style lang="scss">
 .button {
+    $b: &;
     // background-color: var(--secondary);
     color: var(--secondary-text);
     border-radius: var(--border-radius);
@@ -75,17 +79,17 @@ const hasSlot = computed(() => {
     border: none;
     background-color: var(--background);
     position: relative;
-
     color: var(--foreground);
 
 
 
-    &__container{
+    &__container {
         display: flex;
         gap: calc(var(--space) / 2);
+        align-items: center;
     }
 
-    &__text{
+    &__text {
         white-space: nowrap;
         line-height: 1.5;
     }
@@ -106,14 +110,28 @@ const hasSlot = computed(() => {
         background-color: var(--primary);
         color: var(--primary-text);
     }
+
     &--secondary {
         background-color: var(--secondary);
         color: var(--secondary-text);
     }
 
-    &--ghost{
+    &--ghost {
         color: currentColor;
         background-color: transparent;
+    }
+
+    &--default {
+        #{$b}__icon-container {
+            padding: .25em;
+            border: 1px solid var(--icon-border-color, currentColor);
+        }
+    }
+
+    &__icon-container {
+        display: block;
+        margin-right: .25em;
+        border-radius: 50%;
     }
 
     // &--icon-only {
@@ -142,7 +160,7 @@ const hasSlot = computed(() => {
         width: 1em;
         height: 1em;
         font-size: 1.5em;
-        margin-right: .5em;
+        display: block;
 
         svg {
             width: 1em;
