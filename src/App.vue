@@ -4,9 +4,9 @@
 
     <Navigation></Navigation>
     <RouterView v-slot="{ Component }">
-      <transition name="fade">
+      <!-- <transition> -->
         <component :is="Component"  :key="routeKey" />
-      </transition>
+      <!-- </transition> -->
     </RouterView>
   </div>
 </template>
@@ -63,3 +63,16 @@ const blockClasses  = computed(() => {
 })
 
 </script>
+
+<style lang="scss">
+
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+}
+</style>

@@ -72,7 +72,8 @@ const hasSlot = computed(() => {
     // background-color: var(--secondary);
     color: var(--secondary-text);
     border-radius: var(--border-radius);
-    padding: 1em 1.25em;
+    padding: calc(var(--space) / 2);
+    padding-right: var(--space);
     border: none;
 
     border-radius: 2em;
@@ -80,6 +81,7 @@ const hasSlot = computed(() => {
     background-color: var(--background);
     position: relative;
     color: var(--foreground);
+
 
 
 

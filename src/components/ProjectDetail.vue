@@ -15,12 +15,12 @@
                 <div :class="bemm('content')">
                     <p v-if="project.summary" :class="bemm('description')">{{ project.description }}</p>
 
-                    <ButtonGroup direction="horizontal" mobile-direction="vertical">
+                    <ButtonGroup direction="vertical" >
 
-                        <Button v-if="project.link" :href="project.link" :icon="Icons.ARROW_RIGHT">Check {{ project.title
-                        }}</Button>
-                        <Button v-if="project.npm" :href="`https://npmjs.org/package/${project.npm}`"
-                            type="secondary">npm</Button>
+                        <Button v-if="project.link" @click="goToProject()" :icon="Icons.ARROW_UP_RIGHT">Visit {{
+                            project.type == 'project' ? 'Project' : 'Docs' }}</Button>
+
+                        <Button v-if="project.npm" :icon="Icons.ARROW_UP_RIGHT" :href="`https://npmjs.org/package/${project.npm}`">npm</Button>
 
                         <div :class="bemm('npm')" v-if="project.npm">
                             <code>npm install {{ project.npm }}</code>
@@ -56,7 +56,10 @@ const props = defineProps({
 })
 
 
+const goToProject = () => {
+    if (props.project.link) window.location.href = props.project.link;
 
+}
 
 const colors = computed(() => {
 
@@ -80,7 +83,7 @@ const colors = computed(() => {
         display: flex;
         gap: var(--space);
 
-        @media screen and (width <= 769px) {
+        @media screen and (width <=769px) {
             flex-direction: column;
         }
     }
@@ -106,10 +109,13 @@ const colors = computed(() => {
     }
 
     &__npm {
+        display: block;
         code {
             padding: var(--space);
             border-radius: var(--space);
-            background-color: color-mix(in oklab, var(--background) 100%, black 25%);
+            background-color: var(--background);
+            color: var(--foreground);
+            display: block;
         }
 
         font-size: 1.2em;
@@ -141,7 +147,8 @@ const colors = computed(() => {
         align-items: center;
         justify-content: center;
         display: flex;
-        @media screen and (width <= 769px) {
+
+        @media screen and (width <=769px) {
             width: 100%;
             aspect-ratio: 16/9;
         }
@@ -150,7 +157,7 @@ const colors = computed(() => {
     &__icon {
         width: 1em;
         height: 1em;
-font-size: 4em;
+        font-size: 4em;
         transform: scale(.5);
         transition: all .3s 1s cubic-bezier(.25, .1, .25, 1);
 
@@ -159,6 +166,9 @@ font-size: 4em;
                 transition-delay: #{$i * .2}s;
             }
         }
+    }
+    .button{
+        --icon-border-container: var(--detail-bg);
     }
 
 }</style>

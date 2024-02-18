@@ -83,11 +83,11 @@ const blockClasses = computed(() => {
     .scroll-down & {
         transform: translateY(-100%);
 
-        .on-top & {
+       
+
+    } .on-top & {
             transform: translateY(0%);
         }
-
-    }
 
     &--scroll-up {}
 

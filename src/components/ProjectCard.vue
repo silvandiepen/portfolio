@@ -24,7 +24,7 @@
             </div>
             <ButtonGroup>
                 <Button @click="goToDetail()" :icon="Icons.ARROW_RIGHT">Read more</Button>
-                <Button @click="goToProject()" :icon="Icons.ARROW_UP_RIGHT">Visit</Button>
+                <Button @click="goToProject()" :icon="Icons.ARROW_UP_RIGHT">Visit {{ project.type == 'project' ? 'Project' : 'Docs' }}</Button>
 
             </ButtonGroup>
         </div>
