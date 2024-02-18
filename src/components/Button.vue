@@ -82,11 +82,12 @@ const hasSlot = computed(() => {
 
     &__container{
         display: flex;
-        gap: var(--space);
+        gap: calc(var(--space) / 2);
     }
 
     &__text{
         white-space: nowrap;
+        line-height: 1.5;
     }
 
     &--small {
@@ -99,6 +100,20 @@ const hasSlot = computed(() => {
 
     &--large {
         font-size: 1.25em;
+    }
+
+    &--primary {
+        background-color: var(--primary);
+        color: var(--primary-text);
+    }
+    &--secondary {
+        background-color: var(--secondary);
+        color: var(--secondary-text);
+    }
+
+    &--ghost{
+        color: currentColor;
+        background-color: transparent;
     }
 
     // &--icon-only {
@@ -123,25 +138,23 @@ const hasSlot = computed(() => {
     //     // padding-left: .25em;
     // }
 
-    // &__icon {
-    //     width: 1em;
-    //     height: 1em;
-    //     font-size: 1.5em;
-    //     margin-right: .5em;
+    &__icon {
+        width: 1em;
+        height: 1em;
+        font-size: 1.5em;
+        margin-right: .5em;
 
+        svg {
+            width: 1em;
+            height: 1em;
 
+            // filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, .5));
 
-    //     svg {
-    //         width: 1em;
-    //         height: 1em;
+            path {
+                fill: currentColor;
+            }
+        }
 
-    //         filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, .5));
-
-    //         path {
-    //             fill: currentColor;
-    //         }
-    //     }
-
-    // }
+    }
 }
 </style>

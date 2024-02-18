@@ -29,7 +29,7 @@ export const project: Project[] = [
         tags: ['web-development', 'css', 'design', 'styling', 'web-design', 'frontend', 'developer-tools', 'ui'],
         type: ProjectType.PROJECT,
         link: "https://gradient.sil.mt/",
-        color: ["#ff0000", "#00ff00", "#0000ff"],
+        color: ["#f25d5d", "#ffe058","#00ffaa"],
 
 
     },

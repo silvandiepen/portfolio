@@ -129,7 +129,7 @@ const colors = computed(() => {
 
 
     &__figure {
-        width: 100%;
+        width: 250px;
         aspect-ratio: 1/1;
         // background-color: var(--card-bg);
         // color: var(--card-fg);
@@ -141,12 +141,16 @@ const colors = computed(() => {
         align-items: center;
         justify-content: center;
         display: flex;
+        @media screen and (width <= 769px) {
+            width: 100%;
+            aspect-ratio: 16/9;
+        }
     }
 
     &__icon {
         width: 1em;
         height: 1em;
-        font-size: 10em;
+font-size: 4em;
         transform: scale(.5);
         transition: all .3s 1s cubic-bezier(.25, .1, .25, 1);
 

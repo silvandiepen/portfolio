@@ -38,10 +38,15 @@ $colors: (
     --border-radius: 1.5em;
     --spacing: clamp(2em, 8vw, 6em);
 }
+.gradient{
+    --color1: #f25d5d;
+    --color2: #ffe058;
+    --color3: #00ffaa;
+}
 
 body,
 html {
-    font-family: 'Roboto', sans-serif;
+    font-family:Inter,'Roboto', sans-serif;
     font-size: 16px;
     line-height: 1.6;
     color: var(--foreground);
