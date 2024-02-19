@@ -1,11 +1,11 @@
 
 <template>
-  <div :class="blockClasses">
+  <div :class="blockClasses" :style="`--current-color: ${currentColor}`">
 
     <Navigation></Navigation>
     <RouterView v-slot="{ Component }">
       <!-- <transition> -->
-        <component :is="Component"  :key="routeKey" />
+      <component :is="Component" :key="routeKey" />
       <!-- </transition> -->
     </RouterView>
   </div>
@@ -19,7 +19,7 @@ import { useUI } from "@/composables/useUI";
 
 const bemm = useBemm('app');
 
-const { initCheckMobile } = useUI();
+const { initCheckMobile, currentColor } = useUI();
 onMounted(() => {
   initCheckMobile();
 })
@@ -40,32 +40,31 @@ const onTop = ref(true);
 const scrollDirection = ref<'up' | 'down'>('down');
 const previousScroll = ref(0);
 const handleScroll = () => {
-    const currentScroll = window.scrollY;
-    onTop.value = currentScroll <= 0;
-    scrollDirection.value = currentScroll > previousScroll.value ? 'down' : 'up';
-    previousScroll.value = currentScroll;
+  const currentScroll = window.scrollY;
+  onTop.value = currentScroll <= 0;
+  scrollDirection.value = currentScroll > previousScroll.value ? 'down' : 'up';
+  previousScroll.value = currentScroll;
 }
 
 
 onMounted(() => {
 
-    window.addEventListener('scroll', function () {
-        handleScroll();
-    })
+  window.addEventListener('scroll', function () {
+    handleScroll();
+  })
 })
 
-const blockClasses  = computed(() => {
-    return [
-        bemm(),
-        onTop.value ? 'on-top' : 'off-top',
-        `scroll-${scrollDirection.value}`
-    ]
+const blockClasses = computed(() => {
+  return [
+    bemm(),
+    onTop.value ? 'on-top' : 'off-top',
+    `scroll-${scrollDirection.value}`
+  ]
 })
 
 </script>
 
 <style lang="scss">
-
 .v-enter-active,
 .v-leave-active {
   transition: opacity 0.5s ease;

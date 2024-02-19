@@ -37,10 +37,10 @@ const relatedProjects = computed(() => {
 
 <style lang="scss">
 .project {
+    background-color: color-mix(in oklab, var(--background) 100%, black 25%);
+
     &__detail {}
 
-    &__list {
-        background-color: color-mix(in oklab, var(--background) 100%, black 25%);
-    }
+    &__list {}
 }
 </style>

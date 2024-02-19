@@ -24,7 +24,8 @@
             </div>
             <ButtonGroup>
                 <Button @click="goToDetail()" :icon="Icons.ARROW_RIGHT">Read more</Button>
-                <Button @click="goToProject()" :icon="Icons.ARROW_UP_RIGHT">Visit {{ project.type == 'project' ? 'Project' : 'Docs' }}</Button>
+                <Button @click="goToProject()" :icon="Icons.ARROW_UP_RIGHT">Visit {{ project.type == 'project' ? 'Project' :
+                    'Docs' }}</Button>
 
             </ButtonGroup>
         </div>
@@ -35,7 +36,7 @@
 
 <script lang="ts" setup>
 import { useBemm } from "bemm";
-import { PropType, computed, onMounted, ref } from "vue";
+import { PropType, computed, onMounted, ref, watch } from "vue";
 
 import { Icons } from "open-icon";
 
@@ -48,6 +49,10 @@ import { Project } from "@/types";
 import router, { RouteName } from "@/router";
 import { getColor } from "@/utils/color";
 import ButtonGroup from "./ButtonGroup.vue";
+
+import { useUI } from "@/composables/useUI";
+
+const { currentColor } = useUI();
 
 const bemm = useBemm('project-card');
 const props = defineProps({
@@ -93,6 +98,13 @@ const isInview = () => {
 const blockClasses = computed(() => {
     return [bemm(), inView.value ? 'in-view' : 'out-view'];
 })
+
+watch(() => inView.value, () => {
+    if (inView.value) {
+        if (props.project.color)
+            currentColor.value = typeof props.project.color == 'string' ? props.project.color : props.project.color[0];
+    }
+}, { deep: true })
 
 </script>
 

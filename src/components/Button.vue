@@ -126,7 +126,10 @@ const hasSlot = computed(() => {
     &--default {
         #{$b}__icon-container {
             padding: .25em;
-            border: 1px solid var(--icon-border-color, currentColor);
+            border: 2px solid var(--icon-border-color, currentColor);
+        }
+        &:hover{
+            box-shadow: 0 0 0 2px white;
         }
     }
 

@@ -135,7 +135,7 @@ onMounted(() => {
     font-size: 13.5px;
     font-weight: 800;
     text-transform: uppercase;
-    fill: var(--foreground);
+    fill: var(--current-color, var(--foreground));
     transform: translate(75%, -50%) rotate(var(--rotation));
     opacity: .125;
     transform-box: fill-box;
