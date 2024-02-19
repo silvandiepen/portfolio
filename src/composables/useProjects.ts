@@ -3,6 +3,7 @@ import { reactive, computed } from "vue"
 
 import { project as ProjectData } from "@/data/projects"
 import { Project, ProjectType, Tag } from "@/types";
+import { getRandomColor } from "@/utils";
 
 
 interface ProjectState {
@@ -80,6 +81,7 @@ export const useProjects = () => {
         if (projectState.filters.tag !== null) {
             const label = projectState.filters.tag.label;
             projects = projects.filter((project: Project) => project.tags.includes(label));
+
         }
 
         if (projectState.filters.search !== '') {
@@ -99,7 +101,9 @@ export const useProjects = () => {
             return {
                 ...project,
                 slug: project.title.toLowerCase().replace(/ /g, '-'),
-                tags: project.tags.map((tag: string) => tag.toLowerCase())
+                tags: project.tags.map((tag: string) => tag.toLowerCase()),
+                color: project.color || getRandomColor()
+                
             }
         });
         // }

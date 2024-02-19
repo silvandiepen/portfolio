@@ -1,6 +1,6 @@
 import { getBrightness, toHex } from "@sil/color";
 
-const getRandomColor = () => {
+export const getRandomColor = () => {
     const { r, g, b } = {
         r: Math.floor(Math.random() * 255),
         g: Math.floor(Math.random() * 255),
