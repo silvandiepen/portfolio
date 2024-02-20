@@ -1,0 +1,10 @@
+
+@mixin inputTextarea($block: '') {
+    &__control {
+        font-size: 1em;
+        font-family: inherit;
+
+        padding: .75em 1em;
+        min-height: 5em;
+    }
+}

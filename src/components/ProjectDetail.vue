@@ -1,6 +1,6 @@
 <template>
     <div :class="bemm()"
-        :style="`--detail-bg: ${colors.background}; --detail-fg: ${colors.foreground}; --detail-image: ${colors.image}`">
+        :style="`--detail-bg: ${colors.background}; --detail-fg: ${colors.foreground}; --detail-image: ${colors.image}; --scrolled: ${scrolled}px`">
         <div :class="bemm('container')">
             <div :class="bemm('column')">
                 <figure :class="bemm('figure')">
@@ -13,7 +13,8 @@
             <div :class="bemm('column')">
                 <h1 :class="bemm('title')">{{ project.title }}</h1>
                 <div :class="bemm('content')">
-                    <p v-if="project.summary" :class="bemm('description')">{{ project.description }}</p>
+                    <p v-if="project.summary" :class="bemm('description')">{{ project.summary }}</p>
+                    <p v-if="project.description" :class="bemm('description')">{{ project.description }}</p>
 
                     <ButtonGroup direction="vertical">
 
@@ -36,8 +37,9 @@
 </template>
 
 <script lang="ts" setup>
+
 import { useBemm } from "bemm";
-import { PropType, computed } from "vue";
+import { PropType, computed, onMounted, ref } from "vue";
 
 import ButtonGroup from "@/components/ButtonGroup.vue";
 import Button from "@/components/Button.vue";
@@ -46,6 +48,15 @@ import Icon from "@/components/Icon.vue";
 import { Icons, Project } from "@/types";
 import { getColor } from "@/utils/color";
 
+
+const scrolled = ref(0);
+
+onMounted(() => {
+    window.addEventListener('scroll', () => {
+        scrolled.value = window.scrollY;
+    })
+
+})
 
 
 const bemm = useBemm('project-detail');
@@ -68,18 +79,57 @@ const colors = computed(() => {
 
 })
 
+
+// Whenever the project.type is package, I want to do a call to npms.io to get all the details from the package using project.npm 
+const getPackageInfo = async () => {
+
+    const url = 'https://api.npms.io/v2/search?q=';
+
+    const result = await fetch(`${url}${props.project.npm}`);
+    console.log(result);
+    return result;
+
+}
+onMounted(() => {
+    if (props.project.npm) {
+        getPackageInfo();
+
+    }
+})
+
 </script>
 
 <style lang="scss">
 .project-detail {
 
-    background-color: var(--detail-bg);
     color: var(--detail-fg);
+    position: relative;
 
 
-    clip-path: polygon(100% 0, 0 0, 0.00% 95.00%, 2.00% 94.94%, 4.00% 94.77%, 6.00% 94.48%, 8.00% 94.10%, 10.00% 93.63%, 12.00% 93.09%, 14.00% 92.50%, 16.00% 91.88%, 18.00% 91.25%, 20.00% 90.64%, 22.00% 90.06%, 24.00% 89.54%, 26.00% 89.10%, 28.00% 88.75%, 30.00% 88.50%, 32.00% 88.36%, 34.00% 88.34%, 36.00% 88.44%, 38.00% 88.65%, 40.00% 88.97%, 42.00% 89.38%, 44.00% 89.88%, 46.00% 90.44%, 48.00% 91.04%, 50.00% 91.67%, 52.00% 92.29%, 54.00% 92.89%, 56.00% 93.45%, 58.00% 93.95%, 60.00% 94.36%, 62.00% 94.68%, 64.00% 94.90%, 66.00% 94.99%, 68.00% 94.97%, 70.00% 94.84%, 72.00% 94.59%, 74.00% 94.24%, 76.00% 93.79%, 78.00% 93.27%, 80.00% 92.70%, 82.00% 92.08%, 84.00% 91.46%, 86.00% 90.84%, 88.00% 90.25%, 90.00% 89.71%, 92.00% 89.24%, 94.00% 88.85%, 96.00% 88.57%, 98.00% 88.39%, 100.00% 88.33%);
+    &::before {
+        content: "";
+        background-color: var(--detail-bg);
+        clip-path: polygon(100% 0, 0 0, 0.00% 95.00%, 2.00% 94.94%, 4.00% 94.77%, 6.00% 94.48%, 8.00% 94.10%, 10.00% 93.63%, 12.00% 93.09%, 14.00% 92.50%, 16.00% 91.88%, 18.00% 91.25%, 20.00% 90.64%, 22.00% 90.06%, 24.00% 89.54%, 26.00% 89.10%, 28.00% 88.75%, 30.00% 88.50%, 32.00% 88.36%, 34.00% 88.34%, 36.00% 88.44%, 38.00% 88.65%, 40.00% 88.97%, 42.00% 89.38%, 44.00% 89.88%, 46.00% 90.44%, 48.00% 91.04%, 50.00% 91.67%, 52.00% 92.29%, 54.00% 92.89%, 56.00% 93.45%, 58.00% 93.95%, 60.00% 94.36%, 62.00% 94.68%, 64.00% 94.90%, 66.00% 94.99%, 68.00% 94.97%, 70.00% 94.84%, 72.00% 94.59%, 74.00% 94.24%, 76.00% 93.79%, 78.00% 93.27%, 80.00% 92.70%, 82.00% 92.08%, 84.00% 91.46%, 86.00% 90.84%, 88.00% 90.25%, 90.00% 89.71%, 92.00% 89.24%, 94.00% 88.85%, 96.00% 88.57%, 98.00% 88.39%, 100.00% 88.33%);
+
+        height: 100%;
+        width: 150%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1;
+
+        --divide: 2;
+
+        @media screen and (width <=800px) {
+            --divide: 4;
+        }
+
+        transform: translateY(calc(var(--scrolled) / 10)) translateX(calc((var(--scrolled) / var(--divide)) * -1));
+    }
 
     &__container {
+        z-index: 2;
+        position: relative;
         padding: calc(var(--spacing) * 2) var(--spacing);
         width: 960px;
         max-width: 100%;
@@ -154,6 +204,7 @@ const colors = computed(() => {
         font-size: 4em;
         transform: scale(.75);
         transition: all .3s 1s cubic-bezier(.25, .1, .25, 1);
+
         @for $i from 1 through 4 {
             &:nth-child(#{$i}) {
                 transition-delay: #{$i * .2}s;
@@ -165,4 +216,5 @@ const colors = computed(() => {
         --icon-border-color: var(--detail-bg);
     }
 
-}</style>
+}
+</style>

@@ -1,0 +1,67 @@
+
+@mixin inputColor($block: '') {
+
+    &__control-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &__control {
+        &--color {
+            padding: 0;
+            aspect-ratio: 1/1;
+            width: 2em;
+            height: 2em;
+            border-radius: 50%;
+
+
+            appearance: none;
+            -moz-appearance: none;
+            -webkit-appearance: none;
+
+            &::-webkit-color-swatch-wrapper {
+                padding: 0;
+            }
+
+            &::-webkit-color-swatch {
+                border: 0;
+                border-radius: 50%;
+            }
+
+            &::-moz-color-swatch,
+            &::-moz-focus-inner {
+                border: 0;
+            }
+
+            &::-moz-focus-inner {
+                padding: 0;
+            }
+        }
+    }
+
+    &__option {
+        &-container {
+            padding: 1em;
+        }
+
+        &-list {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: calc(var(--space) / 2)
+        }
+
+        &-item {}
+    }
+
+
+    &__color {
+        width: 1.5em;
+        height: 1.5em;
+        aspect-ratio: 1/1;
+        border-radius: 50%;
+        background-color: var(--color);
+    }
+}

@@ -1,0 +1,65 @@
+@mixin inputBase($block: '') {
+    color: currentColor;
+
+    &__control {
+
+        padding: .75em 1em;
+        background-color: transparent;
+        border: none;
+        font-size: 1em;
+        line-height: 1;
+        width: 100%;
+        color: currentColor;
+        position: relative;
+        z-index: 2;
+
+        &:focus {
+            outline: none;
+        }
+
+        &::placeholder {
+            opacity: .5;
+        }
+    }
+
+    &__control-container {
+
+        font-size: var(--input-control-font-size, 1em);
+
+        position: relative;
+        // width: fit-content;
+        width: 100%;
+
+        &::before {
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 1;
+            outline: 2px solid rgba(var(--foreground-rgb), .25);
+            border-radius: var(--input-border-radius, var(--border-radius));
+
+            content: "";
+            width: 100%;
+            height: 100%;
+        }
+
+        &:has(:focus) {
+            &::before {
+                opacity: 1;
+                border: 2px solid rgba(var(--primary-rgb), .5);
+            }
+        }
+
+    }
+
+    &__label {
+        font-size: .875em;
+        // padding: .75em 0;
+        display: block;
+        font-weight: 500;
+
+        &+[class*="control-container"] {
+            margin-top: .5em;
+        }
+    }
+}

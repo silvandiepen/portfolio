@@ -64,4 +64,4 @@ const handleClick = (value: string) => {
 </script>
 
 
-<style lang="scss" src="./Form.scss"></style>
+<style lang="scss" src="./style/Form.scss"></style>

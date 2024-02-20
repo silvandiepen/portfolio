@@ -24,8 +24,8 @@
             </div>
             <ButtonGroup>
                 <Button @click="goToDetail()" :icon="Icons.ARROW_RIGHT">Read more</Button>
-                <Button @click="goToProject()" :icon="Icons.ARROW_UP_RIGHT">Visit {{ project.type == 'project' ? 'Project' :
-                    'Docs' }}</Button>
+                <Button @click="goToProject()" :icon="Icons.ARROW_UP_RIGHT">Visit <span class="hide-mobile">{{ project.type == 'project' ? 'Project' :
+                    'Docs' }}</span></Button>
 
             </ButtonGroup>
         </div>
@@ -109,6 +109,11 @@ watch(() => inView.value, () => {
 </script>
 
 <style lang="scss">
+.hide-mobile{
+    @media screen and (width <= 800px){
+        display: none;
+    }
+}
 .project-card {
     $b: &;
     width: 100%;
@@ -152,9 +157,16 @@ watch(() => inView.value, () => {
         border-radius: var(--border-radius);
         width: calc(100% - calc(var(--spacing) / 2));
 
+
+
         .in-view & {
             transform: translate(var(--spacing), calc((var(--spacing) * -1)));
 
+            @media screen and (width <=800px) {
+                transform: translate(calc(var(--spacing) / 2), calc(((var(--spacing) / 2) * -1)));
+
+
+            }
         }
     }
 

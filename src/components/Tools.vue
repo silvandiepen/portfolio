@@ -1,9 +1,7 @@
 <template>
-    <div :class="bemm()">
-        <InputSearch placeholder="Search"  v-model="filter.search" :collapse="true" />
-        <!-- <Tags></Tags> -->
-        <InputSwitch :options="projectTypes" v-model="filter.type"></InputSwitch>
-
+    <div :class="bemm()" @click="handleClick">
+        <InputSearch :class="bemm('search')" placeholder="Search" v-model="filter.search" :collapse="true" />
+        <InputSwitch :class="bemm('category')" :options="projectTypes" v-model="filter.type"></InputSwitch>
     </div>
 </template>
 
@@ -32,21 +30,42 @@ const projectTypes = [{
     value: "packages"
 }]
 
+const handleClick = (e: Event) => {
+    e.stopPropagation();
+}
 </script>
 
 <style lang="scss">
 .tools {
-    background: var(--background);   
-    // background-color: color-mix(in oklch, var(--background) 100%, black 25%);
+    $b: &;
+    background: var(--background);
     padding: var(--space);
-    display: flex; gap: var(--space);
-    align-items: center; justify-content: center;
-    // flex-direction: column;
+    display: flex;
+    gap: var(--space);
+    align-items: center;
+    justify-content: center;
 
     margin: auto;
-width: fit-content;
-border-radius: 6em;
+    width: fit-content;
+    border-radius: 6em;
+    pointer-events: all;
 
---input-border-radius: 5em;
+    --input-border-radius: 5em;
+
+    &__search {
+        &+#{$b}__category {
+            transform: scale(1);
+            transition: all .3s;
+            max-width: 500px;
+        }
+
+        &:has([class*="full"]) {
+            &+#{$b}__category {
+                transform: scale(0);
+                max-width: 0px;
+
+            }
+        }
+    }
 }
 </style>

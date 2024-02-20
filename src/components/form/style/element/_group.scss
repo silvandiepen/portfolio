@@ -1,0 +1,27 @@
+
+@mixin formGroup($block: '') {
+
+    @include inputBase();
+
+    &__container {
+
+        display: flex;
+        gap: var(--space);
+        justify-content: space-between;
+
+        >div {
+            width: 100%;
+        }
+
+        @media screen and (width <=768px) {
+            flex-wrap: wrap;
+        }
+
+    }
+
+    div [class*="__label"] {
+        padding: 0;
+        opacity: .5;
+    }
+
+}

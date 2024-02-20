@@ -1,0 +1,27 @@
+
+@mixin inputSearch($block: '') {
+
+    &__icon {
+        position: absolute;
+        right: 1em;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    &__control-container {
+        transition: width .3s ease;
+
+        &--collapsed {
+            aspect-ratio: 1/1;
+            height: 3em;
+            width: 3em;
+
+            #{$block}__control {
+                opacity: 0;
+            }
+        }
+        &--full{
+            width: 200px;
+        }
+    }
+}

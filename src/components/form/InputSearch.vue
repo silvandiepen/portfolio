@@ -3,7 +3,7 @@
         <label :class="bemm('label')" v-if="label">
             {{ label }}
         </label>
-        <div :class="[bemm('control-container'), collapsed && bemm('control-container', 'collapsed')]">
+        <div :class="[bemm('control-container'), collapse && bemm('control-container', collapsed ? 'collapsed' : 'full')]">
             <Icon :class="bemm('icon')" :name="Icons.SEARCH"></Icon>
             <input :class="bemm('control')" :placeholder="placeholder" type="text" v-model="value" @blur="doCollapse()" />
         </div>
@@ -46,4 +46,4 @@ const doCollapse = () => {
 </script>
 
 
-<style lang="scss" src="./Form.scss"></style>
+<style lang="scss" src="./style/Form.scss"></style>

@@ -1,0 +1,25 @@
+
+@mixin formField($block: '') {
+
+    @include inputBase();
+
+    padding: var(--space);
+    border-radius: var(--border-radius);
+    background-color: color-mix(in oklab, var(--background) 100%, black 50%);
+
+
+    &__container {
+
+        display: flex;
+        gap: var(--space);
+
+        flex-direction: column;
+
+    }
+
+    div [class*="__label"] {
+        padding: 0;
+        opacity: .5;
+    }
+
+}
