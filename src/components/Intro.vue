@@ -14,11 +14,11 @@
                 </text>
             </svg>
         </div>
-        <div :class="bemm('hire-me')">
+        <!-- <div :class="bemm('hire-me')">
             MAIL<BR /> ME
-        </div>
+        </div> -->
         <div :class="bemm('container')">
-            <h1>Hi, I'm <span>Sil van<br/> Diepen</span></h1>
+            <h1>Hi, I'm <span>Sil van<br /> Diepen</span></h1>
             <h4>I’m a Dad, Husband, Illustrator, Developer, Designer, Photographer and love to create good looking and
                 working things.
             </h4>
@@ -68,15 +68,9 @@ onMounted(() => {
     background-color: var(--background);
     color: var(--background);
     justify-content: flex-end;
-    min-height: 75vh;
 
 
-
-    @media screen and (width >= 800px) {
-
-        min-height: 75vh;
-
-    }
+    min-height: 100vh;
 
     // @media screen and (orientation:portrait) {
     //     aspect-ratio: 3/2;
@@ -105,6 +99,18 @@ onMounted(() => {
             --divide: 4;
         }
 
+        animation: comeDown 1s ease-in-out forwards;
+
+        @keyframes comeDown {
+            0% {
+                transform: translateY(-100%);
+            }
+
+            100% {
+                transform: translateY(0);
+            }
+        }
+
         transform: translateY(calc(var(--scrolled) / 5 * -1)) translateX(calc((var(--scrolled) / var(--divide)) * -1));
     }
 
@@ -113,7 +119,7 @@ onMounted(() => {
         position: relative;
         z-index: 2;
         padding: var(--spacing);
-        padding-bottom: calc(var(--spacing) * 2);
+        padding-bottom: calc(var(--spacing) * 3);
     }
 
     h1 {
@@ -130,8 +136,21 @@ onMounted(() => {
         // -webkit-background-clip: text;
         // -webkit-text-fill-color: transparent;
 
+        clip-path: inset(0 0 100% 0);
+        animation: loadTitle .5s 1s ease-in-out forwards;
+
+        @keyframes loadTitle {
+            0% {
+                clip-path: inset(0 0 100% 0);
+            }
+
+            100% {
+                clip-path: inset(0 0 0 0);
+            }
+        }
+
         span {
-        text-transform: uppercase;
+            text-transform: uppercase;
             display: block;
             font-weight: 900;
             // color: var(--primary);
@@ -146,6 +165,20 @@ onMounted(() => {
         line-height: 1.25;
         margin-top: 1.5em;
         max-width: 75%;
+        clip-path: inset(100% 0 0 0);
+        animation: loadSubTitle .3s 1.5s ease-in-out forwards;
+
+        @keyframes loadSubTitle {
+            0% {
+                transform: translateX(1em);
+                clip-path: inset(0 100% 0 0);
+            }
+
+            100% {
+                transform: translateX(0em);
+                clip-path: inset(0 0 0 0);
+            }
+        }
 
         @media screen and (width <=800px) {
             max-width: 100%;
@@ -173,4 +206,5 @@ onMounted(() => {
         color: var(--primary-text);
         text-shadow: 4px 4px 0px rgba(var(--background-rgb), .25);
     }
-}</style>
+}
+</style>
