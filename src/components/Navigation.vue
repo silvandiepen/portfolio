@@ -1,5 +1,5 @@
 <template>
-    <nav :class="blockClasses">
+    <nav :class="blockClasses" ref="nav" :style="`--text-color: ${foregroundColor}`">
         <div :class="bemm('container')">
             <div :class="bemm('start')">
                 <Button v-if="!isHome" type="ghost" :icon="Icons.ARROW_LEFT" @click="goHome()">Back</Button>
@@ -16,7 +16,7 @@
     </nav>
 </template>
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { useBemm } from "bemm";
 import { Icons } from "open-icon";
 import { useRouter } from 'vue-router';
@@ -25,9 +25,12 @@ import Logo from '@/components/Logo.vue';
 import Button from "@/components/Button.vue";
 
 import { RouteName } from '@/router';
+import { textColor } from "@sil/color";
 
 const router = useRouter();
 const bemm = useBemm('nav');
+
+const nav = ref();
 
 const goHome = () => {
     router.push({ name: RouteName.HOME });
@@ -43,6 +46,33 @@ const blockClasses = computed(() => {
     ]
 })
 
+const foregroundColor = ref('black');
+
+const initObserver = () => {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const color = entry.target.getAttribute('data-color');
+               
+                console.log(color);
+               
+                if (color?.includes('--')) foregroundColor.value = `var(${color}-text)`;
+                else if (color) foregroundColor.value = textColor(color) as string;
+            }
+        });
+    }, { rootMargin: '0px 0px 0px 0px' });
+
+    document.querySelectorAll('[data-color]').forEach(el => observer.observe(el));
+
+}
+onMounted(() => {
+    setTimeout(() => {
+        initObserver();
+    }, 500);
+})
+
+
+
 
 </script>
 
@@ -56,7 +86,7 @@ const blockClasses = computed(() => {
     padding: calc(var(--spacing) / 2) calc(var(--spacing) - (var(--space) * 2));
 
     z-index: 10;
-
+    color: var(--text-color);
 
     &__container {
 
@@ -83,11 +113,13 @@ const blockClasses = computed(() => {
     .scroll-down & {
         transform: translateY(-100%);
 
-       
 
-    } .on-top & {
-            transform: translateY(0%);
-        }
+
+    }
+
+    .on-top & {
+        transform: translateY(0%);
+    }
 
     &--scroll-up {}
 

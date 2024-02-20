@@ -124,12 +124,23 @@ const hasSlot = computed(() => {
     }
 
     &--default {
+        box-shadow: 0 0 0 0px var(--icon-border-color, currentColor) inset;
+
+        transition: box-shadow .2s ease-in-out;
+
         #{$b}__icon-container {
             padding: .25em;
-            border: 2px solid var(--icon-border-color, currentColor);
+            box-shadow: 0 0 0 2px var(--icon-border-color, currentColor) inset;
+            transition: box-shadow .2s ease-in-out;
         }
-        &:hover{
-            box-shadow: 0 0 0 2px white;
+
+        &:hover {
+            box-shadow: 0 0 0 2px var(--icon-border-color, currentColor) inset;
+
+            #{$b}__icon-container {
+
+                box-shadow: 0 0 0 2em var(--icon-border-color, currentColor) inset;
+            }
         }
     }
 
@@ -179,5 +190,4 @@ const hasSlot = computed(() => {
         }
 
     }
-}
-</style>
+}</style>

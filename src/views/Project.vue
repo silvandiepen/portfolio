@@ -2,7 +2,7 @@
 <template>
     <div :class="bemm()">
         <Detail :class="bemm('detail')" v-if="project" :project="project" />
-        <List :class="bemm('list')" :projects="relatedProjects" />
+        <List :class="bemm('list')" :projects="relatedProjects" data-color="--background" />
     </div>
 </template>
 

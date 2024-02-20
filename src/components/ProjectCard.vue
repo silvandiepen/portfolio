@@ -1,6 +1,6 @@
 <template>
     <div :class="blockClasses" ref="block"
-        :style="`--card-bg: ${colors.background}; --card-fg: ${colors.foreground}; --card-image: ${colors.image}`">
+        :style="`--block-bg: ${colors.background}; --block-fg: ${colors.foreground}; --block-image: ${colors.image}`">
         <figure :class="bemm('figure')" @click="goToDetail()">
             <template v-if="project.icon">
                 <Icon :class="bemm('icon')" v-if="typeof project.icon == 'string'" :name="project.icon"></Icon>
@@ -173,10 +173,10 @@ watch(() => inView.value, () => {
     &__figure {
         width: 100%;
         aspect-ratio: 16/9;
-        background-color: var(--card-bg);
-        color: var(--card-fg);
+        background-color: var(--block-bg);
+        color: var(--block-fg);
         border-radius: var(--border-radius);
-        background-image: var(--card-image);
+        background-image: var(--block-image);
 
         align-items: center;
         justify-content: center;
@@ -201,7 +201,7 @@ watch(() => inView.value, () => {
         font-weight: bold;
         font-size: 1.25em;
         // color: var(--secondary);
-        // color: var(--card-bg);
+        // color: var(--block-bg);
 
     }
 
@@ -223,7 +223,7 @@ watch(() => inView.value, () => {
     }
 
     &__content {
-        color: color-mix(in oklab, var(--card-bg), white 75%);
+        color: color-mix(in oklab, var(--block-bg), white 75%);
 
         p {
             line-height: 1.75;
@@ -239,7 +239,7 @@ watch(() => inView.value, () => {
         }
     }
 
-    --icon-border-color: var(--card-bg);
+    --icon-border-color: var(--block-bg);
 
 
 

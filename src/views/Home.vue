@@ -3,52 +3,20 @@
     <div :class="bemm()">
 
 
-        <div :class="bemm('intro')">
-            <div :class="bemm('container')">
-
-                <div class="ring" ref="ring" :style="`--rotation: ${rotation}deg`">
-                    <svg width="100%" height="100%" viewBox="0 0 200 200" preserveAspectRatio="xMidYMid meet"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <defs>
-                            <path id="textPath" d="M100 100 m -80, 0 a 80,80 0 0,1 160,0 a 80,80 0 0,1 -160,0" />
-                        </defs>
-                        <circle cx="100" cy="100" r="80" fill="none" />
-                        <text>
-                            <textPath href="#textPath" startOffset="0">
-                                Dad, Husband, Illustrator, Developer, Designer, Photographer,
-                            </textPath>
-                        </text>
-                    </svg>
-                </div>
-
-                <h1>Sil's Portfolio</h1>
-                <p>Here are some of the projects I've been working on.</p>
-            </div>
-        </div>
+        <Intro></Intro>
 
         <Tools :class="bemm('tools')" />
         <List :class="bemm('list')" />
     </div>
 </template>
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
 import List from '@/components/ProjectList.vue';
 import Tools from '@/components/Tools.vue';
+import Intro from "@/components/Intro.vue";
 
 import { useBemm } from 'bemm';
 const bemm = useBemm('home');
 
-const ring = ref(null);
-const rotation = ref(0);
-
-const handleScroll = () => {
-    if (!ring.value) return;
-    rotation.value = window.scrollY / 10;
-}
-
-onMounted(() => {
-    window.addEventListener('scroll', handleScroll);
-})
 </script>
   
 
@@ -68,26 +36,9 @@ onMounted(() => {
 .home {
 
     clip-path: inset(0 0 100% 0);
-    animation: load 2s .5s ease-in-out forwards; 
-    &__intro {
-        overflow: hidden;
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        gap: var(--space);
-        text-align: left;
+    animation: load 2s .5s ease-in-out forwards;
 
-        background-color: var(--tertiary);
-        color: var(--tertiary-text);
-
-        @media screen and (orientation:portrait) {
-            aspect-ratio: 3/2;
-        }
-
-        @media screen and (width <=769px) {
-            aspect-ratio: 1/1;
-        }
-    }
+    &__intro {}
 
     &__container {
         padding: calc(var(--spacing) * 2) var(--spacing);
@@ -156,4 +107,5 @@ onMounted(() => {
     height: var(--size);
 
 
-}</style>
+}
+</style>

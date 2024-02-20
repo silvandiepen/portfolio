@@ -1,15 +1,16 @@
 $colors: (
     dark: #0d0529,
     light: #fff,
-    primary: #ff00e1,
-    secondary: #2bd1e3,
+    primary: #ff0080,
+    secondary: #4edae9,
     tertiary: #f1e6b7,
 );
+
 
 @function values($color) {
     @return #{red(map-get($colors,$color))},
     #{green(map-get($colors,$color))},
-    #{blue(map-get($colors,$color))}
+    #{blue(map-get($colors,$color))};
 }
 
 @function darkOrLight($color){
@@ -31,19 +32,17 @@ $colors: (
     }
 
     --background: var(--dark);
+    --background-text: var(--light);
     --background-rgb: var(--dark-rgb);
     --foreground: var(--light);
+    --foreground-text: var(--dark);
     --foreground-rgb: var(--light-rgb);
 
     --space: 1em;
     --border-radius: 1.5em;
     --spacing: clamp(2em, 8vw, 6em);
 }
-.gradient{
-    --color1: #f25d5d;
-    --color2: #ffe058;
-    --color3: #00ffaa;
-}
+
 
 body,
 html {

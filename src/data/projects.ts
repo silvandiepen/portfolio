@@ -2,7 +2,7 @@ import { Icons, Project, ProjectType } from "@/types";
 
 export const project: Project[] = [
     {
-        title: 'VAT',
+        title: 'VAT Calculator',
         description: "VAT is a simple tool that converts values with and without a percentage of tax, allowing users to quickly calculate amounts with or without taxes. It's a convenient tool for individuals and businesses alike, making tax calculations hassle-free.",
         summary: "Calculate values with or without VAT easily with this convenient tool.",
         tags: ['web-development', 'javascript', 'tax', 'calculator', 'financial', 'business', 'utility', 'tool'],
@@ -102,7 +102,7 @@ export const project: Project[] = [
         type: ProjectType.PACKAGE,
         link: "https://storage.sil.mt",
         npm: "@sil/storage",
-        color: "#ffffff",
+        color: "#ff99ff",
         icon: Icons.BOX_OPEN
     },
     {
@@ -113,7 +113,7 @@ export const project: Project[] = [
         type: ProjectType.PACKAGE,
         link: "https://bemm.sil.mt",
         npm: "bemm",
-        color: "#ffffff",
+        color: "#ff9900",
         icon: [Icons.SHAPE_SQUARE_FILLED, Icons.UNDERSCORE,Icons.SHAPE_SQUARE_FILLED, Icons.DOUBLE_DASH, Icons.SHAPE_QUARTER_CIRCLE],
     }, {
         title: "JSON input",
