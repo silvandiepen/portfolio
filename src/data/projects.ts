@@ -114,7 +114,7 @@ export const project: Project[] = [
         link: "https://bemm.sil.mt",
         npm: "bemm",
         color: "#ff9900",
-        icon: [Icons.SHAPE_SQUARE_FILLED, Icons.UNDERSCORE,Icons.SHAPE_SQUARE_FILLED, Icons.DOUBLE_DASH, Icons.SHAPE_QUARTER_CIRCLE],
+        icon: [Icons.SHAPE_SQUARE_FILLED, Icons.UNDERSCORE,Icons.SHAPE_CIRCLE_FILLED, Icons.DOUBLE_DASH, Icons.SHAPE_QUARTER_CIRCLE],
     }, {
         title: "JSON input",
         description: "JSON input is a versatile validator and formatter for JSON code, providing developers with tools to validate, prettify, and visualize JSON objects effortlessly. With features such as error detection, prettification, and object visualization, JSON input streamlines JSON manipulation tasks, making it an invaluable tool for developers working with JSON data.",

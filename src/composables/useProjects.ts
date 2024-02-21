@@ -3,7 +3,7 @@ import { reactive, computed } from "vue"
 
 import { project as ProjectData } from "@/data/projects"
 import { Project, ProjectType, Tag } from "@/types";
-import { getRandomColor } from "@/utils";
+import { getColor } from "@/utils";
 
 
 interface ProjectState {
@@ -102,7 +102,7 @@ export const useProjects = () => {
                 ...project,
                 slug: project.title.toLowerCase().replace(/ /g, '-'),
                 tags: project.tags.map((tag: string) => tag.toLowerCase()),
-                color: project.color || getRandomColor()
+                color: project.color || getColor().background   
                 
             }
         });

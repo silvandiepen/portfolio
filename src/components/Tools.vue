@@ -17,7 +17,17 @@ import { InputSwitch, InputSearch } from "@/components/form";
 const bemm = useBemm('tools');
 const { filter } = useProjects();
 
+import { useRoute } from 'vue-router';
+import { onMounted } from 'vue';
 
+const { params } = useRoute();
+
+onMounted(() => {
+    console.log(params)
+    if (params.category) {
+        filter.value.type = params.category as string;
+    }
+});
 
 const projectTypes = [{
     label: "All",

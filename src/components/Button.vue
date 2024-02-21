@@ -1,5 +1,5 @@
 <template>
-    <button :class="blockClasses">
+    <component :is="componentType" :class="blockClasses" :to="to">
         <div :class="bemm('container')">
             <span v-if="icon" :class="bemm('icon-container')">
                 <span :class="bemm('icon')">
@@ -11,11 +11,12 @@
                 <slot></slot>
             </span>
         </div>
-    </button>
+    </component>
 </template>
 
 <script lang="ts" setup>
 import { PropType, computed, useSlots } from "vue";
+import { RouterLink } from "vue-router";
 import Icon from '@/components/Icon.vue';
 import { useBemm } from 'bemm';
 
@@ -37,7 +38,10 @@ const props = defineProps({
     type: {
         type: String as PropType<'primary' | 'secondary' | 'ghost' | 'default'>,
         default: 'default'
-    }
+    },
+    to: {
+        type: String
+    },
 })
 
 const blockClasses = computed(() => {
@@ -60,6 +64,10 @@ const blockClasses = computed(() => {
     return classes;
 })
 
+const componentType = computed(() => {
+    return props.to ? RouterLink : 'button';
+})
+
 const hasSlot = computed(() => {
     return !!slots.default;
 })
@@ -73,7 +81,7 @@ const hasSlot = computed(() => {
     color: var(--secondary-text);
     border-radius: var(--border-radius);
     padding: calc(var(--space) / 2);
-    padding-right: var(--space);
+    padding-inline: var(--space);
     border: none;
 
     border-radius: 2em;
@@ -82,6 +90,16 @@ const hasSlot = computed(() => {
     position: relative;
     color: var(--foreground);
 
+    text-decoration:none;
+    &:has(.icon){
+        padding-left: calc(var(--space) / 2);
+    }
+    
+
+
+    [style*="--block-bg"] & {
+        background-color: color-mix(in oklab, var(--block-bg), var(--background) 20%);
+    }
 
 
 

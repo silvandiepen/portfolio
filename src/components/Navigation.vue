@@ -6,9 +6,20 @@
 
             </div>
             <div :class="bemm('middle')">
-                <Logo :class="bemm('logo')"></Logo>
+                <RouterLink :class="bemm('logo-link')" to="/">
+                    <Logo :class="bemm('logo')"></Logo>
+                </RouterLink>
             </div>
             <div :class="bemm('end')">
+                <ul :class="bemm('list')">
+                    <li :class="bemm('item')" v-for="item in menu">
+                        <RouterLink :class="bemm('link')" :to="item.link">
+                            <span :class="bemm('text')">
+                                {{ item.name }}
+                            </span>
+                        </RouterLink>
+                    </li>
+                </ul>
             </div>
 
         </div>
@@ -19,13 +30,13 @@
 import { computed, onMounted, ref } from "vue";
 import { useBemm } from "bemm";
 import { Icons } from "open-icon";
-import { useRouter } from 'vue-router';
+import { useRouter, RouterLink } from 'vue-router';
 
 import Logo from '@/components/Logo.vue';
 import Button from "@/components/Button.vue";
 
 import { RouteName } from '@/router';
-import { textColor } from "@sil/color";
+import { getBrightness, textColor } from "@sil/color";
 
 const router = useRouter();
 const bemm = useBemm('nav');
@@ -39,6 +50,19 @@ const isHome = computed(() => {
     return router.currentRoute.value.name === RouteName.HOME;
 })
 
+const menu = computed(() => {
+    return [{
+        name: 'Work',
+        link: '/work'
+    }, {
+        name: 'About',
+        link: '/about'
+    }, {
+        name: 'Contact',
+        link: '/contact'
+    }]
+})
+
 
 const blockClasses = computed(() => {
     return [
@@ -46,29 +70,80 @@ const blockClasses = computed(() => {
     ]
 })
 
-const foregroundColor = ref('black');
+const foregroundColor = ref('white');
 
-const initObserver = () => {
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const color = entry.target.getAttribute('data-color');
-               
-                console.log(color);
-               
-                if (color?.includes('--')) foregroundColor.value = `var(${color}-text)`;
-                else if (color) foregroundColor.value = textColor(color) as string;
-            }
-        });
-    }, { rootMargin: '0px 0px 0px 0px' });
+// let lastIntersectingElement: any = null;
 
-    document.querySelectorAll('[data-color]').forEach(el => observer.observe(el));
+// const initObserver = () => {
 
+
+
+//     const observer = new IntersectionObserver((entries) => {
+//         entries.forEach(entry => {
+//             if (entry.isIntersecting && entry.target !== lastIntersectingElement) {
+//                 lastIntersectingElement = entry.target;
+
+//                 const color = entry.target.getAttribute('data-color');
+
+//                 // console.log(color);
+
+//                 if (color?.includes('--')) foregroundColor.value = `var(${color}-text)`;
+//                 else if (color) {
+
+//                     foregroundColor.value = getBrightness(color) > 50 ? 'var(--dark)' : 'var(--light)';
+
+//                     console.log(`%c ${color} ${getBrightness(color)}`, `background: ${color}; color: ${textColor(color) as string}`);
+
+//                 }
+//             }
+//         });
+//     }, { rootMargin: '0px 0px -50% 0px' });
+
+//     document.querySelectorAll('[data-color]').forEach(el => observer.observe(el));
+
+// }
+
+
+const allSections = ref<{ top: number; color: string | null; }[]>([]);
+const initSections = () => {
+    allSections.value = Object.values(document.querySelectorAll('section[data-color]')).map((section) => {
+        return {
+            top: section.getBoundingClientRect().top,
+            color: section.getAttribute('data-color')
+        }
+    });
+}
+const getUnderlayingColor = () => {
+    initSections();
+
+    const currentTop = window.scrollY;
+    const currentSection = allSections.value.find(section => section.top > currentTop);
+
+    console.log(currentSection);
+
+    if (currentSection) {
+        if (currentSection.color?.includes('--')) {
+            foregroundColor.value = currentSection.color ? `var(${currentSection.color}-text)` : 'white';
+        } else {
+            foregroundColor.value = currentSection.color ? getBrightness(currentSection.color) > 50 ? 'var(--dark)' : 'var(--light)' : 'white';
+
+        }
+    }
+    else {
+        foregroundColor.value = 'white';
+    }
+
+    setTimeout(() => {
+        if (Object.keys(allSections.value).length === 0) getUnderlayingColor();
+    }, 1000);
 }
 onMounted(() => {
-    setTimeout(() => {
-        initObserver();
-    }, 500);
+    getUnderlayingColor();
+
+    window.addEventListener('scroll', () => {
+        getUnderlayingColor();
+    })
+
 })
 
 
@@ -142,13 +217,31 @@ onMounted(() => {
     }
 
     &__end {
-        align-self: flex-end;
         justify-content: flex-end;
     }
 
     &__logo {
         height: 3.5em;
         width: 3.5em;
+        color: currentColor;
+    }
+
+    &__logo-link {
+        color: currentColor;
+
+    }
+
+    &__list {
+        display: flex;
+        gap: var(--space);
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    &__link {
+        color: inherit;
+        text-decoration: none;
     }
 }
 </style>

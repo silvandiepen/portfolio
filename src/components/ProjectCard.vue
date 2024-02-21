@@ -24,7 +24,8 @@
             </div>
             <ButtonGroup>
                 <Button @click="goToDetail()" :icon="Icons.ARROW_RIGHT">Read more</Button>
-                <Button @click="goToProject()" :icon="Icons.ARROW_UP_RIGHT">Visit <span class="hide-mobile">{{ project.type == 'project' ? 'Project' :
+                <Button @click="goToProject()" :icon="Icons.ARROW_UP_RIGHT">Visit <span class="hide-mobile">{{ project.type
+                    == 'project' ? 'Project' :
                     'Docs' }}</span></Button>
 
             </ButtonGroup>
@@ -36,23 +37,19 @@
 
 <script lang="ts" setup>
 import { useBemm } from "bemm";
-import { PropType, computed, onMounted, ref, watch } from "vue";
-
+import { PropType, computed, onMounted, ref } from "vue";
 import { Icons } from "open-icon";
+
+import { getColor, isInview } from "@/utils";
+import { Project } from "@/types";
+import router, { RouteName } from "@/router";
 
 import Icon from "@/components/Icon.vue";
 import Tag from "@/components/Tag.vue";
 import Button from "@/components/Button.vue";
+import ButtonGroup from "@/components/ButtonGroup.vue";
 
 
-import { Project } from "@/types";
-import router, { RouteName } from "@/router";
-import { getColor } from "@/utils/color";
-import ButtonGroup from "./ButtonGroup.vue";
-
-import { useUI } from "@/composables/useUI";
-
-const { currentColor } = useUI();
 
 const bemm = useBemm('project-card');
 const props = defineProps({
@@ -63,7 +60,8 @@ const props = defineProps({
 })
 
 const inView = ref(false);
-const block = ref();
+const block = ref(null);
+
 const goToDetail = () => {
     router.push({ name: RouteName.PROJECT, params: { slug: props.project.slug } });
 }
@@ -72,48 +70,36 @@ const goToProject = () => {
 }
 
 onMounted(() => {
-    isInview();
-    window.addEventListener('scroll', isInview);
+    if (block.value) inView.value = isInview(block.value, {
+        percentage: 50
+    });
+
+    window.addEventListener('scroll', () => {
+        inView.value = block.value ? isInview(block.value, {
+            percentage: 50
+        }) : false
+    });
 })
 
 const colors = computed(() => {
-
     return getColor(props.project.color);
-
 })
 
-const isInview = () => {
-    if (!block.value) return;
-
-    const percentageInView = 50; // adjust this value to change the percentage in view
-
-    const rect = block.value.getBoundingClientRect();
-    const viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight);
-
-    const elementHeight = rect.bottom - rect.top;
-    const elementInViewHeight = Math.min(rect.bottom, viewHeight) - Math.max(rect.top, 0);
-
-    inView.value = (elementInViewHeight / elementHeight) * 100 >= percentageInView;
-};
 const blockClasses = computed(() => {
     return [bemm(), inView.value ? 'in-view' : 'out-view'];
 })
 
-watch(() => inView.value, () => {
-    if (inView.value) {
-        if (props.project.color)
-            currentColor.value = typeof props.project.color == 'string' ? props.project.color : props.project.color[0];
-    }
-}, { deep: true })
+
 
 </script>
 
 <style lang="scss">
-.hide-mobile{
-    @media screen and (width <= 800px){
+.hide-mobile {
+    @media screen and (width <=800px) {
         display: none;
     }
 }
+
 .project-card {
     $b: &;
     width: 100%;

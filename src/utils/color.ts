@@ -1,15 +1,8 @@
-import { getBrightness, toHex } from "@sil/color";
+import { getBrightness, getComplimentary, getRandomBright, getRandomColor, toHex } from "@sil/color";
 
-export const getRandomColor = () => {
-    const { r, g, b } = {
-        r: Math.floor(Math.random() * 255),
-        g: Math.floor(Math.random() * 255),
-        b: Math.floor(Math.random() * 255)
-    }
-    return toHex(`rgb(${r},${g},${b})`)
-}
 
-export const getColor = (color: string | string[] | undefined): {
+
+export const getColor = (color: string | string[] | undefined = undefined): {
     background: string;
     foreground: string;
     image: string;
@@ -17,7 +10,7 @@ export const getColor = (color: string | string[] | undefined): {
 } => {
 
 
-    const defaultColor = getRandomColor();
+    const defaultColor = getRandomBright();
 
     if (color && typeof color !== "string") {
         const bg = color[0] || defaultColor;
@@ -47,5 +40,34 @@ export const getColor = (color: string | string[] | undefined): {
         brightness: getBrightness(bg),
         image: ''
     }
+
+}
+
+const getPastel = () => {
+
+    return getRandomColor({
+        limit: {
+            // h: [0, 360],
+            // s: [75, 85],
+            // l: [40, 60],
+
+            h: [0, 360],
+            s: 100,
+            l: [20, 30],
+        }
+    });
+}
+
+export const getColorSet = (total: number = 5) => {
+
+    const color = getPastel();
+
+    const complimentaryColors = getComplimentary(color, {
+        total,
+        type: 'hue'
+    });
+
+
+    return complimentaryColors.map((c) => (toHex(c)));
 
 }

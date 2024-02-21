@@ -9,10 +9,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@sil/color": "^0.4.8",
+    "@sil/color": "^0.4.12",
     "@sil/storage": "^0.0.7",
     "bemm": "^1.0.4",
-    "open-icon": "^0.0.11",
+    "open-icon": "^0.0.12",
     "vue": "^3.4.15"
   },
   "devDependencies": {

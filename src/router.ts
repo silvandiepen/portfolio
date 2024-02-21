@@ -3,7 +3,13 @@ import { createRouter, createWebHistory } from "vue-router";
 
 export const RouteName = {
     HOME: 'home',
-    PROJECT: 'project'
+    PROJECT: 'project',
+    CV: 'cv',
+    WORK: 'work',
+    WORK_CATEGORY: 'work_category',
+    ABOUT: 'about',
+    CONTACT: 'contact',
+    USES: 'uses'
 }
 
 
@@ -22,6 +28,36 @@ export default createRouter({
             name: RouteName.PROJECT,
             path: "/:slug",
             component: () => import("./views/Project.vue"),
+        },
+        {
+            name: RouteName.ABOUT,
+            path: "/about",
+            component: () => import("./views/About/index.vue"),
+        },
+        {
+            name: RouteName.CV,
+            path: "/about/cv",
+            component: () => import("./views/About/CV.vue"),
+        },
+        {
+            name: RouteName.USES,
+            path: "/about/uses",
+            component: () => import("./views/About/Uses.vue"),
+        },
+        {
+            name: RouteName.WORK,
+            path: "/work",
+            component: () => import("./views/Work.vue"),
+        },
+        {
+            name: RouteName.WORK_CATEGORY,
+            path: "/work/:category",
+            component: () => import("./views/Work.vue"),
+        },
+        {
+            name: RouteName.CONTACT,
+            path: "/contact",
+            component: () => import("./views/Contact.vue"),
         }
     ],
 });
