@@ -62,7 +62,7 @@ const blockClasses = computed(() => {
         flex-direction: row;
         align-items: center;
         justify-content: flex-start;
-
+        flex-wrap: wrap;
 
         &.button-group--stack {
             gap: 0;

@@ -36,7 +36,7 @@ import Logo from '@/components/Logo.vue';
 import Button from "@/components/Button.vue";
 
 import { RouteName } from '@/router';
-import { getBrightness, textColor } from "@sil/color";
+import { getBrightness } from "@sil/color";
 
 const router = useRouter();
 const bemm = useBemm('nav');
@@ -72,36 +72,6 @@ const blockClasses = computed(() => {
 
 const foregroundColor = ref('white');
 
-// let lastIntersectingElement: any = null;
-
-// const initObserver = () => {
-
-
-
-//     const observer = new IntersectionObserver((entries) => {
-//         entries.forEach(entry => {
-//             if (entry.isIntersecting && entry.target !== lastIntersectingElement) {
-//                 lastIntersectingElement = entry.target;
-
-//                 const color = entry.target.getAttribute('data-color');
-
-//                 // console.log(color);
-
-//                 if (color?.includes('--')) foregroundColor.value = `var(${color}-text)`;
-//                 else if (color) {
-
-//                     foregroundColor.value = getBrightness(color) > 50 ? 'var(--dark)' : 'var(--light)';
-
-//                     console.log(`%c ${color} ${getBrightness(color)}`, `background: ${color}; color: ${textColor(color) as string}`);
-
-//                 }
-//             }
-//         });
-//     }, { rootMargin: '0px 0px -50% 0px' });
-
-//     document.querySelectorAll('[data-color]').forEach(el => observer.observe(el));
-
-// }
 
 
 const allSections = ref<{ top: number; color: string | null; }[]>([]);
@@ -118,8 +88,6 @@ const getUnderlayingColor = () => {
 
     const currentTop = window.scrollY;
     const currentSection = allSections.value.find(section => section.top > currentTop);
-
-    console.log(currentSection);
 
     if (currentSection) {
         if (currentSection.color?.includes('--')) {
