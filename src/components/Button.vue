@@ -17,27 +17,27 @@
 <script lang="ts" setup>
 import { PropType, computed, useSlots } from "vue";
 import { RouterLink } from "vue-router";
-import Icon from '@/components/Icon.vue';
 import { useBemm } from 'bemm';
 
 import { Icons } from "@/types";
+import Icon from '@/components/Icon.vue';
 
 const bemm = useBemm('button');
-
 const slots = useSlots();
 
+import { ButtonSize, ButtonType } from './Button.model';
 
 const props = defineProps({
     icon: {
         type: String as PropType<Icons>
     },
     size: {
-        type: String as PropType<'small' | 'medium' | 'large'>,
-        default: 'medium'
+        type: String as PropType<ButtonSize>,
+        default: ButtonSize.MEDIUM
     },
     type: {
-        type: String as PropType<'primary' | 'secondary' | 'ghost' | 'default'>,
-        default: 'default'
+        type: String as PropType<ButtonType>,
+        default: ButtonType.DEFAULT
     },
     to: {
         type: String
@@ -90,19 +90,19 @@ const hasSlot = computed(() => {
     position: relative;
     color: var(--foreground);
 
-    text-decoration:none;
-    &:has(.icon){
+    text-decoration: none;
+
+    display: block;
+    width: fit-content;
+
+    &:has(.icon) {
         padding-left: calc(var(--space) / 2);
     }
-    
-
-
-    [style*="--block-bg"] & {
-        background-color: color-mix(in oklab, var(--block-bg), var(--background) 20%);
-    }
 
 
 
+
+    // Base
     &__container {
         display: flex;
         gap: calc(var(--space) / 2);
@@ -113,6 +113,8 @@ const hasSlot = computed(() => {
         white-space: nowrap;
         line-height: 1.5;
     }
+
+    // Sizes
 
     &--small {
         font-size: .75em;
@@ -125,6 +127,13 @@ const hasSlot = computed(() => {
     &--large {
         font-size: 1.25em;
     }
+
+    &--xlarge {
+        font-size: 2em;
+    }
+
+
+    // Types
 
     &--primary {
         background-color: var(--primary);
@@ -142,6 +151,11 @@ const hasSlot = computed(() => {
     }
 
     &--default {
+        [style*="--block-bg"] & {
+            background-color: color-mix(in oklab, var(--block-bg), var(--background) 20%);
+        }
+
+
         box-shadow: 0 0 0 0px var(--icon-border-color, currentColor) inset;
 
         transition: box-shadow .2s ease-in-out;
@@ -208,4 +222,5 @@ const hasSlot = computed(() => {
         }
 
     }
-}</style>
+}
+</style>

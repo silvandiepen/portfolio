@@ -52,11 +52,11 @@ const isHome = computed(() => {
 
 const menu = computed(() => {
     return [{
-        name: 'Work',
-        link: '/work'
-    }, {
         name: 'About',
         link: '/about'
+    }, {
+        name: 'Work',
+        link: '/work'
     }, {
         name: 'Contact',
         link: '/contact'
@@ -172,6 +172,7 @@ onMounted(() => {
         display: flex;
         align-items: center;
         width: 100%;
+        font-size: clamp(1em, 2vw, 1.5em);
     }
 
     &__start {
@@ -205,6 +206,7 @@ onMounted(() => {
         list-style: none;
         padding: 0;
         margin: 0;
+
     }
 
     &__link {

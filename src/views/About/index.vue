@@ -4,10 +4,12 @@
             <h1>Hi, I'm <strong>Sil van Diepen</strong></h1>
             <h4>One of the bigger questions in life; Who is Sil van Diepen? Of course we can't go too much in depth, but here
                 is a little summary to have an idea.</h4>
+                <Button :to="`/about/uses`">Uses</Button>
+                <Button :to="`/about/cv`">CV</Button>
         </Hero>
 
         <ContentSection :color="'background'">
-            <h2>Interests</h2>
+            <h2><Icon :name="Icons.HEART" />Interests</h2>
 
             <article>
 
@@ -46,6 +48,7 @@
                 <p>A man (and his family) has got to eat! Considering we have to make food every day, I made it into a
                     passion.
                     Especially spices and mixing things have my interest. Cooking With Sil</p>
+                   
             </article>
             <article>
 
@@ -58,7 +61,7 @@
         </ContentSection>
 
         <ContentSection :color="colors[1]">
-            <h2>Language Skills</h2>
+            <h2><Icon :name="Icons.LANGUAGE" />Language Skills</h2>
 
             <dl>
                 <dt>Dutch</dt>
@@ -79,7 +82,7 @@
         </ContentSection>
 
         <ContentSection :color="colors[3]">
-            <h2 id="work-experience">Work Experience</h2>
+            <h2 id="work-experience"><Icon :name="Icons.BAG2" />Work Experience</h2>
             <p>For more details about my functions, check out my <a href="https://sil.mt/about/cv">Curriculum Vitae</a></p>
             <p>An overview of all my current and past jobs;</p>
             <dl>
@@ -149,6 +152,8 @@ import { getColorSet } from '@/utils';
 import ContentSection from '@/components/ContentSection.vue';
 import Hero from '@/components/Hero.vue';
 import Icon from '@/components/Icon.vue';
+
+import Button from '@/components/Button.vue';
 
 const bemm = useBemm('about');
 

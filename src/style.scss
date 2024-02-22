@@ -88,14 +88,8 @@ dl {
 }
 
 h2 {
-    padding: var(--space);
-    width: fit-content;
+    font-size: clamp(1.5em, 4vw, 4em);
 
-    background-color: var(--background);
-    color: var(--foreground);
-    height: var(--spacing);
-    line-height: var(--spacing);
-    padding-block: 0;
 }
 
 article+article {
@@ -115,7 +109,7 @@ dl {
     a {
         color: inherit;
         text-decoration-color: var(--secondary);
-font-weight: bold;
+        font-weight: bold;
     }
 }
 
@@ -155,27 +149,29 @@ h1 {
     transform-origin: 0 100%;
 
     clip-path: inset(0 0 100% 0);
-    animation: loadTitle  .5s ease-in-out forwards;
+    animation: loadTitle .5s ease-in-out forwards;
 
     text-transform: uppercase;
 
 
-    @media screen and (width >= 800px) {
+    @media screen and (width >=800px) {
 
         width: calc(100% + calc(var(--spacing) / 2));
         margin-left: calc((var(--spacing) / 4) * -1);
     }
-    @media screen and (width >= 1200px) {
-    
+
+    @media screen and (width >=1200px) {
+
         width: calc(100% + var(--spacing));
         margin-left: calc((var(--spacing) / 2) * -1);
     }
 
-    &:has(strong){
-        text-transform:normal;
+    &:has(strong) {
+        text-transform: normal;
         font-weight: 400;
 
     }
+
     @keyframes loadTitle {
         0% {
             clip-path: inset(0 0 100% 0);
