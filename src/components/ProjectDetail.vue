@@ -33,6 +33,9 @@
                 </ButtonGroup>
             </div>
         </section>
+        <ContentSection v-if="project.data" fullWidth>
+            <img :src="item?.image" v-for="item in project.data.images" />
+        </ContentSection>
     </div>
 </template>
 
@@ -40,6 +43,8 @@
 
 import { useBemm } from "bemm";
 import { PropType, computed, onMounted, ref } from "vue";
+
+import ContentSection from "@/components/ContentSection.vue";
 
 import ButtonGroup from "@/components/ButtonGroup.vue";
 import Button from "@/components/Button.vue";
@@ -55,7 +60,6 @@ onMounted(() => {
     window.addEventListener('scroll', () => {
         scrolled.value = window.scrollY;
     })
-
 })
 
 

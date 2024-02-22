@@ -24,6 +24,10 @@ const props = defineProps({
     color: {
         type: String as PropType<string>,
         default: null
+    },
+    fullWidth: {
+        type: Boolean as PropType<boolean>,
+        default: false
     }
 })
 
@@ -37,7 +41,7 @@ const color = computed(() => {
 const divider = ['saw', 'waves', 'castle'][Math.floor(Math.random() * 3)];
 
 const blockClasses = computed(() => {
-    return [bemm(), inView.value ? 'in-view' : 'out-view']
+    return [bemm(), inView.value ? 'in-view' : 'out-view', props.fullWidth ? bemm('','full-width') : ''];
 })
 
 onMounted(() => {
@@ -68,6 +72,7 @@ watch(() => inView.value, () => {
 
 <style lang="scss">
 .content-section {
+    $b: &;
     background-color: var(--block-bg);
     color: var(--block-fg);
     display: flex;
@@ -181,6 +186,10 @@ watch(() => inView.value, () => {
         margin: auto;
         max-width: 100%;
 
+        #{$b}--full-width &{
+            width: 100%; 
+        }
+
         @media screen and (width <=800px) {
 
             transform: translateX(calc(var(--spacing) * -1));
@@ -238,8 +247,16 @@ h2 {
     .icon {
         font-size: 2em;
     }
+
 }
 
+img{
+        max-width: calc(100vw - (var(--spacing) * 2));
+        width: 100%;
+        &+ img{
+            margin-top: var(--spacing);
+        }
+    }
 article,
 dl {
     display: block;
