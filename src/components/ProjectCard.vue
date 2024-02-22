@@ -1,7 +1,7 @@
 <template>
     <div :class="blockClasses" ref="block"
         :style="`--block-bg: ${colors.background}; --block-fg: ${colors.foreground}; --block-image: ${colors.image}`">
-        <figure :class="bemm('figure')" @click="goToDetail()">
+        <figure :class="bemm('figure')" @click="goToDetail()" :style="figureStyle">
             <template v-if="project.icon">
                 <Icon :class="bemm('icon')" v-if="typeof project.icon == 'string'" :name="project.icon"></Icon>
                 <Icon :class="bemm('icon')" v-else v-for="icon in project.icon" :name="icon"></Icon>
@@ -24,7 +24,7 @@
             </div>
             <ButtonGroup>
                 <Button @click="goToDetail()" :icon="Icons.ARROW_RIGHT">Read more</Button>
-                <Button @click="goToProject()" :icon="Icons.ARROW_UP_RIGHT">Visit <span class="hide-mobile">{{ project.type
+                <Button v-if="[ProjectType.PACKAGE, ProjectType.PROJECT].includes(project.type)" @click="goToProject()" :icon="Icons.ARROW_UP_RIGHT">Visit <span class="hide-mobile">{{ project.type
                     == 'project' ? 'Project' :
                     'Docs' }}</span></Button>
 
@@ -41,7 +41,7 @@ import { PropType, computed, onMounted, ref } from "vue";
 import { Icons } from "open-icon";
 
 import { getColor, isInview } from "@/utils";
-import { Project } from "@/types";
+import { Project, ProjectType } from "@/types";
 import router, { RouteName } from "@/router";
 
 import Icon from "@/components/Icon.vue";
@@ -66,7 +66,7 @@ const goToDetail = () => {
     router.push({ name: RouteName.PROJECT, params: { slug: props.project.slug } });
 }
 const goToProject = () => {
-    document.location.href = props.project.link;
+    if (document && props.project.link) document.location.href = props.project.link;
 }
 
 onMounted(() => {
@@ -90,6 +90,13 @@ const blockClasses = computed(() => {
 })
 
 
+const figureStyle = computed(() => {
+    if (!props.project.image) return {}
+    return {
+        backgroundImage: `url(${props.project.image})`
+    }
+
+})
 
 </script>
 
@@ -167,6 +174,8 @@ const blockClasses = computed(() => {
         align-items: center;
         justify-content: center;
         display: flex;
+        background-size: cover;
+        background-position: center center;
     }
 
     &__icon {

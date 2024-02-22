@@ -51,6 +51,7 @@ html {
     line-height: 1.6;
     color: var(--foreground);
     background-color: var(--background);
+    scroll-behavior: smooth;
 
 }
 
@@ -213,5 +214,17 @@ h4 {
 
     @media screen and (width <=800px) {
         max-width: 100%;
+    }
+}
+
+dl{
+    font-size: 1.25em;
+
+    dd + dt{
+        margin-top: var(--space); 
+    }
+    dt{
+        display: flex;
+        align-items: center;  gap: calc(var(--space) / 2);
     }
 }

@@ -1,7 +1,7 @@
 import { retrieveState, watchState } from "@sil/storage"
 import { reactive, computed } from "vue"
 
-import { project as ProjectData } from "@/data/projects"
+import { getProjects } from "@/data/projects"
 import { Project, ProjectType, Tag } from "@/types";
 import { getColor } from "@/utils";
 
@@ -12,7 +12,7 @@ interface ProjectState {
         search: string,
         tag: Tag | null,
         type: ProjectType
-    }
+    }, lastLoad: number
 }
 const projectState = reactive<ProjectState>(await retrieveState({
     projects: [],
@@ -20,7 +20,8 @@ const projectState = reactive<ProjectState>(await retrieveState({
         search: '',
         tag: null,
         type: ProjectType.ALL
-    }
+    },
+    lastLoad: 0,
 }, 'sil::projects'));
 
 watchState(projectState, 'sil::projects');
@@ -61,7 +62,7 @@ export const useProjects = () => {
     };
 
     const projects = computed(() => {
-        init();
+        // init();
 
         let projects = projectState.projects;
 
@@ -95,21 +96,35 @@ export const useProjects = () => {
 
     })
 
-    const init = () => {
-        // if (projectState.projects.length === 0) {
-        projectState.projects = ProjectData.map((project: Project) => {
+    const loadProjects = async () => {
+
+        // Timestamp in seconds 
+        const currentTimeStamp = Math.floor(Date.now() / 1000);
+
+
+
+        console.log(currentTimeStamp, projectState.lastLoad);
+
+        projectState.lastLoad = currentTimeStamp;
+
+        console.log('hi');
+
+        const projectData = await getProjects();
+        if (!projectData) return;
+
+        projectState.projects = (Object.values(projectData) as Project[]).map((project: Project) => {
             return {
                 ...project,
                 slug: project.title.toLowerCase().replace(/ /g, '-'),
                 tags: project.tags.map((tag: string) => tag.toLowerCase()),
-                color: project.color || getColor().background   
-                
+                color: project.color || getColor().background
+
             }
         });
-        // }
+
     }
     const tags = computed(() => {
-        init();
+        // init();
         let tags: Tag[] = [];
         projectState.projects.map((project: Project) => {
             project.tags.forEach((tag: string) => {
@@ -141,6 +156,7 @@ export const useProjects = () => {
     })
     return {
         projects,
+        loadProjects,
         getProject: (slug: string) => {
             return projectState.projects.find((project: Project) => project.slug === slug);
         },

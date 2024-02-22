@@ -1,5 +1,5 @@
 <template>
-    <component :is="componentType" :class="blockClasses" :to="to">
+    <component :is="componentType" :class="blockClasses" :to="to" :href="href">
         <div :class="bemm('container')">
             <span v-if="icon" :class="bemm('icon-container')">
                 <span :class="bemm('icon')">
@@ -42,6 +42,9 @@ const props = defineProps({
     to: {
         type: String
     },
+    href: {
+        type: String
+    },
 })
 
 const blockClasses = computed(() => {
@@ -65,7 +68,9 @@ const blockClasses = computed(() => {
 })
 
 const componentType = computed(() => {
-    return props.to ? RouterLink : 'button';
+    if (props.to) return RouterLink;
+    if (props.href) return 'a';
+    return 'button'
 })
 
 const hasSlot = computed(() => {

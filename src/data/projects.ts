@@ -1,4 +1,43 @@
 import { Icons, Project, ProjectType } from "@/types";
+import { getRandomColor } from "@sil/color";
+
+
+const getFile = async (path: string) => {
+    const response = await fetch(path);
+    const json = await response.json();
+    return json;
+}
+export const getProjects = async () => {
+
+    const { collections } = await getFile('https://cdn.sil.mt/photography/photography.json');
+    if (!collections) return;
+
+    const dataPromises = collections.map(async (collection: any) => {
+        const collectionData = await getFile(collection.data);
+        return {
+            ...collection,
+            data: collectionData
+        }
+    });
+    const data = await Promise.all(dataPromises);
+
+    const photographyProjects = data.map((collection: any) => {
+        return {
+            title: collection.title,
+            summary: collection.summary || "",
+            description: collection.description || "",
+            image: collection.image || "",
+            type: ProjectType.PHOTOGRAPHY,
+            icon: Icons.CAMERA,
+            tags: collection.tags || [],
+            link: collection.link || [],
+            color: collection.color || getRandomColor(),
+            data: collection.data || null
+        } as Project
+    });
+
+    return [...photographyProjects, ...project];
+}
 
 export const project: Project[] = [
     {
@@ -9,7 +48,7 @@ export const project: Project[] = [
         type: ProjectType.PROJECT,
         link: "https://vat.sil.mt/",
         color: "rgb(245, 166, 35)",
-        icon:   Icons.PERCENTAGE
+        icon: Icons.PERCENTAGE
     },
     {
         title: "Balcony",
@@ -18,7 +57,7 @@ export const project: Project[] = [
         tags: ['web-development', 'javascript', 'css', 'visualizer', 'architecture', 'design', 'home-improvement', 'interior-design'],
         type: ProjectType.PROJECT,
         link: "https://balcony.sil.mt/",
-        color:"#46a058",
+        color: "#46a058",
         icon: Icons.GALERIJA
     },
 
@@ -29,7 +68,7 @@ export const project: Project[] = [
         tags: ['web-development', 'css', 'design', 'styling', 'web-design', 'frontend', 'developer-tools', 'ui'],
         type: ProjectType.PROJECT,
         link: "https://gradient.sil.mt/",
-        color: ["#f25d5d", "#ffe058","#00ffaa"],
+        color: ["#f25d5d", "#ffe058", "#00ffaa"],
 
 
     },
@@ -114,7 +153,7 @@ export const project: Project[] = [
         link: "https://bemm.sil.mt",
         npm: "bemm",
         color: "#ff9900",
-        icon: [Icons.SHAPE_SQUARE_FILLED, Icons.UNDERSCORE,Icons.SHAPE_CIRCLE_FILLED, Icons.DOUBLE_DASH, Icons.SHAPE_QUARTER_CIRCLE],
+        icon: [Icons.SHAPE_SQUARE_FILLED, Icons.UNDERSCORE, Icons.SHAPE_CIRCLE_FILLED, Icons.DOUBLE_DASH, Icons.SHAPE_QUARTER_CIRCLE],
     }, {
         title: "JSON input",
         description: "JSON input is a versatile validator and formatter for JSON code, providing developers with tools to validate, prettify, and visualize JSON objects effortlessly. With features such as error detection, prettification, and object visualization, JSON input streamlines JSON manipulation tasks, making it an invaluable tool for developers working with JSON data.",
@@ -141,8 +180,8 @@ export const project: Project[] = [
         summary: "Generate and manage icon components effortlessly with this versatile tool for SVG icon integration.",
         tags: ['web-development', 'icons', 'svg', 'components', 'frontend', 'developer-tools', 'library', 'ui'],
         type: ProjectType.PACKAGE,
-        link: "https://icon-components.sil.mt",     
-           icon: [Icons.PATH3, Icons.ARROW_RIGHT, Icons.DOCUMENT],
+        link: "https://icon-components.sil.mt",
+        icon: [Icons.PATH3, Icons.ARROW_RIGHT, Icons.DOCUMENT],
 
     },
     {
@@ -162,7 +201,7 @@ export const project: Project[] = [
         tags: ['node.js', 'javascript', 'typescript', 'command-line', 'backend', 'developer-tools', 'library', 'utility'],
         type: ProjectType.PACKAGE,
         link: "https://args.sil.mt",
-        icon:Icons.BRACKETS
+        icon: Icons.BRACKETS
     },
     {
         title: "Gieter",
@@ -180,7 +219,7 @@ export const project: Project[] = [
         tags: ['cli', 'command-line', 'ui-components', 'javascript', 'typescript', 'backend', 'developer-tools', 'library'],
         type: ProjectType.PACKAGE,
         link: "https://cli-block.sil.mt",
-        icon:[Icons.TERMINAL],
+        icon: [Icons.TERMINAL],
     },
     {
         title: "Iconator",
@@ -255,5 +294,19 @@ export const project: Project[] = [
         link: "https://color.sil.mt",
         icon: Icons.BUCKET,
         npm: "@sil/color"
+    }, {
+        title: 'Chernobyl',
+        summary: "A collection of photos from the state of Chernobyl now",
+        description: "Back in 2008 I visited the state of Chernobyl, Ukraine. I took a lot of photos and I wanted to share them with the world. This is a collection of photos from the state of Chernobyl now.",
+        tags: ['photography', 'chernobyl', 'ukraine', 'soviet', 'disaster'],
+        type: ProjectType.PHOTOGRAPHY,
+        icon: Icons.CAMERA
+    }, {
+        title: 'Fruits',
+        summary: "A collection of Colorful Fruits",
+        description: "An enchanting selection of fruits on colorful backgrounds",
+        tags: ['photography', 'fruits', 'colors'],
+        type: ProjectType.PHOTOGRAPHY,
+        icon: Icons.CAMERA
     }
 ];

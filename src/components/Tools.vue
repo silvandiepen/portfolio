@@ -6,13 +6,10 @@
 </template>
 
 <script lang="ts" setup>
-
-
 import { useBemm } from 'bemm';
 import { useProjects } from "@/composables/useProjects";
 
 import { InputSwitch, InputSearch } from "@/components/form";
-// import Tags from './Tags.vue';
 
 const bemm = useBemm('tools');
 const { filter } = useProjects();
@@ -23,7 +20,6 @@ import { onMounted } from 'vue';
 const { params } = useRoute();
 
 onMounted(() => {
-    console.log(params)
     if (params.category) {
         filter.value.type = params.category as string;
     }
@@ -38,6 +34,15 @@ const projectTypes = [{
 }, {
     label: "Packages",
     value: "packages"
+}, {
+    label: "Icons",
+    value: "icons"
+}, {
+    label: "Photography",
+    value: "photography"
+}, {
+    label: "Clients",
+    value: "clients"
 }]
 
 const handleClick = (e: Event) => {

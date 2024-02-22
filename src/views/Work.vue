@@ -18,8 +18,11 @@ import Hero from '@/components/Hero.vue';
 import List from '@/components/ProjectList.vue';
 import Tools from '@/components/Tools.vue';
 
+import { useProjects } from '@/composables/useProjects';
+const { loadProjects } = useProjects();
+
 import { useBemm } from 'bemm';
-import { computed } from 'vue';
+import { computed, onMounted } from 'vue';
 const bemm = useBemm('work');
 
 const blockClasses = computed(() => {
@@ -28,11 +31,14 @@ const blockClasses = computed(() => {
     ]
 })
 
+onMounted(() => {
+    loadProjects();
+
+})
 </script>
 
 <style lang="scss">
-
-.work{
+.work {
 
     &__tools {
         z-index: 2;

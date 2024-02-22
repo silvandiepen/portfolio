@@ -12,7 +12,7 @@
 
         <ContentSection>
             <ButtonGroup>
-                <Button :href="social.link" v-for="social in socials" :icon="getIcon(social.brand)">{{ social.brand }}</Button>
+                <Button :href="social.link" v-for="social in socials" :type="ButtonType.GHOST" :size="ButtonSize.XLARGE" :icon="getIcon(social.brand)"></Button>
 
             </ButtonGroup>
 
@@ -31,6 +31,7 @@ const bemm = useBemm('contact');
 
 import { searchIcon, Icons } from 'open-icon';
 import ButtonGroup from '@/components/ButtonGroup.vue';
+import { ButtonSize, ButtonType } from '@/components/Button.model';
 
 const blockClasses = computed(() => {
     return [
