@@ -1,7 +1,7 @@
 <template>
     <div :class="bemm()" :data-color="colors.background"
         :style="`--detail-bg: ${colors.background}; --detail-fg: ${colors.foreground}; --detail-image: ${colors.image}; --scrolled: ${scrolled}px`">
-        <section :class="bemm('intro')" :data-color="colors.background">
+        <Hero :class="bemm('intro')" :data-color="colors.background">
             <figure :class="bemm('figure')">
                 <template v-if="project.icon">
                     <Icon :class="bemm('icon')" v-if="typeof project.icon == 'string'" :name="project.icon"></Icon>
@@ -14,8 +14,8 @@
                 <p v-if="project.summary" :class="bemm('description')">{{ project.summary }}</p>
             </div>
 
-        </section>
-        <section :class="bemm('description-section')" :data-color="'--foreground'">
+        </Hero>
+        <ContentSection :class="bemm('description-section')" v-if="project.description">
             <div :class="bemm('content')">
                 <h4 :class="bemm('title')">Description</h4>
                 <p v-if="project.description" :class="bemm('description')">{{ project.description }}</p>
@@ -32,9 +32,18 @@
                     </div>
                 </ButtonGroup>
             </div>
-        </section>
-        <ContentSection v-if="project.data" fullWidth>
-            <img :src="item?.image" v-for="item in project.data.images" />
+        </ContentSection>
+        <ContentSection v-if="project.data && project.type == ProjectType.PHOTOGRAPHY" fullWidth :color="`var(--background)`">
+            <figure v-for="item in project.data.images" >
+                <img :src="item?.image" />
+                <p v>{{ item.description  }}</p> 
+            </figure>
+        </ContentSection>
+        <ContentSection v-if="project.data && project.type == ProjectType.LOGO" :color="`var(--foreground)`">
+            <figure v-for="item in project.data.images" >
+                <img :src="item?.image" />
+                <p v>{{ item.description  }}</p> 
+            </figure>
         </ContentSection>
     </div>
 </template>
@@ -45,12 +54,13 @@ import { useBemm } from "bemm";
 import { PropType, computed, onMounted, ref } from "vue";
 
 import ContentSection from "@/components/ContentSection.vue";
+import Hero from "@/components/Hero.vue";
 
 import ButtonGroup from "@/components/ButtonGroup.vue";
 import Button from "@/components/Button.vue";
 import Icon from "@/components/Icon.vue";
 
-import { Icons, Project } from "@/types";
+import { Icons, Project, ProjectType } from "@/types";
 import { getColor } from "@/utils/color";
 
 
@@ -84,6 +94,7 @@ const colors = computed(() => {
 })
 
 
+
 // Whenever the project.type is package, I want to do a call to npms.io to get all the details from the package using project.npm 
 const getPackageInfo = async () => {
 
@@ -110,52 +121,52 @@ onMounted(() => {
     position: relative;
 
 
-    &__intro {
-        height: 80vh;
-        background-color: var(--foreground);
+    // &__intro {
+    //     height: 80vh;
+    //     background-color: var(--foreground);
 
-        position: relative;
+    //     position: relative;
 
-        padding: var(--spacing);
+    //     padding: var(--spacing);
 
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
+    //     display: flex;
+    //     align-items: center;
+    //     justify-content: flex-end;
 
-        &::before {
-            content: "";
-            background-color: var(--detail-bg);
-            clip-path: polygon(100% 0, 0 0, 0.00% 95.00%, 2.00% 94.94%, 4.00% 94.77%, 6.00% 94.48%, 8.00% 94.10%, 10.00% 93.63%, 12.00% 93.09%, 14.00% 92.50%, 16.00% 91.88%, 18.00% 91.25%, 20.00% 90.64%, 22.00% 90.06%, 24.00% 89.54%, 26.00% 89.10%, 28.00% 88.75%, 30.00% 88.50%, 32.00% 88.36%, 34.00% 88.34%, 36.00% 88.44%, 38.00% 88.65%, 40.00% 88.97%, 42.00% 89.38%, 44.00% 89.88%, 46.00% 90.44%, 48.00% 91.04%, 50.00% 91.67%, 52.00% 92.29%, 54.00% 92.89%, 56.00% 93.45%, 58.00% 93.95%, 60.00% 94.36%, 62.00% 94.68%, 64.00% 94.90%, 66.00% 94.99%, 68.00% 94.97%, 70.00% 94.84%, 72.00% 94.59%, 74.00% 94.24%, 76.00% 93.79%, 78.00% 93.27%, 80.00% 92.70%, 82.00% 92.08%, 84.00% 91.46%, 86.00% 90.84%, 88.00% 90.25%, 90.00% 89.71%, 92.00% 89.24%, 94.00% 88.85%, 96.00% 88.57%, 98.00% 88.39%, 100.00% 88.33%);
+    //     &::before {
+    //         content: "";
+    //         background-color: var(--detail-bg);
+    //         clip-path: polygon(100% 0, 0 0, 0.00% 95.00%, 2.00% 94.94%, 4.00% 94.77%, 6.00% 94.48%, 8.00% 94.10%, 10.00% 93.63%, 12.00% 93.09%, 14.00% 92.50%, 16.00% 91.88%, 18.00% 91.25%, 20.00% 90.64%, 22.00% 90.06%, 24.00% 89.54%, 26.00% 89.10%, 28.00% 88.75%, 30.00% 88.50%, 32.00% 88.36%, 34.00% 88.34%, 36.00% 88.44%, 38.00% 88.65%, 40.00% 88.97%, 42.00% 89.38%, 44.00% 89.88%, 46.00% 90.44%, 48.00% 91.04%, 50.00% 91.67%, 52.00% 92.29%, 54.00% 92.89%, 56.00% 93.45%, 58.00% 93.95%, 60.00% 94.36%, 62.00% 94.68%, 64.00% 94.90%, 66.00% 94.99%, 68.00% 94.97%, 70.00% 94.84%, 72.00% 94.59%, 74.00% 94.24%, 76.00% 93.79%, 78.00% 93.27%, 80.00% 92.70%, 82.00% 92.08%, 84.00% 91.46%, 86.00% 90.84%, 88.00% 90.25%, 90.00% 89.71%, 92.00% 89.24%, 94.00% 88.85%, 96.00% 88.57%, 98.00% 88.39%, 100.00% 88.33%);
 
-            height: 100%;
-            width: 150%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: 1;
+    //         height: 100%;
+    //         width: 150%;
+    //         position: absolute;
+    //         top: 0;
+    //         left: 0;
+    //         z-index: 1;
 
-            --divide: 2;
+    //         --divide: 2;
 
-            @media screen and (width <=800px) {
-                --divide: 4;
-            }
+    //         @media screen and (width <=800px) {
+    //             --divide: 4;
+    //         }
 
-            transform: translateY(calc(var(--scrolled) / 10)) translateX(calc((var(--scrolled) / var(--divide)) * -1));
-        }
-    }
+    //         transform: translateY(calc(var(--scrolled) / 10)) translateX(calc((var(--scrolled) / var(--divide)) * -1));
+    //     }
+    // }
 
     &__description-section {
-        color: var(--background);
-        background-color: var(--foreground);
-        padding: var(--spacing);
+        // color: var(--background);
+        // background-color: var(--foreground);
+        // padding: var(--spacing);
     }
 
     &__content {
-        width: 800px;
-        margin: auto;
-        max-width: 100%;
-        position: relative;
-        z-index: 2;
+        // width: 800px;
+        // margin: auto;
+        // max-width: 100%;
+        // position: relative;
+        // z-index: 2;
     }
 
     // &__container {

@@ -14,12 +14,12 @@
                 <p v-if="project.summary" :class="bemm('summary')">{{ project.summary }}</p>
 
 
-
+<!-- 
                 <div :class="bemm('tag-container')">
                     <ul :class="bemm('tag-list')">
                         <Tag is="li" :class="bemm('tag')" v-for="tag in project.tags" :key="tag" :tag="tag" />
                     </ul>
-                </div>
+                </div> -->
 
             </div>
             <ButtonGroup>
@@ -45,7 +45,7 @@ import { Project, ProjectType } from "@/types";
 import router, { RouteName } from "@/router";
 
 import Icon from "@/components/Icon.vue";
-import Tag from "@/components/Tag.vue";
+// import Tag from "@/components/Tag.vue";
 import Button from "@/components/Button.vue";
 import ButtonGroup from "@/components/ButtonGroup.vue";
 
@@ -121,7 +121,8 @@ const figureStyle = computed(() => {
     transform: scale(.8);
     opacity: 0;
     transition: all .3s ease;
-    max-width: 640px;
+
+
 
     &+& {
         // border-top: 1px solid rgba(var(--foreground-rgb),.2);
@@ -137,9 +138,9 @@ const figureStyle = computed(() => {
 
         }
 
-        &__container {
-            transform: translate(calc((var(--spacing) * -1) / 2), var(--spacing));
-        }
+        // &__container {
+        //     transform: translate(calc((var(--spacing) * -1) / 2), var(--spacing));
+        // }
     }
 
     &__container {
@@ -152,15 +153,15 @@ const figureStyle = computed(() => {
 
 
 
-        .in-view & {
-            transform: translate(var(--spacing), calc((var(--spacing) * -1)));
+        // .in-view & {
+        //     transform: translate(var(--spacing), calc((var(--spacing) * -1)));
 
-            @media screen and (width <=800px) {
-                transform: translate(calc(var(--spacing) / 2), calc(((var(--spacing) / 2) * -1)));
+        //     @media screen and (width <=800px) {
+        //         transform: translate(calc(var(--spacing) / 2), calc(((var(--spacing) / 2) * -1)));
 
 
-            }
-        }
+        //     }
+        // }
     }
 
     &__figure {
@@ -232,6 +233,10 @@ const figureStyle = computed(() => {
         .project-card__tag-list {
             opacity: 1;
         }
+    }
+
+    .button-group{
+        margin-top: var(--space);
     }
 
     --icon-border-color: var(--block-bg);

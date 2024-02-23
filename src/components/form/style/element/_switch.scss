@@ -13,7 +13,6 @@
         &:has(:checked) {
             &~.input-checkbox__label::before {
                 background-position: calc((var(--input-checkbox-height) * 0.5) + var(--input-checkbox-space)) var(--input-checkbox-space);
-
             }
         }
 
@@ -77,6 +76,15 @@
     &__label {
         display: flex;
         gap: .5em;
+
+        &--tooltip{
+            border: 1px solid red;
+            position: absolute; 
+        }
+    }
+
+    &__icon{
+        font-size: 1.5em;
     }
 
 }

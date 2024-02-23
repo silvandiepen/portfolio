@@ -250,11 +250,18 @@ h2 {
 
 }
 
-img{
+figure{
         max-width: calc(100vw - (var(--spacing) * 2));
         width: 100%;
-        &+ img{
+        &+ figure{
             margin-top: var(--spacing);
+        }
+
+        img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: var(--space);
         }
     }
 article,

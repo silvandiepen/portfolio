@@ -3,9 +3,9 @@
     <div :class="bemm()">
 
         <ul :class="bemm('list')">
-            <ProjectCard :class="bemm('item')" v-for="project in allProjects" :project="project">
-
-            </ProjectCard>
+            <li :class="bemm('item')" v-for="project in allProjects">
+                <ProjectCard :project="project" />
+            </li>
         </ul>
     </div>
 </template>
@@ -49,7 +49,7 @@ const allProjects = computed(() => {
 .project-list {
 
     &__list {
-        padding: var(--spacing);
+        padding: var(--spacing) 0;
 
         display: flex;
         flex-wrap: wrap;
@@ -57,6 +57,17 @@ const allProjects = computed(() => {
         gap: calc(var(--space) * 3);
         align-items: center;
         justify-content: center;
+    }
+
+    &__item{
+        width: 480px;
+        max-width: calc(100% - (var(--spacing) * 2));
+        @media screen and (width >= 1024px){
+            &:nth-child(2n){
+            transform: translateY(50%);
+        }
+
+        }
     }
 
 

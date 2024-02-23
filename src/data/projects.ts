@@ -7,9 +7,8 @@ const getFile = async (path: string) => {
     const json = await response.json();
     return json;
 }
-export const getProjects = async () => {
-
-    const { collections } = await getFile('https://cdn.sil.mt/photography/photography.json');
+const getPhotography = async () => {
+    const { collections } = await getFile('https://cdn.sil.mt/photography/index.json');
     if (!collections) return;
 
     const dataPromises = collections.map(async (collection: any) => {
@@ -21,7 +20,7 @@ export const getProjects = async () => {
     });
     const data = await Promise.all(dataPromises);
 
-    const photographyProjects = data.map((collection: any) => {
+    return data.map((collection: any) => {
         return {
             title: collection.title,
             summary: collection.summary || "",
@@ -30,13 +29,53 @@ export const getProjects = async () => {
             type: ProjectType.PHOTOGRAPHY,
             icon: Icons.CAMERA,
             tags: collection.tags || [],
-            link: collection.link || [],
+            link: collection.link || '',
             color: collection.color || getRandomColor(),
             data: collection.data || null
         } as Project
     });
 
-    return [...photographyProjects, ...project];
+
+}
+const getLogos = async () => {
+    const { collections } = await getFile('https://cdn.sil.mt/logo/index.json');
+    if (!collections) return;
+
+    const dataPromises = collections.map(async (collection: any) => {
+        const collectionData = await getFile(collection.data);
+        return {
+            ...collection,
+            data: collectionData
+        }
+    });
+    const data = await Promise.all(dataPromises);
+
+    return data.map((collection: any) => {
+        return {
+            title: collection.title,
+            summary: collection.summary || "",
+            description: collection.description || "",
+            image: collection.image || "",
+            type: ProjectType.LOGO,
+            tags: collection.tags || [],
+            link: collection.link || '',
+            color: collection.color || getRandomColor(),
+            data: collection.data || null
+        } as Project
+    });
+
+
+}
+export const getProjects = async () => {
+
+    const photographyProjects = await getPhotography();
+    const logoProjects = await getLogos();
+
+    return [
+        ...(logoProjects || []),
+        ...(photographyProjects || []),
+        ...project
+    ];
 }
 
 export const project: Project[] = [

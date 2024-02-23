@@ -6,6 +6,7 @@ export const ProjectType = {
     PROJECT: 'project',
     PACKAGE: 'package',
     ICONS: 'icons',
+    LOGO: 'logo',
     PHOTOGRAPHY: 'photography',
     CLIENTS: 'clients',
 };

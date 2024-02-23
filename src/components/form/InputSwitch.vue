@@ -4,7 +4,7 @@
             <span v-for="(v) in formattedValues" @click="handleClick(v.value)"
                 :class="[bemm('option'), bemm('option', `${v.label}`), bemm('option', model === v.value ? 'active' : 'inactive')]">
                 <Icon :class="bemm('icon')" v-if="v.icon" :name="v.icon" />
-               <span :class="bemm('option-label')">{{ v.label }}</span>
+                <span :class="[bemm('option-label'), asTooltip && bemm('option-label', 'tooltip')]">{{ v.label }}</span>
             </span>
         </div>
         <label for="test" :class="bemm('label')" v-if="label">
@@ -31,7 +31,10 @@ const props = defineProps({
         type: Array as PropType<string[] | SwitchOption[]>,
         default: ""
     },
-
+    asTooltip: {
+        type: Boolean,
+        default: false
+    }
 })
 
 const model = defineModel()
