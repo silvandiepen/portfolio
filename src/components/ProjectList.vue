@@ -64,7 +64,7 @@ const allProjects = computed(() => {
         max-width: calc(100% - (var(--spacing) * 2));
         @media screen and (width >= 1024px){
             &:nth-child(2n){
-            transform: translateY(50%);
+            transform: translateY(25%);
         }
 
         }

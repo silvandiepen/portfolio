@@ -92,7 +92,9 @@ export const useProjects = () => {
 
         }
 
-        return projects;
+        const randomOrderProjects = projects.sort(() => Math.random() - 0.5);
+
+        return randomOrderProjects;
 
     })
 
