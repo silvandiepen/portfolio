@@ -1,24 +1,36 @@
 <template>
     <div :class="bemm()" @click="handleClick">
         <InputSearch :class="bemm('search')" placeholder="Search" v-model="filter.search" :collapse="true" />
-        <InputSwitch :class="bemm('category')" :options="projectTypes" v-model="filter.type" :as-tooltip="true"></InputSwitch>
+        <InputSwitch :class="bemm('category')" :options="types" v-model="filter.type" :as-tooltip="true"></InputSwitch>
     </div>
 </template>
 
 <script lang="ts" setup>
 import { useBemm } from 'bemm';
-import { useProjects } from "@/composables/useProjects";
-
-import { InputSwitch, InputSearch } from "@/components/form";
-
-const bemm = useBemm('tools');
-const { filter } = useProjects();
-
 import { useRoute } from 'vue-router';
-import { onMounted } from 'vue';
+import { PropType, onMounted } from 'vue';
 import { Icons } from 'open-icon';
 
+import { useProjects } from "@/composables/useProjects";
+import { InputSwitch, InputSearch } from "@/components/form";
+
+
+const { bemm } = useBemm('tools');
+const { filter } = useProjects();
 const { params } = useRoute();
+
+
+defineProps({
+    types: {
+        type: Array as PropType<{
+            label: string,
+            value: string,
+            icon: Icons
+        }[]>,
+        default: "all"
+    }
+})
+
 
 onMounted(() => {
     if (params.category) {
@@ -26,35 +38,6 @@ onMounted(() => {
     }
 });
 
-const projectTypes = [{
-    label: "All",
-    value: "all",
-    icon: Icons.MORE
-}, {
-    label: "Projects",
-    value: "projects",
-    icon: Icons.WEBSITE
-}, {
-    label: "Packages",
-    value: "packages",
-    icon: Icons.BOX
-}, {
-    label: "Icons",
-    value: "icons",
-    icon: Icons.SHAPE_SQUARE
-}, {
-    label: "Photography",
-    value: "photography",
-    icon: Icons.CAMERA
-}, {
-    label: "Clients",
-    value: "clients",
-    icon: Icons.USER
-}, {
-    label: "Logos",
-    value: "logo",
-    icon: Icons.PATH3
-}]
 
 const handleClick = (e: Event) => {
     e.stopPropagation();

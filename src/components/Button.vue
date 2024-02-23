@@ -16,7 +16,7 @@
 
 <script lang="ts" setup>
 import { PropType, computed, useSlots } from "vue";
-import { RouterLink } from "vue-router";
+import { RouterLink, RouteLocationRaw } from "vue-router";
 import { useBemm } from 'bemm';
 
 import { Icons } from "@/types";
@@ -40,7 +40,7 @@ const props = defineProps({
         default: ButtonType.DEFAULT
     },
     to: {
-        type: String
+        type: Object as PropType<RouteLocationRaw>
     },
     href: {
         type: String

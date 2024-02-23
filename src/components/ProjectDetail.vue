@@ -33,16 +33,19 @@
                 </ButtonGroup>
             </div>
         </ContentSection>
-        <ContentSection v-if="project.data && project.type == ProjectType.PHOTOGRAPHY" fullWidth :color="`var(--background)`">
-            <figure v-for="item in project.data.images" >
+        
+        <ContentSection v-if="project.data && project.type == ProjectType.PHOTOGRAPHY" fullWidth
+            :color="`var(--background)`">
+            <figure v-for="item in (project.data as any).images || []">
                 <img :src="item?.image" />
-                <p v>{{ item.description  }}</p> 
+                <p v>{{ item.description }}</p>
             </figure>
         </ContentSection>
+
         <ContentSection v-if="project.data && project.type == ProjectType.LOGO" :color="`var(--foreground)`">
-            <figure v-for="item in project.data.images" >
+            <figure v-for="item in (project.data as any).images">
                 <img :src="item?.image" />
-                <p v>{{ item.description  }}</p> 
+                <p v>{{ item.description }}</p>
             </figure>
         </ContentSection>
     </div>
