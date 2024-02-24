@@ -28,7 +28,7 @@ const props = defineProps({
     fullWidth: {
         type: Boolean as PropType<boolean>,
         default: false
-    }
+    },
 })
 
 const color = computed(() => {
@@ -236,7 +236,7 @@ h2 {
 
 
     .in-view & {
-        transform: translateX(calc(var(--spacing) * -1)) translateY(0);
+        transform: translateX(-100%) translateY(0);
 
         @media screen and (width <=800px) {
             transform: translateX(calc(var(--spacing) * -2)) translateY(0);

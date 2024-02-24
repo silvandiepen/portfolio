@@ -2,6 +2,8 @@
     <div :class="bemm()" @click="handleClick">
         <InputSearch :class="bemm('search')" placeholder="Search" v-model="filter.search" :collapse="true" />
         <InputSwitch :class="bemm('category')" :options="types" v-model="filter.type" :as-tooltip="true"></InputSwitch>
+
+        {{filter.type}}
     </div>
 </template>
 
@@ -11,12 +13,12 @@ import { useRoute } from 'vue-router';
 import { PropType, onMounted } from 'vue';
 import { Icons } from 'open-icon';
 
-import { useProjects } from "@/composables/useProjects";
+import { useWork } from "@/composables/useWork";
 import { InputSwitch, InputSearch } from "@/components/form";
 
 
 const { bemm } = useBemm('tools');
-const { filter } = useProjects();
+const { filter } = useWork();
 const { params } = useRoute();
 
 
@@ -55,11 +57,12 @@ const handleClick = (e: Event) => {
     justify-content: center;
 
     margin: auto;
-    width: fit-content;
-    border-radius: 6em;
+    width: 100%;
+    // border-radius: 6em;
     pointer-events: all;
 
     --input-border-radius: 5em;
+    border-bottom: 1px solid var(--foreground);
 
     &__search {
         &+#{$b}__category {

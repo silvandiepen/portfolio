@@ -24,7 +24,7 @@
             </div>
             <ButtonGroup>
                 <Button @click="goToDetail()" :icon="Icons.ARROW_RIGHT">Read more</Button>
-                <Button v-if="[ProjectType.PACKAGE, ProjectType.PROJECT].includes(project.type)" @click="goToProject()" :icon="Icons.ARROW_UP_RIGHT">Visit <span class="hide-mobile">{{ project.type
+                <Button v-if="[WorkType.PACKAGE, WorkType.PROJECT].includes(project.type)" @click="goToProject()" :icon="Icons.ARROW_UP_RIGHT">Visit <span class="hide-mobile">{{ project.type
                     == 'project' ? 'Project' :
                     'Docs' }}</span></Button>
 
@@ -41,7 +41,7 @@ import { PropType, computed, onMounted, ref } from "vue";
 import { Icons } from "open-icon";
 
 import { getColor, isInview } from "@/utils";
-import { Project, ProjectType } from "@/types";
+import { Work, WorkType } from "@/types";
 import router, { RouteName } from "@/router";
 
 import Icon from "@/components/Icon.vue";
@@ -51,10 +51,10 @@ import ButtonGroup from "@/components/ButtonGroup.vue";
 
 
 
-const bemm = useBemm('project-card');
+const bemm = useBemm('work-card');
 const props = defineProps({
     project: {
-        type: Object as PropType<Project>,
+        type: Object as PropType<Work>,
         required: true
     }
 })
@@ -107,7 +107,7 @@ const figureStyle = computed(() => {
     }
 }
 
-.project-card {
+.work-card {
     $b: &;
     width: 100%;
     display: flex;

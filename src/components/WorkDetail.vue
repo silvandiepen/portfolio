@@ -3,47 +3,47 @@
         :style="`--detail-bg: ${colors.background}; --detail-fg: ${colors.foreground}; --detail-image: ${colors.image}; --scrolled: ${scrolled}px`">
         <Hero :class="bemm('intro')" :data-color="colors.background">
             <figure :class="bemm('figure')">
-                <template v-if="project.icon">
-                    <Icon :class="bemm('icon')" v-if="typeof project.icon == 'string'" :name="project.icon"></Icon>
-                    <Icon :class="bemm('icon')" v-else v-for="icon in project.icon" :name="icon"></Icon>
+                <template v-if="work.icon">
+                    <Icon :class="bemm('icon')" v-if="typeof work.icon == 'string'" :name="work.icon"></Icon>
+                    <Icon :class="bemm('icon')" v-else v-for="icon in work.icon" :name="icon"></Icon>
                 </template>
             </figure>
 
             <div :class="bemm('content')">
-                <h1 :class="bemm('title')">{{ project.title }}</h1>
-                <p v-if="project.summary" :class="bemm('description')">{{ project.summary }}</p>
+                <h1 :class="bemm('title')">{{ work.title }}</h1>
+                <p v-if="work.summary" :class="bemm('description')">{{ work.summary }}</p>
             </div>
 
         </Hero>
-        <ContentSection :class="bemm('description-section')" v-if="project.description">
+        <ContentSection :class="bemm('description-section')" v-if="work.description">
             <div :class="bemm('content')">
-                <h4 :class="bemm('title')">Description</h4>
-                <p v-if="project.description" :class="bemm('description')">{{ project.description }}</p>
+                <h3 :class="bemm('title')">Description</h3>
+                <p v-if="work.description" :class="bemm('description')">{{ work.description }}</p>
 
                 <ButtonGroup direction="vertical">
-                    <Button v-if="project.link" @click="goToProject()" :icon="Icons.ARROW_UP_RIGHT">Visit {{
-                        project.type == 'project' ? 'Project' : 'Docs' }}</Button>
+                    <Button v-if="work.link" @click="goToWork()" :icon="Icons.ARROW_UP_RIGHT">Visit {{
+                        work.type == 'project' ? 'Project' : 'Docs' }}</Button>
 
-                    <Button v-if="project.npm" :icon="Icons.ARROW_UP_RIGHT"
-                        :href="`https://npmjs.org/package/${project.npm}`">npm</Button>
+                    <Button v-if="work.npm" :icon="Icons.ARROW_UP_RIGHT"
+                        :href="`https://npmjs.org/package/${work.npm}`">npm</Button>
 
-                    <div :class="bemm('npm')" v-if="project.npm">
-                        <code>npm install {{ project.npm }}</code>
+                    <div :class="bemm('npm')" v-if="work.npm">
+                        <code>npm install {{ work.npm }}</code>
                     </div>
                 </ButtonGroup>
             </div>
         </ContentSection>
         
-        <ContentSection v-if="project.data && project.type == ProjectType.PHOTOGRAPHY" fullWidth
+        <ContentSection v-if="work.data && work.type == WorkType.PHOTOGRAPHY" fullWidth
             :color="`var(--background)`">
-            <figure v-for="item in (project.data as any).images || []">
+            <figure v-for="item in (work.data as any).images || []">
                 <img :src="item?.image" />
                 <p v>{{ item.description }}</p>
             </figure>
         </ContentSection>
 
-        <ContentSection v-if="project.data && project.type == ProjectType.LOGO" :color="`var(--foreground)`">
-            <figure v-for="item in (project.data as any).images">
+        <ContentSection v-if="work.data && work.type == WorkType.LOGO" :color="`var(--foreground)`">
+            <figure v-for="item in (work.data as any).images">
                 <img :src="item?.image" />
                 <p v>{{ item.description }}</p>
             </figure>
@@ -63,7 +63,7 @@ import ButtonGroup from "@/components/ButtonGroup.vue";
 import Button from "@/components/Button.vue";
 import Icon from "@/components/Icon.vue";
 
-import { Icons, Project, ProjectType } from "@/types";
+import { Icons, Work, WorkType } from "@/types";
 import { getColor } from "@/utils/color";
 
 
@@ -76,40 +76,40 @@ onMounted(() => {
 })
 
 
-const bemm = useBemm('project-detail');
+const bemm = useBemm('work-detail');
 const props = defineProps({
-    project: {
-        type: Object as PropType<Project>,
+    work: {
+        type: Object as PropType<Work>,
         required: true
     }
 })
 
 
-const goToProject = () => {
-    if (props.project.link) window.location.href = props.project.link;
+const goToWork = () => {
+    if (props.work.link) window.location.href = props.work.link;
 
 }
 
 const colors = computed(() => {
 
-    return getColor(props.project.color);
+    return getColor(props.work.color);
 
 })
 
 
 
-// Whenever the project.type is package, I want to do a call to npms.io to get all the details from the package using project.npm 
+// Whenever the work.type is package, I want to do a call to npms.io to get all the details from the package using work.npm 
 const getPackageInfo = async () => {
 
     const url = 'https://api.npms.io/v2/search?q=';
 
-    const result = await fetch(`${url}${props.project.npm}`);
+    const result = await fetch(`${url}${props.work.npm}`);
     console.log(result);
     return result;
 
 }
 onMounted(() => {
-    if (props.project.npm) {
+    if (props.work.npm) {
         getPackageInfo();
 
     }
@@ -118,7 +118,7 @@ onMounted(() => {
 </script>
 
 <style lang="scss">
-.project-detail {
+.work-detail {
 
     color: var(--detail-fg);
     position: relative;

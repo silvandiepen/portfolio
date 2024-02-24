@@ -1,40 +1,33 @@
 
 <template>
     <div :class="bemm()">
-
         <ul :class="bemm('list')">
-            <li :class="bemm('item')" v-for="project in allProjects">
-                <ProjectCard :project="project" />
+            <li :class="bemm('item')" v-for="item in work">
+                <WorkCard :work="item" />
             </li>
         </ul>
+        {{ work.length }}
     </div>
 </template>
 
 <script lang="ts" setup>
 import { useBemm, } from 'bemm';
-import { defineProps, computed, PropType } from 'vue';
-import { useProjects } from '@/composables/useProjects';
-import ProjectCard from './ProjectCard.vue';
+// import { defineProps, PropType } from 'vue';
+import { useWork } from '@/composables/useWork';
+import WorkCard from './WorkCard.vue';
 
-import { Project } from '@/types';
+// import { Project } from '@/types';
 
-const bemm = useBemm('project-list');
-const { projects } = useProjects();
+const bemm = useBemm('work-list');
+const { work } = useWork();
 
-const props = defineProps({
-    projects: {
-        type: Array as PropType<Project[]>,
-        default: () => []
-    }
-})
+//  defineProps({
+//     projects: {
+//         type: Array as PropType<Project[]>,
+//         default: () => []
+//     }
+// })
 
-const allProjects = computed(() => {
-    if (props.projects.length > 0) {
-        return props.projects
-    } else {
-        return projects.value;
-    }
-})
 
 // watch(() => projects.value,
 //     () => {
@@ -46,7 +39,7 @@ const allProjects = computed(() => {
 </script>
 
 <style lang="scss">
-.project-list {
+.work-list {
 
     &__list {
         padding: var(--spacing) 0;

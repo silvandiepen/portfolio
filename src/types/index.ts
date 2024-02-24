@@ -1,7 +1,7 @@
 import { Icons } from "open-icon";
 export { Icons };
 
-export const ProjectType = {
+export const WorkType = {
     ALL: 'all',
     PROJECT: 'project',
     PACKAGE: 'package',
@@ -11,14 +11,14 @@ export const ProjectType = {
     CLIENTS: 'clients',
 };
 
-export type ProjectType = (typeof ProjectType)[keyof typeof ProjectType];
+export type WorkType = (typeof WorkType)[keyof typeof WorkType];
 
-export interface Project {
+export interface Work {
     title: string;
     description: string;
     summary: string;
     tags: string[];
-    type: ProjectType;
+    type: WorkType;
     image?:string;
     link?: string;
     npm?: string;

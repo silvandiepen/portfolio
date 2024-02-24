@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@sil/color": "^0.4.12",
+    "@sil/format": "^0.0.9",
     "@sil/storage": "^0.0.7",
     "bemm": "^1.0.4",
     "open-icon": "^0.0.13",

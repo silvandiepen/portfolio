@@ -6,9 +6,12 @@
                 here
                 is a little summary to have an idea.</h4>
             <ButtonGroup>
-                <Button :icon="Icons.ARROW_DOWN" :size="ButtonSize.XLARGE" :type="ButtonType.GHOST" href="#interests">Personal</Button>
-                <Button :icon="Icons.LAPTOP" :size="ButtonSize.XLARGE" :type="ButtonType.GHOST" :to="`/about/uses`">Uses</Button>
-                <Button :icon="Icons.DOCUMENT" :size="ButtonSize.XLARGE" :type="ButtonType.GHOST" :to="`/about/cv`">CV</Button>
+                <Button :icon="Icons.ARROW_DOWN" :size="ButtonSize.XLARGE" :type="ButtonType.GHOST"
+                    href="#interests">Personal</Button>
+                <Button :icon="Icons.LAPTOP" :size="ButtonSize.XLARGE" :type="ButtonType.GHOST"
+                    :to="`/about/uses`">Uses</Button>
+                <Button :icon="Icons.DOCUMENT" :size="ButtonSize.XLARGE" :type="ButtonType.GHOST"
+                    :to="`/about/cv`">CV</Button>
             </ButtonGroup>
         </Hero>
 
@@ -89,66 +92,40 @@
             </dl>
         </ContentSection>
 
-        <ContentSection :color="colors[3]">
-            <h2 id="work-experience">
-                <Icon :name="Icons.BAG2" />Work Experience
-            </h2>
-            <p>For more details about my functions, check out my <a href="https://sil.mt/about/cv">Curriculum Vitae</a></p>
-            <p>An overview of all my current and past jobs;</p>
-            <dl>
-                <dt>Currently</dt>
-                <dd>Freelance Creative Developer</dd>
-            </dl>
-            <dl>
-                <dt>January 2022 - November 2022</dt>
-                <dd>Senior Frontend Developer at <a href="https://www.yieldstreet.com">Yieldstreet</a></dd>
-            </dl>
-            <dl>
-                <dt>January 2022 - December 2022</dt>
-                <dd>Senior Technical Consultant at <a href="https://www.vuestorefront.io">Vue Storefront</a></dd>
-            </dl>
-            <dl>
-                <dt>September 2020 - December 2021</dt>
-                <dd>Senior Frontend Developer at <a href="https://gig.com">Gaming Innovation Group</a></dd>
-            </dl>
-            <dl>
-                <dt>October 2019 - September 2020</dt>
-                <dd>Senior Frontend Consultant at <a href="https://www.divotion.com">Divotion</a></dd>
-            </dl>
-            <dl>
-                <dt>March 2019 - September 2020</dt>
-                <dd>Senior Frontend Consultant at Yolt</dd>
-            </dl>
-            <dl>
-                <dt>November 2019 - February 2020</dt>
-                <dd>Senior Frontend Consultant at <a href="https://www.transavia.com">Transavia</a></dd>
-            </dl>
-            <dl>
-                <dt>November 2013 - September 2019</dt>
-                <dd>Senior Frontend Developer at Matise</dd>
-            </dl>
-            <dl>
-                <dt>May 2010 - current</dt>
-                <dd>Freelance Web developer and Designer</dd>
-            </dl>
-            <dl>
-                <dt>January 2007 - April 2010</dt>
-                <dd>Creative Retoucher at Souverein</dd>
-            </dl>
-            <dl>
-                <dt>January 2006 - April 2010</dt>
-                <dd>Organizer at Compact Events</dd>
-            </dl>
-            <dl>
-                <dt>January 2006 - December 2006</dt>
-                <dd>Pixel artist and web developer at The
-                    Saints</dd>
-            </dl>
-            <dl>
-                <dt>September 2005 - December 2006</dt>
-                <dd>Web Developer and Designer at Synetic</dd>
-            </dl>
+        <ContentSection>
+            <div class="content">
+                <h2>
+                    <Icon :name="Icons.WORLD" />Countries visited
+                </h2>
+
+                <ol>
+                    <li>Armenia</li>
+                    <li>Austria</li>
+                    <li>Belgium</li>
+                    <li>Canada</li>
+                    <li>Curaçao</li>
+                    <li>Cyprus</li>
+                    <li>Czech</li>
+                    <li>France</li>
+                    <li>Georgia</li>
+                    <li>Greece</li>
+                    <li>Italy</li>
+                    <li>Luxemburg</li>
+                    <li>Malta</li>
+                    <li>Nagorno Karabakh</li>
+                    <li>Netherlands</li>
+                    <li>Panama</li>
+                    <li>Portugal</li>
+                    <li>Russia</li>
+                    <li>Spain</li>
+                    <li>Swiss</li>
+                    <li>Ukraine</li>
+                </ol>
+            </div>
+
+
         </ContentSection>
+
     </div>
 </template>
 

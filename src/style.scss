@@ -90,7 +90,6 @@ dl {
 
 h2 {
     font-size: clamp(1.5em, 4vw, 4em);
-
 }
 
 article+article {
@@ -113,8 +112,14 @@ dl {
         font-weight: bold;
     }
 }
-
-h3 {
+h1,h2,h3,h4,h5{
+    a{
+        color: inherit;
+        text-decoration-color: var(--secondary);
+        font-weight: bold;
+    }
+}
+h3,h4,h5,h6 {
     &:has(.icon) {
         display: flex;
         align-items: center;
@@ -132,12 +137,9 @@ h3 {
         font-size: var(--icon-size, clamp(1.5em, 5vw, 4em));
         color: var(--secondary);
     }
-
-    &+p {
-        opacity: .75;
-        font-weight: 300;
-        padding-left: calc(var(--icon-size, clamp(1.5em, 5vw, 4em)) + var(--space));
-    }
+}
+h6{
+    .icon{color: inherit; --icon-size: 1.5em;}
 }
 
 
@@ -156,7 +158,6 @@ h1 {
 
 
     @media screen and (width >=800px) {
-
         width: calc(100% + calc(var(--spacing) / 2));
         margin-left: calc((var(--spacing) / 4) * -1);
     }
@@ -217,14 +218,81 @@ h4 {
     }
 }
 
-dl{
+h5 {
+    font-size: 1em;
+    font-weight: bold;
+
+    &+p {
+        margin-top: 0;
+    }
+}
+
+h6 {
+    font-size: .875em;
+    text-transform: uppercase;
+    font-weight: bold;
+
+    &+p {
+        margin-top: 0;
+    }
+}
+
+dl {
     font-size: 1.25em;
 
-    dd + dt{
-        margin-top: var(--space); 
+    dd+dt {
+        margin-top: var(--space);
     }
-    dt{
+
+    dt {
         display: flex;
-        align-items: center;  gap: calc(var(--space) / 2);
+        align-items: center;
+        gap: calc(var(--space) / 2);
     }
+}
+
+.content {
+
+    a,
+    p,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,ul,ol,
+    .tags {
+
+        &+a,
+        &+p,
+        &+h1,
+        &+h2,
+        &+h3,
+        &+h4,
+        &+h5,
+        &+h6,
+        &+ul,
+        &+ol,
+        &+.tags {
+            margin-top: var(--space);
+        }
+    }
+
+    ul:not([class]),
+    ol:not([class]) {
+        column-count: 3;
+        column-gap: var(--space);
+    }
+
+    ol:not([class]) {
+        counter-reset: olList;
+        li {
+            counter-increment: olList;
+            &::before {
+                content: counter(olList);
+                padding-right: .5em; opacity: .25;
+            }
+        }
+    }
+
 }

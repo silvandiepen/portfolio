@@ -5,8 +5,8 @@
 
             <ButtonGroup>
                 <Button :type="ButtonType.GHOST" :size="ButtonSize.XLARGE" v-for="project in  projectTypes "
-                    :to="{ name: RouteName.WORK_CATEGORY, params: { category: project.value }}"
-                    :icon="project.icon">{{ project.label }}</Button>
+                    :to="{ name: RouteName.WORK_CATEGORY, params: { category: project.value } }" :icon="project.icon">{{
+                        project.label }}</Button>
             </ButtonGroup>
         </Hero>
 
@@ -23,16 +23,16 @@ import { Icons } from 'open-icon';
 import { computed, onMounted } from 'vue';
 
 import Hero from '@/components/Hero.vue';
-import List from '@/components/ProjectList.vue';
+import List from '@/components/WorkList.vue';
 import Tools from '@/components/Tools.vue';
 import ButtonGroup from '@/components/ButtonGroup.vue';
 import Button from '@/components/Button.vue';
 
-import { useProjects } from '@/composables/useProjects';
+import { useWork } from '@/composables/useWork';
 import { ButtonSize, ButtonType } from '@/components/Button.model';
 import { RouteName } from '@/router';
 
-const { loadProjects } = useProjects();
+const { loadWork } = useWork();
 const bemm = useBemm('work');
 
 const blockClasses = computed(() => {
@@ -42,7 +42,7 @@ const blockClasses = computed(() => {
 })
 
 onMounted(() => {
-    loadProjects();
+    loadWork();
 
 })
 
@@ -84,17 +84,16 @@ const projectTypes = [{
 
     &__tools {
         z-index: 2;
-        position: fixed;
-        bottom: 0;
-        left: 50%;
-        transform: translate(-50%, -50%);
+        position: sticky;
+        top: 0;
 
         transition: transform .3s ease-in-out;
 
-        .scroll-down & {
-            transform: translate(-50%, 100%);
-            opacity: 0;
-        }
+
+        // .scroll-down & {
+        //     transform: translate(-50%, 100%);
+        //     opacity: 0;
+        // }
     }
 }
 </style>
