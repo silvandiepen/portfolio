@@ -1,7 +1,7 @@
 <template>
     <div :class="blockClasses">
         <Hero :color="getColor()">
-            <h1>Curriculeum Vitae</h1>
+            <h1>Curri-<br/>culeum Vitae</h1>
             <h4>What did Sil do? For which companies does and did he work? That.. you will find here. </h4>
         </Hero>
 
@@ -28,59 +28,69 @@
             </div>
 
         </ContentSection>
-        <!-- <ContentSection :color="getColor()">
-
-            <h2 id="work-experience">
-                <Icon :name="Icons.BAG2" />Work Experience
+        <ContentSection :color="getColor()">
+<div class="content">
+            <h2 >
+                <Icon :name="Icons.BAG2" />Areas of Expertise
             </h2>
             <p>An overview of all my current and past jobs;</p>
 
-        </ContentSection> -->
+            <h3>Design Systems<br />
+                and Component Excellence</h3>
+            <p>Exceptional proficiency in creating and maintaining design systems and component
+                libraries to ensure a unified and visually compelling user interface across diverse
+                applications.</p>
 
+            <h3>Masterful Styling<br />
+                and UI Development</h3>
+            <p>Outstanding UI-focused front-end development skills, excelling in translating design
+                concepts into pixel-perfect, visually stunning interfaces with meticulous attention to
+                styling details.</p>
 
-        <ContentSection :color="getColor()" v-for="(item) in cvData">
-            <div class="content">
+            <h3>Micro Animations<br />
+                & Enhanced Interaction</h3>
+            <p>
+                Advanced expertise in implementing micro animations to elevate user engagement,
+                employing nuanced visual elements to enhance overall interactivity and user delight.
+            </p>
 
-                <h2><a v-if="item.link" :href="item.link">@{{ item.company }}</a><template v-else>{{ item.company
-                }}</template></h2>
-                <h6 :class="bemm('date')">
-                    <Icon :name="Icons.CLOCK" />
-                {{ getFormattedDate(item.date[0]) }} - {{ getFormattedDate(item.date[1])
-                    }}
-                    </h6>
-                <h6 :class="bemm('location')">
-                    <Icon :name="Icons.LOCATION_MARKER" />
-                    {{ item.location.join(', ') }}
-                    
+            <h3>Responsive<br />
+                & Adaptive Design Mastery</h3>
+            <p>
+                Extensive experience crafting responsive designs that seamlessly adapt to various
+                devices, ensuring an exceptional user experience across desktop and mobile plat-
+                forms.
+            </p>
 
-                </h6>
+            <h3>User-Centric Design Principles</h3>
+            <p>
+                Applied mastery of user-centric design principles to prioritize usability, accessibility,
+                and overall user satisfaction, seamlessly integrating user feedback and testing meth-
+                odologies.
+            </p>
 
-                <h3>{{ item.title }}</h3>
-                <p>{{ item.description }}</p>
+            <h3>Collaborative Design<br />
+                & Development Leadership</h3>
+            <p>
+                Leadership in collaborative efforts with design teams, backend developers, and
+                stakeholders, ensuring seamless integration of design components and functional
+                features.
+            </p>
 
-                <template v-if="item.about">
-                    <h5>About {{ item.company }}</h5>
-                    <p>{{ item.about }}</p>
-
-                </template>
-
-                <template v-if="item.end">
-                    <h5>Why stop?</h5>
-                    <p>{{ item.end }}</p>
-                </template>
-
-                <template v-if="item.technologies">
-                    <h5>Technologies used</h5>
-                    <Tags :tags="getTechnologies(item)" />
-                </template>
-
+            <h3>Continuous Learning<br />
+                & Innovative Solutions</h3>
+            <p>
+                Proven dedication to staying at the forefront of design trends and emerging frontend
+                technologies, consistently integrating innovative solutions to drive continuous im-
+                provement in development practices.</p>
             </div>
         </ContentSection>
+
 
         <ContentSection :color="getColor()">
             <div class="content">
                 <h2>
-                    <Icon :name="Icons.BOOK" />Technologies Used
+                    <Icon :name="Icons.BOOK" />Technologies
                 </h2>
                 <p>All technologies I have worked with in the past and present;</p>
                 <!-- <ul>
@@ -107,6 +117,47 @@
             </div>
         </ContentSection>
 
+
+        <ContentSection :color="getColor()" v-for="(item) in cvData">
+            <div class="content">
+
+                <h2><a v-if="item.link" :href="item.link">@{{ item.company }}</a><template v-else>{{ item.company
+                }}</template></h2>
+                <h6 :class="bemm('date')">
+                    <Icon :name="Icons.CLOCK" />
+                    {{ getFormattedDate(item.date[0]) }} - {{ getFormattedDate(item.date[1])
+                    }}
+                </h6>
+                <h6 :class="bemm('location')">
+                    <Icon :name="Icons.LOCATION_MARKER" />
+                    {{ item.location.join(', ') }}
+
+
+                </h6>
+
+                <h3>{{ item.title }}</h3>
+                <p>{{ item.description }}</p>
+
+                <template v-if="item.about">
+                    <h5>About {{ item.company }}</h5>
+                    <p>{{ item.about }}</p>
+
+                </template>
+
+                <template v-if="item.end">
+                    <h5>Why stop?</h5>
+                    <p>{{ item.end }}</p>
+                </template>
+
+                <template v-if="item.technologies">
+                    <h5>Technologies used</h5>
+                    <Tags :tags="getTechnologies(item)" />
+                </template>
+
+            </div>
+        </ContentSection>
+
+        
     </div>
 </template>
 
@@ -190,13 +241,14 @@ const getTechnologies = (item: CVItem): Tag[] => item.technologies ? item.techno
 
 
         transition: all .3s ease-in-out;
-      
+
         dl {
             display: flex;
             flex-direction: row;
             align-items: center;
             gap: var(--space);
             justify-content: space-between;
+
             dt {
                 font-size: 1em;
             }
@@ -208,11 +260,13 @@ const getTechnologies = (item: CVItem): Tag[] => item.technologies ? item.techno
                 white-space: nowrap;
                 width: 75%;
             }
-        }  
-        &--active{
+        }
+
+        &--active {
             background-color: color-mix(in oklab, var(--block-bg), white 75%);
-            dl{
-                dd{
+
+            dl {
+                dd {
                     white-space: wrap;
                     overflow: visible;
 

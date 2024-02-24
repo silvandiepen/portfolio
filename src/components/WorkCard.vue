@@ -2,31 +2,23 @@
     <div :class="blockClasses" ref="block"
         :style="`--block-bg: ${colors.background}; --block-fg: ${colors.foreground}; --block-image: ${colors.image}`">
         <figure :class="bemm('figure')" @click="goToDetail()" :style="figureStyle">
-            <template v-if="project.icon">
-                <Icon :class="bemm('icon')" v-if="typeof project.icon == 'string'" :name="project.icon"></Icon>
-                <Icon :class="bemm('icon')" v-else v-for="icon in project.icon" :name="icon"></Icon>
+            <template v-if="work.icon">
+                <Icon :class="bemm('icon')" v-if="typeof work.icon == 'string'" :name="work.icon"></Icon>
+                <Icon :class="bemm('icon')" v-else v-for="icon in work.icon" :name="icon"></Icon>
             </template>
         </figure>
         <div :class="bemm('container')">
-            <h3 :class="bemm('title')">{{ project.title }}</h3>
+            <h3 :class="bemm('title')">{{ work.title }}</h3>
 
             <div :class="bemm('content')">
-                <p v-if="project.summary" :class="bemm('summary')">{{ project.summary }}</p>
-
-
-<!-- 
-                <div :class="bemm('tag-container')">
-                    <ul :class="bemm('tag-list')">
-                        <Tag is="li" :class="bemm('tag')" v-for="tag in project.tags" :key="tag" :tag="tag" />
-                    </ul>
-                </div> -->
-
+                <p v-if="work.summary" :class="bemm('summary')">{{ work.summary }}</p>
             </div>
             <ButtonGroup>
                 <Button @click="goToDetail()" :icon="Icons.ARROW_RIGHT">Read more</Button>
-                <Button v-if="[WorkType.PACKAGE, WorkType.PROJECT].includes(project.type)" @click="goToProject()" :icon="Icons.ARROW_UP_RIGHT">Visit <span class="hide-mobile">{{ project.type
-                    == 'project' ? 'Project' :
-                    'Docs' }}</span></Button>
+                <Button v-if="[WorkType.PACKAGE, WorkType.PROJECT].includes(work.type)" @click="goToProject()"
+                    :icon="Icons.ARROW_UP_RIGHT">Visit <span class="hide-mobile">{{ work.type
+                        == 'project' ? 'Project' :
+                        'Docs' }}</span></Button>
 
             </ButtonGroup>
         </div>
@@ -53,7 +45,7 @@ import ButtonGroup from "@/components/ButtonGroup.vue";
 
 const bemm = useBemm('work-card');
 const props = defineProps({
-    project: {
+    work: {
         type: Object as PropType<Work>,
         required: true
     }
@@ -63,26 +55,28 @@ const inView = ref(false);
 const block = ref(null);
 
 const goToDetail = () => {
-    router.push({ name: RouteName.PROJECT, params: { slug: props.project.slug } });
+    router.push({ name: RouteName.PROJECT, params: { slug: props.work.slug } });
 }
 const goToProject = () => {
-    if (document && props.project.link) document.location.href = props.project.link;
+    if (document && props.work.link) document.location.href = props.work.link;
 }
 
 onMounted(() => {
     if (block.value) inView.value = isInview(block.value, {
-        percentage: 50
+        percentage: 50,
+        basedOnElement: true
     });
 
     window.addEventListener('scroll', () => {
         inView.value = block.value ? isInview(block.value, {
-            percentage: 50
+            percentage: 50,
+            basedOnElement: true
         }) : false
     });
 })
 
 const colors = computed(() => {
-    return getColor(props.project.color);
+    return getColor(props.work.color);
 })
 
 const blockClasses = computed(() => {
@@ -91,9 +85,9 @@ const blockClasses = computed(() => {
 
 
 const figureStyle = computed(() => {
-    if (!props.project.image) return {}
+    if (!props.work.image) return {}
     return {
-        backgroundImage: `url(${props.project.image})`
+        backgroundImage: `url(${props.work.image})`
     }
 
 })
@@ -235,7 +229,7 @@ const figureStyle = computed(() => {
         }
     }
 
-    .button-group{
+    .button-group {
         margin-top: var(--space);
     }
 

@@ -6,21 +6,24 @@
                 <WorkCard :work="item" />
             </li>
         </ul>
-        {{ work.length }}
     </div>
 </template>
 
 <script lang="ts" setup>
 import { useBemm, } from 'bemm';
-// import { defineProps, PropType } from 'vue';
+import { onMounted } from 'vue';
 import { useWork } from '@/composables/useWork';
 import WorkCard from './WorkCard.vue';
 
 // import { Project } from '@/types';
 
 const bemm = useBemm('work-list');
-const { work } = useWork();
+const { work, loadWork } = useWork();
 
+
+onMounted(() => {
+    loadWork();
+})
 //  defineProps({
 //     projects: {
 //         type: Array as PropType<Project[]>,
@@ -52,13 +55,14 @@ const { work } = useWork();
         justify-content: center;
     }
 
-    &__item{
+    &__item {
         width: 480px;
         max-width: calc(100% - (var(--spacing) * 2));
-        @media screen and (width >= 1024px){
-            &:nth-child(2n){
-            transform: translateY(25%);
-        }
+
+        @media screen and (width >=1024px) {
+            &:nth-child(2n) {
+                transform: translateY(25%);
+            }
 
         }
     }

@@ -2,8 +2,6 @@
     <div :class="bemm()" @click="handleClick">
         <InputSearch :class="bemm('search')" placeholder="Search" v-model="filter.search" :collapse="true" />
         <InputSwitch :class="bemm('category')" :options="types" v-model="filter.type" :as-tooltip="true"></InputSwitch>
-
-        {{filter.type}}
     </div>
 </template>
 
@@ -62,7 +60,6 @@ const handleClick = (e: Event) => {
     pointer-events: all;
 
     --input-border-radius: 5em;
-    border-bottom: 1px solid var(--foreground);
 
     &__search {
         &+#{$b}__category {
