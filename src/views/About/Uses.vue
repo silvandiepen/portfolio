@@ -93,8 +93,9 @@
         <ContentSection :colors="colors[5]">
 
             <h2>
-                <!-- <Icon :name="Icons.COFFEE" /> -->
-                Coffee</h2>
+                <Icon :name="Icons.ESPRESSO_MACHINE_E61" />
+                Coffee
+            </h2>
 
             <dl>
                 <dt>Machine</dt>
@@ -103,7 +104,7 @@
                 <dt>Grinder</dt>
                 <dd>Fiorenzato F4 EVO</dd>
             </dl>
-</ContentSection>
+        </ContentSection>
 
     </div>
 </template>

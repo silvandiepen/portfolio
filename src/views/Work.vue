@@ -4,13 +4,13 @@
             <h1>Some of my <strong>Work</strong></h1>
 
             <ButtonGroup>
-                <Button :type="ButtonType.GHOST" :size="ButtonSize.XLARGE" v-for="project in  projectTypes "
-                    :to="{ name: RouteName.WORK_CATEGORY, params: { category: project.value } }" :icon="project.icon">{{
-                        project.label }}</Button>
+                <Button :type="ButtonType.GHOST" :size="ButtonSize.XLARGE" v-for="work in  workTypes "
+                    :to="{ name: RouteName.WORK_CATEGORY, params: { category: work.value } }" :icon="work.icon">{{
+                        work.label }}</Button>
             </ButtonGroup>
         </Hero>
 
-        <Tools :class="bemm('tools')" :types="projectTypes" />
+        <Tools :class="bemm('tools')" :types="workTypes" />
         <List :class="bemm('list')" />
 
     </div>
@@ -31,6 +31,7 @@ import Button from '@/components/Button.vue';
 import { useWork } from '@/composables/useWork';
 import { ButtonSize, ButtonType } from '@/components/Button.model';
 import { RouteName } from '@/router';
+import { WorkType } from '@/types';
 
 const { loadWork } = useWork();
 const bemm = useBemm('work');
@@ -43,37 +44,42 @@ const blockClasses = computed(() => {
 
 onMounted(() => {
     loadWork();
-
 })
 
 
-const projectTypes = [{
+const workTypes = [{
     label: "All",
-    value: "all",
+    value: WorkType.ALL,
     icon: Icons.MORE
 }, {
     label: "Projects",
-    value: "projects",
+    value: WorkType.PROJECT,
     icon: Icons.WEBSITE
 }, {
     label: "Packages",
-    value: "packages",
+    value: WorkType.PACKAGE,
     icon: Icons.BOX
-}, {
-    label: "Icons",
-    value: "icons",
-    icon: Icons.SHAPE_SQUARE
-}, {
+}, 
+// {
+//     label: "Icons",
+//     value: WorkType.ICONS,
+//     icon: Icons.SHAPE_SQUARE
+// }, 
+
+{
     label: "Photography",
-    value: "photography",
+    value: WorkType.PHOTOGRAPHY,
     icon: Icons.CAMERA
-}, {
-    label: "Clients",
-    value: "clients",
-    icon: Icons.USER
-}, {
+}, 
+// {
+//     label: "Clients",
+//     value: WorkType.CLIENTS,
+//     icon: Icons.USER
+// }, 
+
+{
     label: "Logos",
-    value: "logo",
+    value: WorkType.LOGO,
     icon: Icons.PATH3
 }]
 

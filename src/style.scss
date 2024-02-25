@@ -284,6 +284,18 @@ dl {
         column-gap: var(--space);
     }
 
+    ol,ul{
+        li{
+        &:has(.icon){
+            display: flex;
+            .icon{
+                font-size: 1.5em;
+            }
+        }
+
+        }
+    }
+
     ol:not([class]) {
         counter-reset: olList;
         li {

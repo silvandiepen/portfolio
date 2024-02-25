@@ -66,7 +66,8 @@ export const useWork = () => {
 
         let items = workState.work;
 
-        if (workState.filters.type) {
+        console.log(`in computed`, workState.filters.type)
+        if (workState.filters.type && workState.filters.type !== WorkType.ALL) {
             items = items.filter((w: Work) => w.type === workState.filters.type);
         }
 

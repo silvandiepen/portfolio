@@ -12,7 +12,10 @@ import { PropType, onMounted } from 'vue';
 import { Icons } from 'open-icon';
 
 import { useWork } from "@/composables/useWork";
-import { InputSwitch, InputSearch } from "@/components/form";
+import { 
+    InputSwitch, 
+    
+    InputSearch } from "@/components/form";
 
 
 const { bemm } = useBemm('tools');
@@ -34,7 +37,10 @@ defineProps({
 
 onMounted(() => {
     if (params.category) {
-        filter.value.type = params.category as string;
+
+        console.log(`params`,params.category)
+
+        // filter.value.type = params.category as string;
     }
 });
 

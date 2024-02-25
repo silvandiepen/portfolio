@@ -80,7 +80,7 @@
             </dl>
             <dl>
                 <dt>English</dt>
-                <dd>Fluent</dd>
+                <dd>Professional</dd>
             </dl>
             <dl>
                 <dt>Spanish</dt>
@@ -89,6 +89,14 @@
             <dl>
                 <dt>German</dt>
                 <dd>Ok</dd>
+            </dl>
+            <dl>
+                <dt>Armenian</dt>
+                <dd>Learning</dd>
+            </dl>
+            <dl>
+                <dt>Maltese</dt>
+                <dd>Learning</dd>
             </dl>
         </ContentSection>
 
@@ -99,11 +107,11 @@
                 </h2>
 
                 <ol>
-                    <li>Armenia</li>
+                    <li>Armenia<Icon :name="Icons.HOME" /></li>
                     <li>Austria</li>
                     <li>Belgium</li>
                     <li>Canada</li>
-                    <li>Curaçao</li>
+                    <li>Curaçao<Icon :name="Icons.HOME" /></li>
                     <li>Cyprus</li>
                     <li>Czech</li>
                     <li>France</li>
@@ -111,10 +119,10 @@
                     <li>Greece</li>
                     <li>Italy</li>
                     <li>Luxemburg</li>
-                    <li>Malta</li>
+                    <li>Malta<Icon :name="Icons.HOME" /></li>
                     <li>Nagorno Karabakh</li>
-                    <li>Netherlands</li>
-                    <li>Panama</li>
+                    <li>Netherlands<Icon :name="Icons.HOME" /></li>
+                    <li>Panama<Icon :name="Icons.HOME" /></li>
                     <li>Portugal</li>
                     <li>Russia</li>
                     <li>Spain</li>

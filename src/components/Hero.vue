@@ -50,5 +50,12 @@ const color = computed(() => {
     // h1 {
     //     font-size: clamp(2em, 10vw, 6em);
     // }
+
+    .button-group{
+        margin-top: var(--spacing);
+        gap: 0;
+        font-size: .75em;
+    }
 }
+
 </style>
