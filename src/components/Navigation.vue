@@ -78,27 +78,30 @@ const allSections = ref<{ top: number; color: string | null; }[]>([]);
 const initSections = () => {
     allSections.value = Object.values(document.querySelectorAll('section[data-color]')).map((section) => {
         return {
-            top: section.getBoundingClientRect().top,
+            top: parseInt(`${section.getBoundingClientRect().top}`),
             color: section.getAttribute('data-color')
         }
     });
 }
 const getUnderlayingColor = () => {
-    initSections();
+    if(!allSections.value.length) initSections();
 
-    const currentTop = window.scrollY;
+    const currentTop = window.scrollY - window.innerHeight;
     const currentSection = allSections.value.find(section => section.top > currentTop);
+
+
 
     if (currentSection) {
         if (currentSection.color?.includes('--')) {
             foregroundColor.value = currentSection.color ? `var(${currentSection.color}-text)` : 'white';
         } else {
-            foregroundColor.value = currentSection.color ? getBrightness(currentSection.color) > 50 ? 'var(--dark)' : 'var(--light)' : 'white';
-
+            console.log(currentSection.color,getBrightness(currentSection.color || ''));
+            foregroundColor.value = currentSection.color ? getBrightness(currentSection.color) > 50 ? 'var(--dark)' : 'var(--light)' : 'blue';
         }
     }
     else {
-        foregroundColor.value = 'white';
+        console.log(currentTop, allSections.value);
+        foregroundColor.value = 'red';
     }
 
     setTimeout(() => {

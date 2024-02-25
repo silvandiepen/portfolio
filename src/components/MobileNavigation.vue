@@ -7,9 +7,9 @@
                     <RouterLink :class="bemm('link')" :to="item.link">
                         <span :class="bemm('text')">
                             {{ item.name }}
-                            <Icon :name="Icons.ARROW_RIGHT" />
+                         
                         </span>
-
+                        <Icon :name="Icons.ARROW_RIGHT" />
 
                     </RouterLink>
                     <ButtonGroup>
@@ -133,7 +133,8 @@ onMounted(() => {
     }
 
     &__link {
-        color: var(--primary);
+        // color: var(--primary);
+        color: var(--secondary);
         font-size: 1.5em;
         text-decoration: none;
         font-weight: 900;
@@ -142,6 +143,7 @@ onMounted(() => {
         text-align: center;
         margin-top: var(--space);
         display: flex;
+        align-items: center;
     }
 }
 </style>
