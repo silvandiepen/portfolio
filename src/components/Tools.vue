@@ -67,6 +67,13 @@ const handleClick = (e: Event) => {
 
     --input-border-radius: 5em;
 
+    transform:translateY(0);
+    transition: .3s ease-in-out;
+z-index: 200;
+    .scroll-up & {
+        transform:translateY(-100%);
+    }
+
     &__search {
         &+#{$b}__category {
             transform: scale(1);

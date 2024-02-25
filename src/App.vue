@@ -3,6 +3,7 @@
   <div :class="blockClasses" :style="`--current-color: ${currentColor}`">
 
     <Navigation></Navigation>
+    <MobileNavigation></MobileNavigation>
     <RouterView v-slot="{ Component }">
       <!-- <transition> -->
       <component :is="Component" :key="routeKey" />
@@ -15,6 +16,7 @@ import { ref, watch, onMounted, computed } from "vue";
 import { useRoute } from "vue-router";
 import { useBemm } from "bemm";
 import Navigation from '@/components/Navigation.vue';
+import MobileNavigation from '@/components/MobileNavigation.vue';
 import { useUI } from "@/composables/useUI";
 
 const bemm = useBemm('app');

@@ -107,11 +107,15 @@
                 </h2>
 
                 <ol>
-                    <li>Armenia<Icon :name="Icons.HOME" /></li>
+                    <li>Armenia
+                        <Icon :name="Icons.HOME" />
+                    </li>
                     <li>Austria</li>
                     <li>Belgium</li>
                     <li>Canada</li>
-                    <li>Curaçao<Icon :name="Icons.HOME" /></li>
+                    <li>Curaçao
+                        <Icon :name="Icons.HOME" />
+                    </li>
                     <li>Cyprus</li>
                     <li>Czech</li>
                     <li>France</li>
@@ -119,10 +123,16 @@
                     <li>Greece</li>
                     <li>Italy</li>
                     <li>Luxemburg</li>
-                    <li>Malta<Icon :name="Icons.HOME" /></li>
+                    <li>Malta
+                        <Icon :name="Icons.HOME" />
+                    </li>
                     <li>Nagorno Karabakh</li>
-                    <li>Netherlands<Icon :name="Icons.HOME" /></li>
-                    <li>Panama<Icon :name="Icons.HOME" /></li>
+                    <li>Netherlands
+                        <Icon :name="Icons.HOME" />
+                    </li>
+                    <li>Panama
+                        <Icon :name="Icons.HOME" />
+                    </li>
                     <li>Portugal</li>
                     <li>Russia</li>
                     <li>Spain</li>
@@ -148,9 +158,7 @@ import ContentSection from '@/components/ContentSection.vue';
 import Hero from '@/components/Hero.vue';
 import Icon from '@/components/Icon.vue';
 
-import Button from '@/components/Button.vue';
-import { ButtonSize, ButtonType } from '@/components/Button.model';
-import ButtonGroup from '@/components/ButtonGroup.vue';
+import { Button, ButtonSize, ButtonType, ButtonGroup } from '@/components/button';
 
 const bemm = useBemm('about');
 

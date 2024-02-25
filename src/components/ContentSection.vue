@@ -111,7 +111,7 @@ watch(() => inView.value, () => {
                 background-position: 0 0;
                 background-repeat: repeat-x;
 
-                animation: saw 20s infinite linear;
+                animation: saw 15s infinite linear;
 
                 @keyframes saw {
                     0% {

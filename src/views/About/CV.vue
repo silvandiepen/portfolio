@@ -118,7 +118,7 @@
         </ContentSection>
 
 
-        <ContentSection :color="getColor()" v-for="(item) in cvData">
+        <ContentSection :color="getColor()" v-for="(item) in cv">
             <div class="content">
 
                 <h2><a v-if="item.link" :href="item.link">@{{ item.company }}</a><template v-else>{{ item.company
@@ -181,24 +181,20 @@ import { Tag } from '@/types';
 
 
 const colors = computed(() => {
-
-    return getColorSet(cvData.value.length + 4);
+    return getColorSet(cv.length + 4);
 })
 
 const activeTechnology = ref<string | null>(null);
 
 
 const colorCount = ref(0);
+
 const getColor = () => {
     colorCount.value++;
     return colors.value[colorCount.value];
-
 }
 
 
-const cvData = computed(() => {
-    return cv;
-})
 
 const getFormattedDate = (date: Date) => {
 

@@ -57,6 +57,10 @@ onMounted(() => {
 .ring {
     transform-origin: 50% 50%;
     --size: 100vh;
+
+    @media screen and (width <=800px){
+        --size: 100vw;
+    }
     opacity: 1;
 
     position: fixed;

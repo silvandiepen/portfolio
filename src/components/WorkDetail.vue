@@ -33,9 +33,8 @@
                 </ButtonGroup>
             </div>
         </ContentSection>
-        
-        <ContentSection v-if="work.data && work.type == WorkType.PHOTOGRAPHY" fullWidth
-            :color="`var(--background)`">
+
+        <ContentSection v-if="work.data && work.type == WorkType.PHOTOGRAPHY" fullWidth :color="`var(--background)`">
             <figure v-for="item in (work.data as any).images || []">
                 <img :src="item?.image" />
                 <p v>{{ item.description }}</p>
@@ -59,8 +58,8 @@ import { PropType, computed, onMounted, ref } from "vue";
 import ContentSection from "@/components/ContentSection.vue";
 import Hero from "@/components/Hero.vue";
 
-import ButtonGroup from "@/components/ButtonGroup.vue";
-import Button from "@/components/Button.vue";
+import { ButtonGroup, Button } from "@/components/button";
+
 import Icon from "@/components/Icon.vue";
 
 import { Icons, Work, WorkType } from "@/types";

@@ -25,11 +25,9 @@ import { computed, onMounted } from 'vue';
 import Hero from '@/components/Hero.vue';
 import List from '@/components/WorkList.vue';
 import Tools from '@/components/Tools.vue';
-import ButtonGroup from '@/components/ButtonGroup.vue';
-import Button from '@/components/Button.vue';
+import {Button, ButtonGroup, ButtonSize, ButtonType} from '@/components/button';
 
 import { useWork } from '@/composables/useWork';
-import { ButtonSize, ButtonType } from '@/components/Button.model';
 import { RouteName } from '@/router';
 import { WorkType } from '@/types';
 

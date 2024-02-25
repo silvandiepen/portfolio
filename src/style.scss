@@ -282,6 +282,10 @@ dl {
     ol:not([class]) {
         column-count: 3;
         column-gap: var(--space);
+
+        @media screen and (width <=800px) {
+            column-count: 1;
+        }
     }
 
     ol,ul{

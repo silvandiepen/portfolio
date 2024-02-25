@@ -11,8 +11,9 @@
                 </RouterLink>
             </div>
             <div :class="bemm('end')">
+     
                 <ul :class="bemm('list')">
-                    <li :class="bemm('item')" v-for="item in menu">
+                    <li :class="bemm('item')" v-for="item in navigationData">
                         <RouterLink :class="bemm('link')" :to="item.link">
                             <span :class="bemm('text')">
                                 {{ item.name }}
@@ -20,6 +21,12 @@
                         </RouterLink>
                     </li>
                 </ul>
+                <span @click="triggerMobileNavigation()" :class="bemm('nav-trigger')">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+
+                </span>
             </div>
 
         </div>
@@ -33,10 +40,13 @@ import { Icons } from "open-icon";
 import { useRouter, RouterLink } from 'vue-router';
 
 import Logo from '@/components/Logo.vue';
-import Button from "@/components/Button.vue";
+import {Button} from "@/components/button";
 
 import { RouteName } from '@/router';
 import { getBrightness } from "@sil/color";
+
+import { navigationData } from "@/data/navigation";
+import { EventAction, eventBus } from "@/utils";
 
 const router = useRouter();
 const bemm = useBemm('nav');
@@ -50,19 +60,6 @@ const isHome = computed(() => {
     return router.currentRoute.value.name === RouteName.HOME;
 })
 
-const menu = computed(() => {
-    return [{
-        name: 'About',
-        link: '/about'
-    }, {
-        name: 'Work',
-        link: '/work'
-    }, {
-        name: 'Contact',
-        link: '/contact'
-    }]
-})
-
 
 const blockClasses = computed(() => {
     return [
@@ -72,6 +69,9 @@ const blockClasses = computed(() => {
 
 const foregroundColor = ref('white');
 
+const triggerMobileNavigation = () => {
+    eventBus.emit(EventAction.MOBILE_NAVIGATION);
+}
 
 
 const allSections = ref<{ top: number; color: string | null; }[]>([]);
@@ -120,6 +120,81 @@ onMounted(() => {
 </script>
 
 <style lang="scss">
+@keyframes lineTop {
+    0% {
+        transform: translate(0em, 0em) rotate(0deg);
+    }
+
+    50% {
+        transform: translate(0em, calc(.5em - 1px)) rotate(0deg);
+    }
+
+    100% {
+        transform: translate(0em, calc(.5em - 1px)) rotate(45deg);
+    }
+}
+
+@keyframes lineTopStart {
+    0% {
+        transform: translate(0em, calc(.5em - 1px)) rotate(45deg);
+    }
+
+    100% {
+        transform: translate(0em, 0em) rotate(0deg);
+    }
+}
+
+@keyframes lineMiddle {
+    0% {
+        transform: translate(0em, 0em) rotate(0deg);
+    }
+
+    50% {
+        transform: translate(0, 0) rotate(0deg) scale(3, 1);
+    }
+
+    100% {
+        transform: translate(0, 0) rotate(0deg) scale(0, 1);
+    }
+}
+
+@keyframes lineMiddleStart {
+    0% {
+        transform: translate(5em, 0) rotate(0deg) scale(1, 1);
+    }
+
+    100% {
+        transform: translate(0em, 0em) rotate(0deg);
+    }
+}
+
+@keyframes lineBottom {
+    0% {
+        transform: translate(0em, 0em) rotate(0deg);
+    }
+
+    50% {
+        transform: translate(0em, calc((.5em - 1px) * -1)) rotate(0);
+    }
+
+    100% {
+        transform: translate(0em, calc((.5em - 1px) * -1)) rotate(-45deg);
+    }
+}
+
+@keyframes lineBottomStart {
+
+    0% {
+        transform: translate(0em, calc((.5em - 1px) * -1)) rotate(-45deg);
+    }
+
+    100% {
+        transform: translate(0em, 0em) rotate(0deg);
+    }
+
+
+}
+
 .nav {
     $b: &;
     position: fixed;
@@ -128,7 +203,7 @@ onMounted(() => {
     transition: transform .25s ease-in-out;
     padding: calc(var(--spacing) / 2) calc(var(--spacing) - (var(--space) * 2));
 
-    z-index: 10;
+    z-index: 20;
     color: var(--text-color);
 
     &__container {
@@ -155,10 +230,14 @@ onMounted(() => {
 
     .scroll-down & {
         transform: translateY(-100%);
+    }
 
-
+    .app:has(.mobile-navigation--active) & {
+        transform: translateY(0%);
+        color: white !important;
 
     }
+
 
     .on-top & {
         transform: translateY(0%);
@@ -176,7 +255,7 @@ onMounted(() => {
     }
 
     &__start {
-        align-self: flex-start;
+        align-self: center;
         justify-content: flex-start;
     }
 
@@ -207,6 +286,79 @@ onMounted(() => {
         padding: 0;
         margin: 0;
 
+        @media screen and (max-width: 768px) {
+            display: none;
+        }
+        margin-right: var(--space);
+
+    }
+
+    &__nav-trigger {
+        display: none;
+        position: relative;
+        cursor: pointer;
+        width: 2em;
+        height: 2em;
+        padding: .5em;
+        color: white !important;
+
+
+        border-radius: 4px;
+        flex-direction: column;
+
+
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        --transition-time: .5s;
+
+        --transition-ease: cubic-bezier(0, .75, .5, 1.5);
+
+        span {
+
+            width: 100%;
+            height: 2px;
+            border-radius: 1px;
+            background-color: currentColor;
+            transition: transform .25s ease-in-out;
+
+
+            &:nth-child(1) {
+                animation: lineTopStart var(--transition-time) var(--transition-ease) forwards;
+            }
+
+            &:nth-child(2) {
+                animation: lineMiddleStart var(--transition-time) var(--transition-ease) forwards;
+            }
+
+            &:nth-child(3) {
+                animation: lineBottomStart var(--transition-time) var(--transition-ease) forwards;
+            }
+        }
+
+
+        @media screen and (max-width: 768px) {
+            display: flex;
+        }
+
+
+        .app:has(.mobile-navigation--active) & {
+            span {
+                &:nth-child(1) {
+                    animation: lineTop var(--transition-time) var(--transition-ease) forwards;
+                }
+
+                &:nth-child(2) {
+                    animation: lineMiddle var(--transition-time) var(--transition-ease) forwards;
+                }
+
+                &:nth-child(3) {
+                    animation: lineBottom var(--transition-time) var(--transition-ease) forwards;
+                }
+            }
+        }
     }
 
     &__link {

@@ -14,7 +14,7 @@ import { useBemm } from 'bemm';
 import { Tag as TagType } from "@/types";
 import { useWork } from '@/composables/useWork';
 
-import Button from "@/components/Button.vue";
+import {Button} from "@/components/button";
 import Tag from '@/components/Tag.vue';
 
 const bemm = useBemm('tags');

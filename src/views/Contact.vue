@@ -12,10 +12,8 @@
 
         <ContentSection>
             <ButtonGroup>
-                <Button :href="social.link" v-for="social in socials" :type="ButtonType.GHOST" :size="ButtonSize.XLARGE" :icon="getIcon(social.brand)"></Button>
-
+                <Button :href="social.link" v-for="social in socials" :type="ButtonType.GHOST" :size="ButtonSize.XLARGE" :icon="social.icon"></Button>
             </ButtonGroup>
-
         </ContentSection>
     </div>
 </template>
@@ -24,14 +22,18 @@
 import { useBemm } from 'bemm';
 import { computed } from 'vue';
 
+import { navigationData } from '@/data/navigation';
+
 import ContentSection from '@/components/ContentSection.vue';
 import Hero from '@/components/Hero.vue';
-import Button from '@/components/Button.vue';
+import { ButtonGroup, Button, ButtonSize, ButtonType } from '@/components/button';
+
 const bemm = useBemm('contact');
 
-import { searchIcon, Icons } from 'open-icon';
-import ButtonGroup from '@/components/ButtonGroup.vue';
-import { ButtonSize, ButtonType } from '@/components/Button.model';
+const socials = computed(()=>{
+    const contactData = navigationData.find((item) => item.name === 'Contact')
+    return contactData?.items || [];
+})
 
 const blockClasses = computed(() => {
     return [
@@ -39,33 +41,7 @@ const blockClasses = computed(() => {
     ]
 })
 
-const getIcon = (brand: string): Icons => {
-    const foundIcons = searchIcon(`brand-${brand}`);
-    if (!foundIcons || !foundIcons.length) {
-        console.log('couldnt find icon', brand)
-        return Icons.RECYCLE;
-    }
-    return foundIcons[0].name as Icons;
-}
 
-const socials = [{
-    brand: 'x',
-    link: 'https://x.com/silvandiepen'
-}, {
-    brand: 'facebook',
-    link: 'https://facebook.com/silvandiepen'
-}, {
-    brand: 'linkedin',
-    link: 'https://linkedin.com/in/silvandiepen'
-}, {
-    brand: 'instagram',
-    link: 'https://instagram.com/silvandiepen'
-}, {
-    brand: 'github',
-    link: 'http://github.com/silvandiepen'
-}, {
-    brand: 'codepen',
-    link: 'http://codepen.io/silvandiepen'
-}]
+
 
 </script>

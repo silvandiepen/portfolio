@@ -3,7 +3,9 @@
     <div :class="bemm()">
         <Intro></Intro>
         <ContentSection>
-            <h2><Icon :name="Icons.USER"/>About</h2>
+            <h2>
+                <Icon :name="Icons.USER" />About
+            </h2>
 
             <ButtonGroup>
                 <Button :type="ButtonType.GHOST" :icon="Icons.USER" :size="ButtonSize.XLARGE" to="/about">About me</Button>
@@ -14,7 +16,9 @@
             </ButtonGroup>
         </ContentSection>
         <ContentSection>
-            <h2><Icon :name="Icons.BAG2"/>Work</h2>
+            <h2>
+                <Icon :name="Icons.BAG2" />Work
+            </h2>
 
             <ButtonGroup>
                 <Button :type="ButtonType.GHOST" :icon="Icons.WEBSITE" :size="ButtonSize.XLARGE"
@@ -32,7 +36,9 @@
             </ButtonGroup>
         </ContentSection>
         <ContentSection>
-            <h2><Icon :name="Icons.EMAIL"/>Contact</h2>
+            <h2>
+                <Icon :name="Icons.EMAIL" />Contact
+            </h2>
             <ButtonGroup>
                 <Button :type="ButtonType.GHOST" :icon="Icons.EMAIL_LETTER" :size="ButtonSize.XLARGE">Contact</Button>
             </ButtonGroup>
@@ -40,15 +46,16 @@
     </div>
 </template>
 <script setup lang="ts">
-import ContentSection from "@/components/ContentSection.vue";
-import Intro from "@/components/Intro.vue";
-import Button from "@/components/Button.vue";
-import ButtonGroup from "@/components/ButtonGroup.vue";
-import Icon from "@/components/Icon.vue";
-
 import { Icons } from "open-icon";
 import { useBemm } from 'bemm';
-import { ButtonType, ButtonSize } from "@/components/Button.model";
+
+import ContentSection from "@/components/ContentSection.vue";
+import Intro from "@/components/Intro.vue";
+import {ButtonGroup, Button, ButtonSize, ButtonType } from "@/components/button";
+import Icon from "@/components/Icon.vue";
+// import Button from "@/components/button/Button.vue";
+// import ButtonGroup from "@/components/button/ButtonGroup.vue";
+
 const bemm = useBemm('home');
 
 </script>
@@ -82,4 +89,5 @@ const bemm = useBemm('home');
     }
 
 
-}</style>
+}
+</style>
