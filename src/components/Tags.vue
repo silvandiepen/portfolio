@@ -1,7 +1,7 @@
 <template>
     <div :class="bemm()">
         <ul :class="bemm('list')">
-            <Tag v-if="allTags" is="li" v-for="tag in allTags" :tag="tag.label" :active="isActive(tag)" @click="setTag(tag)" />
+            <Tag v-if="allTags" is="li" v-for="tag in allTags" :tag="tag" :active="isActive(tag)" @click="setTag(tag)" />
             <Button v-if="!showAll" size="small" @click="showAllTags = !showAllTags">{{ showAll ? 'Hide most' : 'Show all tags' }}</Button>
         </ul>
     </div>
@@ -22,7 +22,7 @@ const { filter } = useWork();
 
 const props = defineProps({
     tags: {
-        type: Array as PropType<{ label: string, occurance?: number }[]>,
+        type: Array as PropType<TagType[]>,
         default: null
     },
     showAll: {
@@ -43,9 +43,9 @@ const isActive = (tag: TagType): boolean => {
 
 const showAllTags = ref(props.showAll);
 
-const allTags = computed(() => {
+const allTags = computed<TagType[]>(() => {
     const { tags } = useWork();
-    const myTags = props.tags || tags.value;
+    const myTags: TagType[] = props.tags || tags.value;
 
 
     if (props.showAll || showAllTags.value) return myTags;

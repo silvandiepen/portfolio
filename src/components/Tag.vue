@@ -1,14 +1,16 @@
 <template>
-    <component :is="is" :class="[bemm(), bemm('', active ? 'active' : 'inactive')]">{{ tag }}</component>
+    <component :is="is" :class="[bemm(), bemm('', active ? 'active' : 'inactive')]">{{ tag.label }}</component>
 </template>
 
 
 <script lang="ts" setup>
+import { PropType } from "vue";
+import { Tag as TagType } from "@/types";
 import { useBemm } from 'bemm';
 const bemm = useBemm('tag');
 defineProps({
     tag: {
-        type: String,
+        type: Object as PropType<TagType>,
         required: true
     },
     active: {
@@ -32,11 +34,11 @@ defineProps({
     --bg-color: color-mix(in oklab, var(--background) 100%, black 25%);
     // background-image: linear-gradient(to right bottom, var(--bg-color), var(--background));
 
-opacity: .5;
+    opacity: .5;
 
-&:hover{
-    opacity: 1;
-}
+    &:hover {
+        opacity: 1;
+    }
 
     &--active {
         background-image: linear-gradient(to right bottom, var(--primary), var(--secondary));

@@ -46,12 +46,14 @@ const blockClasses = computed(() => {
 
 onMounted(() => {
     if (block.value) inView.value = isInview(block.value, {
-        percentage: 25
+        percentage: 25,
+        basedOnElement:false
     });
 
     window.addEventListener('scroll', () => {
         inView.value = block.value ? isInview(block.value, {
-            percentage: 25
+            percentage: 25,
+            basedOnElement: false
 
         }) : false
     });
