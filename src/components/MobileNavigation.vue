@@ -1,5 +1,5 @@
 <template>
-    <nav :class="blockClasses">
+    <nav :class="blockClasses" :style="blockStyles">
         <div :class="bemm('container')">
 
             <ul :class="bemm('list')">
@@ -7,7 +7,7 @@
                     <RouterLink :class="bemm('link')" :to="item.link">
                         <span :class="bemm('text')">
                             {{ item.name }}
-                         
+
                         </span>
                         <Icon :name="Icons.ARROW_RIGHT" />
 
@@ -38,13 +38,17 @@ import {
 } from 'vue-router';
 import { navigationData } from "@/data/navigation";
 import router from "@/router";
-import { EventAction, eventBus } from "@/utils";
+import { accentColor, EventAction, eventBus } from "@/utils";
 
 import { Button, ButtonGroup, ButtonType, ButtonSize } from "@/components/button";
 import Icon from "@/components/Icon.vue";
+import { textColor } from "@sil/color";
 
 
+import { useUI } from "@/composables/useUI";
 
+
+const { currentColor } = useUI();
 
 const bemm = useBemm('mobile-navigation');
 
@@ -55,6 +59,13 @@ const blockClasses = computed(() => {
         bemm(),
         bemm('', isActive.value ? 'active' : 'inactive')
     ]
+})
+
+const blockStyles = computed(() => {
+    return {
+        '--block-background': accentColor(currentColor.value),
+        '--block-foreground': textColor(currentColor.value)
+    }
 })
 
 const isHref = (link: string) => link.includes('//');
@@ -83,12 +94,13 @@ onMounted(() => {
 
     width: 100vw;
     height: 100vh;
-    background-color: var(--secondary);
+    background-color: var(--block-background);
+    color: var(--block-foreground);
     z-index: 10;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    clip-path: inset(0 100% 100% 0);
+    // align-items: center;
+    // justify-content: center;
+    padding-top: calc(var(--spacing) * 2);
 
     clip-path: circle(2em at calc(100vw - var(--spacing)) calc(var(--spacing) + (var(--space) * 1)));
 
@@ -105,12 +117,12 @@ onMounted(() => {
 
     &--active {
 
-        background-color: var(--background);
+        // background-color:  var(--block-background);
         clip-path: circle(200% at calc(100vw - var(--spacing)) calc(var(--spacing) + var(--space)));
     }
 
     .scroll-down & {
-        transform: translateX(calc(var(--spacing) * 2));
+        // transform: translateX(calc(var(--spacing) * 2));
     }
 
     .on-top &,
@@ -124,8 +136,8 @@ onMounted(() => {
         margin: 0;
         display: flex;
         flex-direction: column;
-        align-items: center;
-        justify-content: center;
+        // align-items: center;
+        // justify-content: center;
     }
 
     &__container {
@@ -134,7 +146,7 @@ onMounted(() => {
 
     &__link {
         // color: var(--primary);
-        color: var(--secondary);
+        color: currentColor;
         font-size: 1.5em;
         text-decoration: none;
         font-weight: 900;

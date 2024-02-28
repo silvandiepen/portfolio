@@ -156,8 +156,8 @@ const hasSlot = computed(() => {
     }
 
     &--default {
-        [style*="--block-bg"] & {
-            background-color: color-mix(in oklab, var(--block-bg), var(--background) 20%);
+        [style*="--block-background"] & {
+            background-color: color-mix(in oklab, var(--block-background), var(--background) 20%);
         }
 
 
@@ -185,6 +185,46 @@ const hasSlot = computed(() => {
         display: block;
         margin-right: .25em;
         border-radius: 50%;
+        position: relative;
+        z-index: 1;
+
+
+
+
+    }
+
+    &--ghost {
+        #{$b}__icon-container {
+            &::before {
+                content: "";
+                width: 150%;
+                height: 150%;
+                position: absolute;
+                transform: translate(-50%, -50%) scale(1);
+                border-radius: 50%;
+                top: 50%;
+                left: 50%;
+                z-index: -1;
+                background-color: var(--block-accent, var(--current-color));
+            transition: transform .2s ease-in-out;
+            }
+        }
+
+        &:hover {
+            #{$b}__icon-container {
+                            //  color: var(--block-accent, var(--current-color)) !important;
+
+                &::before {
+                    transform: translate(-50%, -50%) scale(1.1);
+                    // color: var(--text-color);
+                    // background-color: var(--foreground);
+                 
+                    // color: var(--block-accent, var(--current-color)) !important;
+
+                    // color: var(--block-accent, var(--current-color));
+                }
+            }
+        }
     }
 
     // &--icon-only {

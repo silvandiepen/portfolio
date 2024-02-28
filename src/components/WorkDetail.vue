@@ -242,8 +242,8 @@ onMounted(() => {
 
         // width: 250px;
         // aspect-ratio: 1/1;
-        // // background-color: var(--block-bg);
-        // // color: var(--block-fg);
+        // // background-color: var(--block-background);
+        // // color: var(--block-foreground);
         // background-color: var(--background);
         // color: var(--foreground);
         // border-radius: var(--border-radius);

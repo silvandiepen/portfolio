@@ -11,7 +11,7 @@
                 </RouterLink>
             </div>
             <div :class="bemm('end')">
-     
+
                 <ul :class="bemm('list')">
                     <li :class="bemm('item')" v-for="item in navigationData">
                         <RouterLink :class="bemm('link')" :to="item.link">
@@ -34,13 +34,13 @@
     </nav>
 </template>
 <script setup lang="ts">
-import { computed, onMounted, ref } from "vue";
+import { computed, onMounted, ref, watch } from "vue";
 import { useBemm } from "bemm";
 import { Icons } from "open-icon";
 import { useRouter, RouterLink } from 'vue-router';
 
 import Logo from '@/components/Logo.vue';
-import {Button} from "@/components/button";
+import { Button } from "@/components/button";
 
 import { RouteName } from '@/router';
 import { getBrightness } from "@sil/color";
@@ -48,8 +48,11 @@ import { getBrightness } from "@sil/color";
 import { navigationData } from "@/data/navigation";
 import { EventAction, eventBus } from "@/utils";
 
+
+import { useUI } from "@/composables/useUI";
 const router = useRouter();
 const bemm = useBemm('nav');
+const { currentColor } = useUI();
 
 const nav = ref();
 
@@ -84,26 +87,33 @@ const initSections = () => {
     });
 }
 const getUnderlayingColor = () => {
-    if(!allSections.value.length) initSections();
+    if (!allSections.value.length) initSections();
 
-    const currentTop = window.scrollY - window.innerHeight;
+    const currentTop = (window.scrollY - window.innerHeight) + 100;
     const currentSection = allSections.value.find(section => section.top > currentTop);
 
 
 
+
     if (currentSection) {
+
+        if (currentSection?.color) {
+            currentColor.value = currentSection.color;
+        }
+
         if (currentSection.color?.includes('--')) {
             foregroundColor.value = currentSection.color ? `var(${currentSection.color}-text)` : 'white';
         } else {
-            console.log(currentSection.color,getBrightness(currentSection.color || ''));
+            console.log(currentSection.color, getBrightness(currentSection.color || ''));
             foregroundColor.value = currentSection.color ? getBrightness(currentSection.color) > 50 ? 'var(--dark)' : 'var(--light)' : 'blue';
         }
     }
     else {
-        console.log(currentTop, allSections.value);
-        foregroundColor.value = 'red';
+        console.log(allSections.value, currentTop, allSections.value);
+        // foregroundColor.value = 'red';
     }
 
+    // console.log('getting the color', currentColor.value, foregroundColor.value);
     setTimeout(() => {
         if (Object.keys(allSections.value).length === 0) getUnderlayingColor();
     }, 1000);
@@ -117,6 +127,14 @@ onMounted(() => {
 
 })
 
+watch(() => router.currentRoute.value, () => {
+    initSections();
+    getUnderlayingColor();
+    setTimeout(() => {
+        initSections();
+        getUnderlayingColor();
+    }, 1000);
+})
 
 
 
@@ -232,12 +250,23 @@ onMounted(() => {
     }
 
     .scroll-down & {
-        transform: translateY(-100%);
+
+        #{$b}__start,
+        #{$b}__middle,
+        #{$b}__list {
+            transform: translateY(calc((var(--spacing) * 2) * -1));
+        }
     }
 
     .app:has(.mobile-navigation--active) & {
         transform: translateY(0%);
-        color: white !important;
+
+        // color: white !important;
+        #{$b}__start,
+        #{$b}__middle,
+        #{$b}__list {
+            transform: translateY(0%);
+        }
 
     }
 
@@ -255,6 +284,8 @@ onMounted(() => {
         align-items: center;
         width: 100%;
         font-size: clamp(1em, 2vw, 1.5em);
+        transform: translateY(0);
+        transition: transform .25s ease-in-out;
     }
 
     &__start {
@@ -288,10 +319,13 @@ onMounted(() => {
         list-style: none;
         padding: 0;
         margin: 0;
+        transform: translateY(0);
+        transition: transform .25s ease-in-out;
 
         @media screen and (max-width: 768px) {
             display: none;
         }
+
         margin-right: var(--space);
 
     }
@@ -303,7 +337,7 @@ onMounted(() => {
         width: 2em;
         height: 2em;
         padding: .5em;
-        color: white !important;
+        color: var(--text-color);
 
 
         border-radius: 4px;

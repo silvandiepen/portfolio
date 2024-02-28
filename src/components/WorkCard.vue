@@ -1,6 +1,6 @@
 <template>
     <div :class="blockClasses" ref="block"
-        :style="`--block-bg: ${colors.background}; --block-fg: ${colors.foreground}; --block-image: ${colors.image}`">
+        :style="`--block-background: ${colors.background}; --block-foreground: ${colors.foreground}; --block-image: ${colors.image}`">
         <figure :class="bemm('figure')" @click="goToDetail()" :style="figureStyle">
             <template v-if="work.icon">
                 <Icon :class="bemm('icon')" v-if="typeof work.icon == 'string'" :name="work.icon"></Icon>
@@ -160,8 +160,8 @@ const figureStyle = computed(() => {
     &__figure {
         width: 100%;
         aspect-ratio: 16/9;
-        background-color: var(--block-bg);
-        color: var(--block-fg);
+        background-color: var(--block-background);
+        color: var(--block-foreground);
         border-radius: var(--border-radius);
         background-image: var(--block-image);
 
@@ -190,7 +190,7 @@ const figureStyle = computed(() => {
         font-weight: bold;
         font-size: 1.25em;
         // color: var(--secondary);
-        // color: var(--block-bg);
+        // color: var(--block-background);
 
     }
 
@@ -212,7 +212,7 @@ const figureStyle = computed(() => {
     }
 
     &__content {
-        color: color-mix(in oklab, var(--block-bg), white 75%);
+        color: color-mix(in oklab, var(--block-background), white 75%);
 
         p {
             line-height: 1.75;
@@ -232,7 +232,7 @@ const figureStyle = computed(() => {
         margin-top: var(--space);
     }
 
-    --icon-border-color: var(--block-bg);
+    --icon-border-color: var(--block-background);
 
 
 

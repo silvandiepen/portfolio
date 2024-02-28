@@ -1,4 +1,4 @@
-import { getBrightness, getComplimentary, getRandomBright, getRandomColor, toHex } from "@sil/color";
+import { getBrightness, getComplimentary, getRandomBright, getRandomColor, toHSL, toHex } from "@sil/color";
 
 
 
@@ -70,4 +70,9 @@ export const getColorSet = (total: number = 5) => {
 
     return complimentaryColors.map((c) => (toHex(c)));
 
+}
+
+export const accentColor = (color: string) => {
+    const c = toHSL(color);
+    return `hsl(${c.h}, ${c.s}%, ${c.l / 1.1}%)`
 }

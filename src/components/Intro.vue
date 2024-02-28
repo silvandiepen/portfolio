@@ -1,6 +1,6 @@
 <template>
     <Hero :style="`--rotation: ${rotation}deg; --scrolled: ${scrolled}px`">
-        <div class="ring" ref="ring">
+        <div class="ring" ref="ring" :style="`--ring-color: ${ringColor}`">
             <svg width="100%" height="100%" viewBox="0 0 200 200" preserveAspectRatio="xMidYMid meet"
                 xmlns="http://www.w3.org/2000/svg">
                 <defs>
@@ -24,9 +24,12 @@
 
 
 <script lang="ts" setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, computed } from "vue";
 import Hero from "@/components/Hero.vue";
 
+import { useUI } from "@/composables/useUI";
+import { accentColor } from "@/utils";
+const { currentColor } = useUI();
 
 const ring = ref(null);
 const rotation = ref(0);
@@ -47,30 +50,35 @@ onMounted(() => {
     }, 4000);
 })
 
+const ringColor = computed(() => {
+    return accentColor(currentColor.value);
+})
 
 
 
 </script>
 
 <style lang="scss">
-
 .ring {
     transform-origin: 50% 50%;
     --size: 100vh;
 
-    @media screen and (width <=800px){
+    @media screen and (width <=800px) {
         --size: 100vw;
+        opacity: .25;
     }
-    opacity: 1;
 
+    opacity: 1;
     position: fixed;
     top: 50lvh;
     right: 0;
-    font-family: 'Inter', 'Roboto', sans-serif;
+    font-family: 'Inter',
+    'Roboto',
+    sans-serif;
     font-size: 13.5px;
     font-weight: 800;
     text-transform: uppercase;
-    fill: var(--current-color, var(--foreground));
+    fill: var(--ring-color, var(--foreground));
     transform: translate(75%, -50%) rotate(var(--rotation));
     // opacity: .125;
     transform-box: fill-box;

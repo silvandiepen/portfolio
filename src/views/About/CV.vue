@@ -227,7 +227,7 @@ const getTechnologies = (item: CVItem): Tag[] => item.technologies ? item.techno
     }
 
     &__tech-item {
-        background-color: color-mix(in oklab, var(--block-bg), white 50%);
+        background-color: color-mix(in oklab, var(--block-background), white 50%);
         padding: var(--space);
 
         width: 100%;
@@ -259,7 +259,7 @@ const getTechnologies = (item: CVItem): Tag[] => item.technologies ? item.techno
         }
 
         &--active {
-            background-color: color-mix(in oklab, var(--block-bg), white 75%);
+            background-color: color-mix(in oklab, var(--block-background), white 75%);
 
             dl {
                 dd {
