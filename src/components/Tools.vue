@@ -37,10 +37,7 @@ defineProps({
 
 onMounted(() => {
     if (params.category) {
-
-        console.log(`params`,params.category)
-
-        // filter.value.type = params.category as string;
+        filter.value.type = params.category as string;
     }
 });
 

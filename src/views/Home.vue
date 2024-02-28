@@ -8,39 +8,27 @@
             </h2>
 
             <ButtonGroup>
-                <Button :type="ButtonType.GHOST" :icon="Icons.USER" :size="ButtonSize.XLARGE" to="/about">About me</Button>
-                <Button :type="ButtonType.GHOST" :icon="Icons.LAPTOP" :size="ButtonSize.XLARGE"
-                    to="/about/uses">Uses</Button>
-                <Button :type="ButtonType.GHOST" :icon="Icons.DOCUMENTS" :size="ButtonSize.XLARGE"
-                    to="/about/cv">Curriculeum Vitae</Button>
+                <Button v-for="button in aboutNav" :type="ButtonType.GHOST" :icon="button.icon" :size="ButtonSize.XLARGE"
+                    :to="button.link">{{button.label}}</Button>
             </ButtonGroup>
         </ContentSection>
         <ContentSection>
             <h2>
                 <Icon :name="Icons.BAG2" />Work
             </h2>
-
             <ButtonGroup>
-                <Button :type="ButtonType.GHOST" :icon="Icons.WEBSITE" :size="ButtonSize.XLARGE"
-                    to="/work/projects">Projects</Button>
-                <Button :type="ButtonType.GHOST" :icon="Icons.BOX" :size="ButtonSize.XLARGE"
-                    to="/work/packages">Packages</Button>
-                <Button :type="ButtonType.GHOST" :icon="Icons.CAMERA" :size="ButtonSize.XLARGE"
-                    to="/work/photography">Photography</Button>
-                <Button :type="ButtonType.GHOST" :icon="Icons.USER" :size="ButtonSize.XLARGE"
-                    to="/work/clients">Clients</Button>
-                <Button :type="ButtonType.GHOST" :icon="Icons.SHAPE_SQUARE" :size="ButtonSize.XLARGE"
-                    to="/work/icons">Icons</Button>
-                <Button :type="ButtonType.GHOST" :icon="Icons.IMAGE" :size="ButtonSize.XLARGE"
-                    to="/work/illustration">Illustration</Button>
+                <Button v-for="button in workNav" :type="ButtonType.GHOST" :icon="button.icon" :size="ButtonSize.XLARGE"
+                    :to="button.link">{{button.label}}</Button>
             </ButtonGroup>
+
         </ContentSection>
         <ContentSection>
             <h2>
                 <Icon :name="Icons.EMAIL" />Contact
             </h2>
             <ButtonGroup>
-                <Button :type="ButtonType.GHOST" :icon="Icons.EMAIL_LETTER" :size="ButtonSize.XLARGE">Contact</Button>
+                <Button v-for="button in contactNav" :type="ButtonType.GHOST" :icon="button.icon" :size="ButtonSize.XLARGE"
+                    :to="button.link">{{button.label}}</Button>
             </ButtonGroup>
         </ContentSection>
     </div>
@@ -49,14 +37,18 @@
 import { Icons } from "open-icon";
 import { useBemm } from 'bemm';
 
+import { navigationData } from "@/data/navigation";
+
 import ContentSection from "@/components/ContentSection.vue";
 import Intro from "@/components/Intro.vue";
-import {ButtonGroup, Button, ButtonSize, ButtonType } from "@/components/button";
+import { ButtonGroup, Button, ButtonSize, ButtonType } from "@/components/button";
 import Icon from "@/components/Icon.vue";
-// import Button from "@/components/button/Button.vue";
-// import ButtonGroup from "@/components/button/ButtonGroup.vue";
 
 const bemm = useBemm('home');
+
+const workNav = navigationData.find(item => item.name === 'Work')?.items || [];
+const aboutNav = navigationData.find(item => item.name === 'About')?.items || [];
+const contactNav = navigationData.find(item => item.name === 'Contact')?.items || [];
 
 </script>
   

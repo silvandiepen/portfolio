@@ -66,7 +66,6 @@ export const useWork = () => {
 
         let items = workState.work;
 
-        console.log(`in computed`, workState.filters.type)
         if (workState.filters.type && workState.filters.type !== WorkType.ALL) {
             items = items.filter((w: Work) => w.type === workState.filters.type);
         }
@@ -95,11 +94,9 @@ export const useWork = () => {
 
 
 
-        console.log(currentTimeStamp, workState.lastLoad);
 
         workState.lastLoad = currentTimeStamp;
 
-        console.log('hi');
 
         const workData = await getWork();
         if (!workData) return;

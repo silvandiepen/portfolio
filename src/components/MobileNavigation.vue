@@ -64,7 +64,7 @@ const blockClasses = computed(() => {
 const blockStyles = computed(() => {
     return {
         '--block-background': accentColor(currentColor.value),
-        '--block-foreground': textColor(currentColor.value)
+        '--block-foreground': `${textColor(currentColor.value)}`
     }
 })
 

@@ -18,12 +18,14 @@ import WorkCard from './WorkCard.vue';
 // import { Project } from '@/types';
 
 const bemm = useBemm('work-list');
-const { work, loadWork, filter } = useWork();
+const { work, loadWork, 
+    // filter 
+} = useWork();
 
 
 onMounted(() => {
     loadWork();
-    console.log(filter.value);
+    // console.log(filter.value);
 
 })
 //  defineProps({

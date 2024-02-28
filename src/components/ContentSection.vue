@@ -8,11 +8,10 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, PropType, ref, onMounted, watch } from "vue";
+import { computed, PropType, ref, onMounted } from "vue";
 import { useBemm } from 'bemm';
 import { accentColor, getColor, isInview } from "@/utils";
 
-import { useUI } from "@/composables/useUI";
 
 const bemm = useBemm('content-section');
 
@@ -65,16 +64,6 @@ const blockStyles = computed(() => {
         '--block-foreground': color.value.foreground
     }
 })
-
-
-// const { currentColor } = useUI();
-
-// watch(() => inView.value, () => {
-//     if (inView.value) {
-//         if (color.value.background)
-//             currentColor.value = color.value.foreground;
-//     }
-// }, { deep: true })
 </script>
 
 

@@ -34,7 +34,7 @@
     </nav>
 </template>
 <script setup lang="ts">
-import { computed, onMounted, ref, watch } from "vue";
+import { computed, ref, watch } from "vue";
 import { useBemm } from "bemm";
 import { Icons } from "open-icon";
 import { useRouter, RouterLink } from 'vue-router';
@@ -43,16 +43,14 @@ import Logo from '@/components/Logo.vue';
 import { Button } from "@/components/button";
 
 import { RouteName } from '@/router';
-import { getBrightness } from "@sil/color";
-
 import { navigationData } from "@/data/navigation";
 import { EventAction, eventBus } from "@/utils";
+import { useUI, useUnderlayingColor } from "@/composables";
 
-
-import { useUI } from "@/composables/useUI";
 const router = useRouter();
 const bemm = useBemm('nav');
 const { currentColor } = useUI();
+const { backgroundColor, foregroundColor } = useUnderlayingColor();
 
 const nav = ref();
 
@@ -70,71 +68,18 @@ const blockClasses = computed(() => {
     ]
 })
 
-const foregroundColor = ref('white');
 
 const triggerMobileNavigation = () => {
     eventBus.emit(EventAction.MOBILE_NAVIGATION);
 }
 
 
-const allSections = ref<{ top: number; color: string | null; }[]>([]);
-const initSections = () => {
-    allSections.value = Object.values(document.querySelectorAll('section[data-color]')).map((section) => {
-        return {
-            top: parseInt(`${section.getBoundingClientRect().top}`),
-            color: section.getAttribute('data-color')
-        }
-    });
-}
-const getUnderlayingColor = () => {
-    if (!allSections.value.length) initSections();
-
-    const currentTop = (window.scrollY - window.innerHeight) + 100;
-    const currentSection = allSections.value.find(section => section.top > currentTop);
 
 
-
-
-    if (currentSection) {
-
-        if (currentSection?.color) {
-            currentColor.value = currentSection.color;
-        }
-
-        if (currentSection.color?.includes('--')) {
-            foregroundColor.value = currentSection.color ? `var(${currentSection.color}-text)` : 'white';
-        } else {
-            console.log(currentSection.color, getBrightness(currentSection.color || ''));
-            foregroundColor.value = currentSection.color ? getBrightness(currentSection.color) > 50 ? 'var(--dark)' : 'var(--light)' : 'blue';
-        }
-    }
-    else {
-        console.log(allSections.value, currentTop, allSections.value);
-        // foregroundColor.value = 'red';
-    }
-
-    // console.log('getting the color', currentColor.value, foregroundColor.value);
-    setTimeout(() => {
-        if (Object.keys(allSections.value).length === 0) getUnderlayingColor();
-    }, 1000);
-}
-onMounted(() => {
-    getUnderlayingColor();
-
-    window.addEventListener('scroll', () => {
-        getUnderlayingColor();
-    })
-
+watch(() => backgroundColor.value, () => {
+    currentColor.value = backgroundColor.value;
 })
 
-watch(() => router.currentRoute.value, () => {
-    initSections();
-    getUnderlayingColor();
-    setTimeout(() => {
-        initSections();
-        getUnderlayingColor();
-    }, 1000);
-})
 
 
 

@@ -17,11 +17,14 @@ import { useRoute } from "vue-router";
 import { useBemm } from "bemm";
 import Navigation from '@/components/Navigation.vue';
 import MobileNavigation from '@/components/MobileNavigation.vue';
-import { useUI } from "@/composables/useUI";
+import { useUI, useScrollDirection } from "@/composables";
 
 const bemm = useBemm('app');
 
 const { initCheckMobile, currentColor } = useUI();
+const { onTop, scrollDirection } = useScrollDirection();
+
+
 onMounted(() => {
   initCheckMobile();
 })
@@ -38,23 +41,6 @@ watch(
 );
 
 
-const onTop = ref(true);
-const scrollDirection = ref<'up' | 'down'>('down');
-const previousScroll = ref(0);
-const handleScroll = () => {
-  const currentScroll = window.scrollY;
-  onTop.value = currentScroll <= 0;
-  scrollDirection.value = currentScroll > previousScroll.value ? 'down' : 'up';
-  previousScroll.value = currentScroll;
-}
-
-
-onMounted(() => {
-
-  window.addEventListener('scroll', function () {
-    handleScroll();
-  })
-})
 
 const blockClasses = computed(() => {
   return [
