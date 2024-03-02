@@ -8,7 +8,7 @@
             </h2>
 
             <ButtonGroup>
-                <Button v-for="button in aboutNav" :type="ButtonType.GHOST" :icon="button.icon" :size="ButtonSize.XLARGE"
+                <Button v-for="button in aboutNav" :type="ButtonType.INHERIT" :icon="button.icon" :size="ButtonSize.XLARGE"
                     :to="button.link">{{button.label}}</Button>
             </ButtonGroup>
         </ContentSection>
@@ -17,7 +17,7 @@
                 <Icon :name="Icons.BAG2" />Work
             </h2>
             <ButtonGroup>
-                <Button v-for="button in workNav" :type="ButtonType.GHOST" :icon="button.icon" :size="ButtonSize.XLARGE"
+                <Button v-for="button in workNav" :type="ButtonType.INHERIT" :icon="button.icon" :size="ButtonSize.XLARGE"
                     :to="button.link">{{button.label}}</Button>
             </ButtonGroup>
 
@@ -27,7 +27,7 @@
                 <Icon :name="Icons.EMAIL" />Contact
             </h2>
             <ButtonGroup>
-                <Button v-for="button in contactNav" :type="ButtonType.GHOST" :icon="button.icon" :size="ButtonSize.XLARGE"
+                <Button v-for="button in contactNav" :type="ButtonType.INHERIT" :icon="button.icon" :size="ButtonSize.XLARGE"
                     :to="button.link">{{button.label}}</Button>
             </ButtonGroup>
         </ContentSection>

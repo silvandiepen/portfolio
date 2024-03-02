@@ -40,7 +40,8 @@ const props = defineProps({
         default: ButtonType.DEFAULT
     },
     to: {
-        type: Object as PropType<RouteLocationRaw>
+        type: [Object as PropType<RouteLocationRaw>, String],
+        default: ""
     },
     href: {
         type: String
@@ -181,16 +182,17 @@ const hasSlot = computed(() => {
         }
     }
 
+    &--inherit {
+        border-radius: calc(var(--border-radius) / 3);
+        background-color: var(--block-accent);
+    }
+
     &__icon-container {
         display: block;
         margin-right: .25em;
         border-radius: 50%;
         position: relative;
         z-index: 1;
-
-
-
-
     }
 
     &--ghost {
@@ -206,19 +208,19 @@ const hasSlot = computed(() => {
                 left: 50%;
                 z-index: -1;
                 background-color: var(--block-accent, var(--current-color));
-            transition: transform .2s ease-in-out;
+                transition: transform .2s ease-in-out;
             }
         }
 
         &:hover {
             #{$b}__icon-container {
-                            //  color: var(--block-accent, var(--current-color)) !important;
+                //  color: var(--block-accent, var(--current-color)) !important;
 
                 &::before {
                     transform: translate(-50%, -50%) scale(1.1);
                     // color: var(--text-color);
                     // background-color: var(--foreground);
-                 
+
                     // color: var(--block-accent, var(--current-color)) !important;
 
                     // color: var(--block-accent, var(--current-color));

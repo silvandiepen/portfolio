@@ -2,6 +2,7 @@ export const ButtonType = {
     PRIMARY: 'primary',
     SECONDARY: 'secondary',
     GHOST: 'ghost',
+    INHERIT: 'inherit',
     DEFAULT: 'default'
 }
 export type ButtonType = typeof ButtonType[keyof typeof ButtonType];

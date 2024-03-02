@@ -9,9 +9,9 @@
                 <Button :icon="Icons.ARROW_DOWN" :size="ButtonSize.XLARGE" :type="ButtonType.GHOST"
                     href="#interests">Personal</Button>
                 <Button :icon="Icons.LAPTOP" :size="ButtonSize.XLARGE" :type="ButtonType.GHOST"
-                    :to="`/about/uses`">Uses</Button>
+                    :to="`/uses`">Uses</Button>
                 <Button :icon="Icons.DOCUMENT" :size="ButtonSize.XLARGE" :type="ButtonType.GHOST"
-                    :to="`/about/cv`">CV</Button>
+                    :to="`/cv`">CV</Button>
             </ButtonGroup>
         </Hero>
 

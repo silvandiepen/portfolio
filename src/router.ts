@@ -36,12 +36,12 @@ export default createRouter({
         },
         {
             name: RouteName.CV,
-            path: "/about/cv",
-            component: () => import("./views/About/CV.vue"),
+            path: "/cv",
+            component: () => import("./views/About/Cv.vue"),
         },
         {
             name: RouteName.USES,
-            path: "/about/uses",
+            path: "/uses",
             component: () => import("./views/About/Uses.vue"),
         },
         {
