@@ -29,7 +29,7 @@ import Hero from "@/components/Hero.vue";
 
 import { useUI } from "@/composables/useUI";
 import { accentColor } from "@/utils";
-const { currentColor } = useUI();
+const { color } = useUI();
 
 const ring = ref(null);
 const rotation = ref(0);
@@ -51,7 +51,8 @@ onMounted(() => {
 })
 
 const ringColor = computed(() => {
-    return accentColor(currentColor.value);
+    if(color.value.mid) return accentColor(color.value.mid);
+    else `#000000`;
 })
 
 

@@ -17,8 +17,8 @@ export const navigationData: {
         link: '/about',
         items: [
             { label: 'About Me', link: '/about', icon: Icons.USER },
-            { label: "Uses", link: '/about/uses', icon: Icons.LAPTOP },
-            { label: "Curriculum Vitae", link: '/about/cv', icon: Icons.DOCUMENTS }
+            { label: "Uses", link: '/uses', icon: Icons.LAPTOP },
+            { label: "Curriculum Vitae", link: '/cv', icon: Icons.DOCUMENTS }
         ]
     }, {
         name: 'Work',

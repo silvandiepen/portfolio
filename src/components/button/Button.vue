@@ -101,6 +101,8 @@ const hasSlot = computed(() => {
     display: block;
     width: fit-content;
 
+    cursor: pointer;
+
     &:has(.icon) {
         padding-left: calc(var(--space) / 2);
     }
@@ -136,6 +138,9 @@ const hasSlot = computed(() => {
 
     &--xlarge {
         font-size: 2em;
+        @media screen and (width <= 800px){
+            font-size: 1.5em;
+        }
     }
 
 
