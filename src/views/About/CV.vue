@@ -1,6 +1,6 @@
 <template>
   <div :class="blockClasses">
-    <Hero :color="getColor()">
+    <Hero :color="colors[0]">
       <h1>Curri-<br />culeum Vitae</h1>
       <h4>
         What did Sil do? For which companies does and did he work? That.. you
@@ -8,7 +8,7 @@
       </h4>
     </Hero>
 
-    <ContentSection :color="getColor()">
+    <ContentSection :color="colors[1]">
       <div class="content">
         <h2>About Sil</h2>
         <p>
@@ -28,7 +28,7 @@
         </p>
       </div>
     </ContentSection>
-    <ContentSection :color="getColor()">
+    <ContentSection :color="colors[2]">
       <div class="content">
         <h2><Icon :name="Icons.BAG2" />Areas of Expertise</h2>
         <p>An overview of all my current and past jobs;</p>
@@ -102,7 +102,7 @@
       </div>
     </ContentSection>
 
-    <ContentSection :color="getColor()">
+    <ContentSection :color="colors[3]">
       <div class="content">
         <h2><Icon :name="Icons.BOOK" />Technologies</h2>
         <p>All technologies I have worked with in the past and present;</p>
@@ -111,7 +111,10 @@
       </div>
     </ContentSection>
 
-    <ContentSection :color="getColor()" v-for="item in cvData">
+    <ContentSection
+      :color="colors[4 + index]"
+      v-for="(item, index) in cvData"
+    >
       <div class="content">
         <h2>
           <a v-if="item.link" :href="item.link">@{{ item.company }}</a
@@ -128,7 +131,7 @@
         </h6>
 
         <h3>{{ item.title }}</h3>
-        <p>{{ item.description }}</p>
+        <div class="p" v-html="renderMd(item.description)"></div>
 
         <template v-if="item.about">
           <h5>About {{ item.company }}</h5>
@@ -151,7 +154,7 @@
 
 <script lang="ts" setup>
 import { useBemm } from "bemm";
-import { computed } from "vue";
+import { computed, onMounted, ref } from "vue";
 
 import { format } from "@sil/format";
 import { Icons } from "open-icon";
@@ -159,7 +162,7 @@ import { Icons } from "open-icon";
 import Icon from "@/components/Icon.vue";
 import ContentSection from "@/components/ContentSection.vue";
 import Hero from "@/components/Hero.vue";
-import { getColorSet } from "@/utils";
+import { eventBus, getColorSet } from "@/utils";
 
 import Tags from "@/components/Tags.vue";
 
@@ -167,19 +170,21 @@ import { cv as cvData } from "@/data/cv";
 import { CVItem, CVTechnologies, technologies } from "@/data/cv/types";
 import { Tag } from "@/types";
 import TechnologyList from "@/components/Collection/TechnologyList.vue";
+import { renderMd } from "@/utils/markdown";
 
 const bemm = useBemm("cv");
 
-const colors = computed(() => {
-  return getColorSet(cvData.length + 4);
+const colors = ref(getColorSet(cvData.length + 4));
+
+onMounted(() => {
+  eventBus.on("change-colors", () => {
+    colors.value = getColorSet(cvData.length + 4);
+  });
 });
 
 
-let colorCount = 0;
-
-const getColor = () => {
-  colorCount++;
-  return colors.value[colorCount];
+const getColor = (i: number) => {
+  return colors.value[i];
 };
 
 const getFormattedDate = (date: Date) => format(date, { template: "MM YY" });
@@ -192,7 +197,6 @@ const getTechnologies = (item: CVItem): Tag[] =>
   item.technologies
     ? item.technologies.map((t: CVTechnologies) => ({ label: t, occurance: 2 }))
     : [];
-
 </script>
 
 <style lang="scss">

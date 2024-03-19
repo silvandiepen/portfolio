@@ -13,11 +13,13 @@
     "@sil/format": "^0.0.9",
     "@sil/storage": "^0.0.7",
     "bemm": "^1.0.4",
+    "markdown-it": "^14.1.0",
     "mitt": "^3.0.1",
     "open-icon": "^0.0.14",
     "vue": "^3.4.15"
   },
   "devDependencies": {
+    "@types/markdown-it": "^13.0.7",
     "@types/node": "^20.11.18",
     "@vitejs/plugin-vue": "^5.0.3",
     "sass": "^1.70.0",

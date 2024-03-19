@@ -1,8 +1,9 @@
 
 <template>
     <div :class="bemm()">
-        <Intro></Intro>
-        <ContentSection>
+        <Intro :background-color="colors[0]"> </Intro>
+        
+        <ContentSection :color="colors[1]">
             <h2>
                 <Icon :name="Icons.USER" />About
             </h2>
@@ -12,7 +13,8 @@
                     :to="button.link">{{button.label}}</Button>
             </ButtonGroup>
         </ContentSection>
-        <ContentSection>
+
+        <ContentSection :color="colors[2]">
             <h2>
                 <Icon :name="Icons.BAG2" />Work
             </h2>
@@ -22,7 +24,8 @@
             </ButtonGroup>
 
         </ContentSection>
-        <ContentSection>
+
+        <ContentSection :color="colors[3]">
             <h2>
                 <Icon :name="Icons.EMAIL" />Contact
             </h2>
@@ -31,6 +34,7 @@
                     :to="button.link">{{button.label}}</Button>
             </ButtonGroup>
         </ContentSection>
+
     </div>
 </template>
 <script setup lang="ts">
@@ -43,6 +47,8 @@ import ContentSection from "@/components/ContentSection.vue";
 import Intro from "@/components/Intro.vue";
 import { ButtonGroup, Button, ButtonSize, ButtonType } from "@/components/button";
 import Icon from "@/components/Icon.vue";
+import { onMounted, ref } from "vue";
+import { eventBus, getColorSet } from "@/utils";
 
 const bemm = useBemm('home');
 
@@ -50,6 +56,13 @@ const workNav = navigationData.find(item => item.name === 'Work')?.items || [];
 const aboutNav = navigationData.find(item => item.name === 'About')?.items || [];
 const contactNav = navigationData.find(item => item.name === 'Contact')?.items || [];
 
+const colors = ref(getColorSet(2));
+
+onMounted(() => {
+  eventBus.on("change-colors", () => {
+    colors.value = getColorSet(4);
+  });
+});
 </script>
   
 

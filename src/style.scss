@@ -262,7 +262,7 @@ dl {
     h3,
     h4,
     h5,
-    h6,ul,ol,
+    h6,ul,ol,.p,
     .tags {
 
         &+a,
@@ -275,6 +275,7 @@ dl {
         &+h6,
         &+ul,
         &+ol,
+        &+.p,
         &+.tags {
             margin-top: var(--space);
         }
