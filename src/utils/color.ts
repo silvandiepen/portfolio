@@ -1,6 +1,6 @@
 import { getBrightness, getComplimentary, getRandomBright, getRandomColor, toHSL, toHex } from "@sil/color";
 
-import { getTextColor } from "@sil/color";
+// import { textColor } from "@sil/color";
 
 export const getColor = (color: string | string[] | undefined = undefined): {
     background: string;

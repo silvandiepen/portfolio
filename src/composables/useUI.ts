@@ -6,8 +6,11 @@ const StateKey = "billy:ui";
 
 const uiState = reactive<{
   mobile: boolean;
-  topColor: string;
-  midColor: string;
+  color: {
+    top: string;
+    mid: string;
+    bottom: string;
+  };
 }>(
   await retrieveState(
     {
@@ -15,6 +18,7 @@ const uiState = reactive<{
       color: {
         top: "#ffffff",
         mid: "#ffffff",
+        bottom: "#ffffff"
       },
     },
     StateKey
@@ -37,9 +41,9 @@ export const useUI = () => {
     isMobile: computed(() => uiState.mobile),
     color: computed({
       get() {
-        return uiState.color;
+        return uiState.color
       },
-      set(value: { top: string; mid: string }) {
+      set(value: { top: string; mid: string, bottom: string}) {
         uiState.color = { ...uiState.color, ...value };
       },
     }),

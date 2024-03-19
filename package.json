@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@sil/color": "^0.4.12",
+    "@sil/color": "^0.4.14",
     "@sil/format": "^0.0.9",
     "@sil/storage": "^0.0.7",
     "bemm": "^1.0.4",

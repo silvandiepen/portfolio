@@ -1,7 +1,7 @@
 <template>
   <div
     :class="blockClasses"
-    :style="`--top-color: ${topColor}; --mid-color: ${midColor}; --bottom-color: ${bottomColor};`"
+    :style="blockStyles"
   >
     <Navigation></Navigation>
     <MobileNavigation></MobileNavigation>
@@ -52,11 +52,11 @@ const blockClasses = computed(() => {
 const blockStyles = computed(() => {
   return {
     "--top-color": topColor.value.bg,
-    "--top-text": topColor.value.fg,
+    "--top-text": topColor.value.fg as string,
     "--mid-color": midColor.value.bg,
-    "--mid-text": midColor.value.fg,
-    "--mid-color": bottomColor.value.bg,
-    "--mid-text": bottomColor.value.fg,
+    "--mid-text": midColor.value.fg as string,
+    "--bottom-color": bottomColor.value.bg,
+    "--bottom-text": bottomColor.value.fg as string,
   };
 });
 </script>

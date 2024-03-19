@@ -15,7 +15,7 @@
 </template>
 
 <script lang="ts" setup>
-import { PropType, computed, useSlots } from "vue";
+import { PropType, computed, useSlots, defineProps } from "vue";
 import { RouterLink, RouteLocationRaw } from "vue-router";
 import { useBemm } from 'bemm';
 
@@ -29,7 +29,8 @@ import { ButtonSize, ButtonType } from './Button.model';
 
 const props = defineProps({
     icon: {
-        type: String as PropType<Icons>
+        type: String as PropType<Icons>,
+        default: null
     },
     size: {
         type: String as PropType<ButtonSize>,
@@ -40,11 +41,12 @@ const props = defineProps({
         default: ButtonType.DEFAULT
     },
     to: {
-        type: [Object as PropType<RouteLocationRaw>, String],
+        type: [String, Object] as PropType<RouteLocationRaw | string>,
         default: ""
     },
     href: {
-        type: String
+        type: String,
+        default: null
     },
 })
 
