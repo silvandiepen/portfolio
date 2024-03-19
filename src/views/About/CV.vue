@@ -183,10 +183,6 @@ onMounted(() => {
 });
 
 
-const getColor = (i: number) => {
-  return colors.value[i];
-};
-
 const getFormattedDate = (date: Date) => format(date, { template: "MM YY" });
 
 const blockClasses = computed(() => {
