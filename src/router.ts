@@ -9,6 +9,8 @@ export const RouteName = {
   ABOUT: "about",
   CONTACT: "contact",
   USES: "uses",
+  BLOG: "blog",
+  BLOG_POST: "blog_post",
 };
 
 export default createRouter({
@@ -56,6 +58,16 @@ export default createRouter({
       name: RouteName.CONTACT,
       path: "/contact",
       component: () => import("./views/Contact.vue"),
+    },
+    {
+      name: RouteName.BLOG,
+      path: "/blog",
+      component: () => import("./views/Blog/index.vue"),
+    },
+    {
+      name: RouteName.BLOG_POST,
+      path: "/blog/:slug",
+      component: () => import("./views/Blog/Article.vue"),
     },
   ],
 });
