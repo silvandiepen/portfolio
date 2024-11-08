@@ -62,9 +62,10 @@ const formatDate = (date: string) => {
     No posts found.
   </div>
 
-  <ContentSection v-for="post in sortedPosts" :key="post.slug" :class="bemm('post')" :color="colors[randomBetween(0, colors.length)]">
+  <ContentSection v-for="post in sortedPosts" :key="post.slug" :class="bemm('post')"
+    :color="colors[randomBetween(0, colors.length)]">
 
-<div :class="bemm('post')">
+    <div :class="bemm('post')">
 
       <h3 :class="bemm('post-title')">
         <RouterLink :to="{ name: RouteName.BLOG_POST, params: { slug: post.slug } }" :class="bemm('post-link')">
@@ -80,9 +81,10 @@ const formatDate = (date: string) => {
         {{ post.excerpt }}
       </p>
 
-      <Button :to="{ name: RouteName.BLOG_POST, params: { slug: post.slug } }" >
+      <Button :to="{ name: RouteName.BLOG_POST, params: { slug: post.slug } }">
         Read more
-      </Button></div>
+      </Button>
+    </div>
   </ContentSection>
 </template>
 
@@ -138,7 +140,9 @@ const formatDate = (date: string) => {
     // color: var(--secondary-text);
     // border-radius: var(--border-radius);
     // padding: var(--spacing);
-    display: flex; flex-direction: column; gap: var(--space);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space);
   }
 
   &__post-title {
